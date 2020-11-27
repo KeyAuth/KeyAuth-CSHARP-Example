@@ -105,7 +105,7 @@ namespace KeyAuth {
 
                 // ServicePointManager.ServerCertificateValidationCallback = others.pin_public_key;
 
-                var raw_response = client.UploadValues("https://071b3202d01b15c6ecbf757ad14a5430.000webhostapp.com/api/", post_data);
+                var raw_response = client.UploadValues("https://keyauth.com/api/", post_data);
 
                 // ServicePointManager.ServerCertificateValidationCallback += (send, certificate, chain, sslPolicyErrors) => { return true; };
 
