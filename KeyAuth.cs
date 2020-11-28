@@ -59,7 +59,7 @@ namespace KeyAuth {
 
         public void login(string key, string name, string secret, string ownerid) {
             string hwid = WindowsIdentity.GetCurrent().User.Value;
-
+	    var init_iv = encryption.sha256(encryption.iv_key()); // can be changed to whatever you want
             var values_to_upload = new NameValueCollection {
                 ["type"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes("login")),
                 ["key"] = encryption.encrypt(key, secret, session_iv),
