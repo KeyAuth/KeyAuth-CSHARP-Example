@@ -30,7 +30,7 @@ namespace KeyAuth {
 
                 var response = req(values_to_upload);
 
-                response = encryption.decrypt(response, api_key, init_iv);
+                response = encryption.decrypt(response, secret, init_iv);
 
                 if (response == "KeyAuth_Disabled") {
                 Console.WriteLine("\n\n  This application is disabled");
@@ -71,7 +71,7 @@ namespace KeyAuth {
 
             var response = req(values_to_upload);
 
-            response = encryption.decrypt(response, api_key, init_iv);
+            response = encryption.decrypt(response, secret, init_iv);
 
 	    if (response == "KeyAuth_Valid") {
 // optional success message. Make sure to string encrypt for security
