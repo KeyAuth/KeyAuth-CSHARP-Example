@@ -57,7 +57,7 @@ namespace KeyAuth {
             }
         }
 
-        public void login(string key, string name, string secret, string ownerid) {
+        public static void login(string key, string name, string secret, string ownerid) {
     string hwid = WindowsIdentity.GetCurrent().User.Value;
 	    var init_iv = encryption.sha256(encryption.iv_key()); // can be changed to whatever you want
             var values_to_upload = new NameValueCollection {
@@ -99,7 +99,7 @@ namespace KeyAuth {
             }
         }
 
-        private string req(NameValueCollection post_data) {
+        private static string req(NameValueCollection post_data) {
             using (WebClient client = new WebClient()) {
                 client.Headers["User-Agent"] = "KeyAuth";
 
