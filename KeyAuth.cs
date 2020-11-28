@@ -58,7 +58,7 @@ namespace KeyAuth {
         }
 
         public void login(string key, string name, string secret, string ownerid) {
-            hwid = WindowsIdentity.GetCurrent().User.Value;
+            string hwid = WindowsIdentity.GetCurrent().User.Value;
 
             var values_to_upload = new NameValueCollection {
                 ["type"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes("login")),
