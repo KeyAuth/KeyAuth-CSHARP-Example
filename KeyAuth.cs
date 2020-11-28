@@ -231,7 +231,7 @@ namespace KeyAuth {
         }
 
         public static int show(string text, icons ico) {
-            return MessageBox((IntPtr)0, text, "cAuth", (uint)ico);
+            return MessageBox((IntPtr)0, text, "KeyAuth", (uint)ico);
         }
     }
 
