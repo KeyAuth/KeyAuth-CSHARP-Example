@@ -62,8 +62,8 @@ namespace KeyAuth {
 
             var values_to_upload = new NameValueCollection {
                 ["type"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes("login")),
-                ["key"] = encryption.encrypt(key, api_key, session_iv),
-                ["hwid"] = encryption.encrypt(hwid, api_key, session_iv),
+                ["key"] = encryption.encrypt(key, secret, session_iv),
+                ["hwid"] = encryption.encrypt(hwid, secret, session_iv),
                 ["name"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(name)),
                 ["ownerid"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(ownerid)),
                 ["init_iv"] = init_iv
