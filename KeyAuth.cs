@@ -16,7 +16,7 @@ using System.Security.Principal;
 namespace KeyAuth {
     public class api {
 
-        public void init(string name, string secret, string ownerid) {
+        public static void init(string name, string secret, string ownerid) {
             try {
 
                 var init_iv = encryption.sha256(encryption.iv_key()); // can be changed to whatever you want
@@ -58,7 +58,7 @@ namespace KeyAuth {
         }
 
         public void login(string key, string name, string secret, string ownerid) {
-            string hwid = WindowsIdentity.GetCurrent().User.Value;
+    string hwid = WindowsIdentity.GetCurrent().User.Value;
 	    var init_iv = encryption.sha256(encryption.iv_key()); // can be changed to whatever you want
             var values_to_upload = new NameValueCollection {
                 ["type"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes("login")),
