@@ -17,8 +17,6 @@ namespace KeyAuth {
     public class api {
 
         public static void init(string name, string secret, string ownerid) {
-            try {
-
                 var init_iv = encryption.sha256(encryption.iv_key()); // can be changed to whatever you want
 
                 var values_to_upload = new NameValueCollection {
@@ -47,14 +45,6 @@ namespace KeyAuth {
 		return;
                 }
                 
-
-
-            }
-            catch (CryptographicException) {
-                messagebox.show("Invalid API/Encryption key", messagebox.icons.error);
-
-                return;
-            }
         }
 
         public static void login(string key, string name, string secret, string ownerid,) {
