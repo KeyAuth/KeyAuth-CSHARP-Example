@@ -25,6 +25,17 @@ namespace Loader
             api.login(key, name, secret, ownerid);
 
             Console.WriteLine("\n\n  --Main Program--");
+            
+                        Console.WriteLine("\n\n  Checking for level..");
+            if(api.level("1",key,name,secret,ownerid))
+            {
+                Console.WriteLine("\n\n  Key has level");
+            }
+            else
+            {
+                Console.WriteLine("\n\n  Key doesn't have level");
+            }
+            
             Console.ReadLine();
         }
     }
