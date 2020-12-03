@@ -9,54 +9,61 @@ using System.IO;
 using System.Net.Security;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
+using System.Security.Principal;
 
 namespace KeyAuth
 {
-    public class api {
+    public class api
+    {
 
-        public static void init(string name, string secret, string ownerid) {
-                var init_iv = encryption.sha256(encryption.iv_key()); // can be changed to whatever you want
+        public static void init(string name, string secret, string ownerid)
+        {
+            var init_iv = encryption.sha256(encryption.iv_key()); // can be changed to whatever you want
 
-                var values_to_upload = new NameValueCollection {
-                    ["type"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes("init")),
-                    ["hash"] = checksum(Process.GetCurrentProcess().MainModule.FileName),
-                    ["name"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(name)),
-                    ["ownerid"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(ownerid)),
-                    ["init_iv"] = init_iv
-                };
+            var values_to_upload = new NameValueCollection
+            {
+                ["type"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes("init")),
+                ["hash"] = checksum(Process.GetCurrentProcess().MainModule.FileName),
+                ["name"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(name)),
+                ["ownerid"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(ownerid)),
+                ["init_iv"] = init_iv
+            };
 
-                var response = req(values_to_upload);
+            var response = req(values_to_upload);
 
-                response = encryption.decrypt(response, secret, init_iv);
-                if (response == "KeyAuth_Disabled") {
+            response = encryption.decrypt(response, secret, init_iv);
+            if (response == "KeyAuth_Disabled")
+            {
                 Console.WriteLine("\n\n  This application is disabled");
-		Thread.Sleep(3500);
+                Thread.Sleep(3500);
                 Environment.Exit(0);
-                }
+            }
             else if (response == "KeyAuth_WrongHash")
             {
                 Console.WriteLine("\n\n  Application Hash is Incorrect. This program was modified since the hash was last set.\n  Inform the application owner to 'reset app hash' in their settings");
                 Thread.Sleep(3500);
                 Environment.Exit(0);
             }
-            else if (response == "KeyAuth_Initialized") {
+            else if (response == "KeyAuth_Initialized")
+            {
                 // optional success message. Make sure to string encrypt for security
-                }
-                else
-		{
+            }
+            else
+            {
                 Console.WriteLine("\n\n  Application Failed To Connect. Try again or contact application owner");
-		Thread.Sleep(3500);
+                Thread.Sleep(3500);
                 Environment.Exit(0);
             }
-                
+
         }
 
-        public static void login(string key, string name, string secret, string ownerid) {
-	    //string hwid = WindowsIdentity.GetCurrent().User.Value;
-	    string hwid = "abc";
-		
-	    var init_iv = encryption.sha256(encryption.iv_key()); // can be changed to whatever you want
-            var values_to_upload = new NameValueCollection {
+        public static void login(string key, string name, string secret, string ownerid)
+        {
+            string hwid = WindowsIdentity.GetCurrent().User.Value;
+
+            var init_iv = encryption.sha256(encryption.iv_key()); // can be changed to whatever you want
+            var values_to_upload = new NameValueCollection
+            {
                 ["type"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes("login")),
                 ["key"] = encryption.encrypt(key, secret, init_iv),
                 ["hwid"] = encryption.encrypt(hwid, secret, init_iv),
@@ -69,33 +76,65 @@ namespace KeyAuth
 
             response = encryption.decrypt(response, secret, init_iv);
 
-	    if (response == "KeyAuth_Valid") {
-// optional success message. Make sure to string encrypt for security
-	    }
-            else if (response == "KeyAuth_Invalid") {
-            Console.WriteLine("\n\n  Key not found.");
-	    Thread.Sleep(3500);
-                Environment.Exit(0);
-            }
-            else if (response == "KeyAuth_InvalidHWID") {
-            Console.WriteLine("\n\n  This computer doesn't match the computer the key is locked to. If you reset your computer, contact the application owner.");
-	    Thread.Sleep(3500);
-                Environment.Exit(0);
-            }
-            else if (response == "KeyAuth_Expired") {
-            Console.WriteLine("\n\n  This key is expired.");
-	    Thread.Sleep(3500);
-                Environment.Exit(0);
-            }
-	    else
+            if (response == "KeyAuth_Valid")
             {
-            Console.WriteLine("\n\n  Failed to connect to login.");
-	    Thread.Sleep(3500);
+                // optional success message. Make sure to string encrypt for security
+            }
+            else if (response == "KeyAuth_Invalid")
+            {
+                Console.WriteLine("\n\n  Key not found.");
+                Thread.Sleep(3500);
+                Environment.Exit(0);
+            }
+            else if (response == "KeyAuth_InvalidHWID")
+            {
+                Console.WriteLine("\n\n  This computer doesn't match the computer the key is locked to. If you reset your computer, contact the application owner.");
+                Thread.Sleep(3500);
+                Environment.Exit(0);
+            }
+            else if (response == "KeyAuth_Expired")
+            {
+                Console.WriteLine("\n\n  This key is expired.");
+                Thread.Sleep(3500);
+                Environment.Exit(0);
+            }
+            else
+            {
+                Console.WriteLine("\n\n  Failed to connect to login.");
+                Thread.Sleep(3500);
                 Environment.Exit(0);
             }
         }
 
-        public static string checksum(string filename)
+        public static bool level(string level,string key, string name, string secret, string ownerid)
+        {
+
+            var init_iv = encryption.sha256(encryption.iv_key()); // can be changed to whatever you want
+            var values_to_upload = new NameValueCollection
+            {
+                ["type"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes("level")),
+                ["key"] = encryption.encrypt(key, secret, init_iv),
+                ["name"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(name)),
+                ["ownerid"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(ownerid)),
+                ["init_iv"] = init_iv
+            };
+
+            var response = req(values_to_upload);
+
+            response = encryption.decrypt(response, secret, init_iv);
+
+            if (response == level)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    
+
+            public static string checksum(string filename)
         {
             string result;
             using (MD5 md = MD5.Create())
