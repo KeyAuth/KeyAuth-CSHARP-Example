@@ -79,28 +79,33 @@ namespace KeyAuth
             if (response == "KeyAuth_Valid")
             {
                 // optional success message. Make sure to string encrypt for security
+                File.WriteAllText(@"C:\ProgramData\keyauthkeysave.txt", key);
             }
             else if (response == "KeyAuth_Invalid")
             {
                 Console.WriteLine("\n\n  Key not found.");
+                File.Delete(@"C:\ProgramData\keyauthkeysave.txt");
                 Thread.Sleep(3500);
                 Environment.Exit(0);
             }
             else if (response == "KeyAuth_InvalidHWID")
             {
                 Console.WriteLine("\n\n  This computer doesn't match the computer the key is locked to. If you reset your computer, contact the application owner.");
+                File.Delete(@"C:\ProgramData\keyauthkeysave.txt");
                 Thread.Sleep(3500);
                 Environment.Exit(0);
             }
             else if (response == "KeyAuth_Expired")
             {
                 Console.WriteLine("\n\n  This key is expired.");
+                File.Delete(@"C:\ProgramData\keyauthkeysave.txt");
                 Thread.Sleep(3500);
                 Environment.Exit(0);
             }
             else
             {
                 Console.WriteLine("\n\n  Failed to connect to login.");
+                File.Delete(@"C:\ProgramData\keyauthkeysave.txt");
                 Thread.Sleep(3500);
                 Environment.Exit(0);
             }
