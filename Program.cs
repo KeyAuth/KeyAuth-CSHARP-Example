@@ -12,7 +12,7 @@ namespace Loader
         static void Main(string[] args)
         {
             string name = ""; // place your Application Name within the Quotes.
-            string ownerid = ""; // place your OwnerID within the Quotes.
+            string ownerid = ""; // place your OwnerID within the Quotes (found in account settings https://keyauth.com/dashboard/accountsettings/)
             string secret = ""; // place your Application Secret within the Quotes.
 
             Console.Title = "KeyAuth C# Example";
