@@ -154,16 +154,27 @@ namespace KeyAuth
         }
 
         private static string req(NameValueCollection post_data) {
-            using (WebClient client = new WebClient()) {
-                client.Headers["User-Agent"] = "KeyAuth";
+            try
+            {
+                using (WebClient client = new WebClient())
+                {
+                    client.Headers["User-Agent"] = "KeyAuth";
 
-                // ServicePointManager.ServerCertificateValidationCallback = others.pin_public_key;
+                    ServicePointManager.ServerCertificateValidationCallback = others.pin_public_key;
 
-                var raw_response = client.UploadValues("https://keyauth.com/api/", post_data);
+                    var raw_response = client.UploadValues("https://keyauth.com/api/", post_data);
 
-                // ServicePointManager.ServerCertificateValidationCallback += (send, certificate, chain, sslPolicyErrors) => { return true; };
+                    ServicePointManager.ServerCertificateValidationCallback += (send, certificate, chain, sslPolicyErrors) => { return true; };
 
-                return Encoding.Default.GetString(raw_response);
+                    return Encoding.Default.GetString(raw_response);
+                }
+            }
+            catch (System.Net.WebException exception)
+            {
+                Console.WriteLine("\n\n  SSL Pin Error. Please try again with apps that modify network activity closed/disabled.");
+                Thread.Sleep(3500);
+                Environment.Exit(0);
+                return "lmao"; 
             }
         }
     }
@@ -173,7 +184,7 @@ namespace KeyAuth
     new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc).AddSeconds(unixTimeStamp).ToLocalTime();
 
         public static bool pin_public_key(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors) =>
-            certificate.GetPublicKeyString() == "3082010A0282010100C7429D4B4591E50FE4B3ABDA72DB3F3EA578E12B9CD4E228E4EDFAC3F9681F354C913386A13E88181D1B14D91723FB50770C5DC94FCA59D4DEE4F6632041EFE76C3B6BCFF6B8F5B38AF92547D04BD08AF71087B094F5DFE8760C8CD09A3771836807588B02282BEC7C4CD73EE7C650C0A7C7F36F2FA56DA17E892B2760C4C75950EA5C90CD4EA301EC0CBC36B8372FE8515A7131CC6DF13A97D95B94C6A92AC4E5BFF217FCB20B3C01DB085229E919555D426D919E9A9F0D4C599FE7473FA7DBDE9B33279E2FC29F6CE09FA1269409E4A82175C8E0B65723DB6F856A53E3FD11363ADD63D1346790A3E4D1E454D1714ECED9815A0F85C5019C0D4DC3D58234C10203010001";
+            certificate.GetPublicKeyString() == "0480126A944139DFDCF7808EF35430F592F6C1BDDEF3AB693563B3521FFBBA907E0A44F99FF43B8A1D68CA89778AA06BEA97A72EFF4C1BBAB49F9B84F154D57944";
     }
 
     public static class encryption {
@@ -266,29 +277,8 @@ namespace KeyAuth
             new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc).AddSeconds(unixTimeStamp).ToLocalTime();
 
         public static bool pin_public_key(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors) =>
-            certificate.GetPublicKeyString() == "3082010A0282010100C7429D4B4591E50FE4B3ABDA72DB3F3EA578E12B9CD4E228E4EDFAC3F9681F354C913386A13E88181D1B14D91723FB50770C5DC94FCA59D4DEE4F6632041EFE76C3B6BCFF6B8F5B38AF92547D04BD08AF71087B094F5DFE8760C8CD09A3771836807588B02282BEC7C4CD73EE7C650C0A7C7F36F2FA56DA17E892B2760C4C75950EA5C90CD4EA301EC0CBC36B8372FE8515A7131CC6DF13A97D95B94C6A92AC4E5BFF217FCB20B3C01DB085229E919555D426D919E9A9F0D4C599FE7473FA7DBDE9B33279E2FC29F6CE09FA1269409E4A82175C8E0B65723DB6F856A53E3FD11363ADD63D1346790A3E4D1E454D1714ECED9815A0F85C5019C0D4DC3D58234C10203010001";
+            certificate.GetPublicKeyString() == "0480126A944139DFDCF7808EF35430F592F6C1BDDEF3AB693563B3521FFBBA907E0A44F99FF43B8A1D68CA89778AA06BEA97A72EFF4C1BBAB49F9B84F154D57944";
     }
-
-    public static class messagebox {
-        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
-        public static extern int MessageBox(IntPtr hWND, string message, string caption, uint icon);
-
-        public enum icons : long {
-            exclamation = 0x00000030L,
-            warning = 0x00000030L,
-            information = 0x00000040L,
-            asterisk = 0x00000040L,
-            question = 0x00000020L,
-            stop = 0x00000010L,
-            error = 0x00000010L,
-            hand = 0x00000010L
-        }
-
-        public static int show(string text, icons ico) {
-            return MessageBox((IntPtr)0, text, "KeyAuth", (uint)ico);
-        }
-    }
-
 
     }
 
