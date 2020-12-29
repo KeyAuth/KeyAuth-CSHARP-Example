@@ -17,7 +17,7 @@ namespace KeyAuth
 
         /*
          * 
-         * WATCH THIS VIDEO TO SETUP APPLICATION: 
+         * WATCH THIS VIDEO TO SETUP APPLICATION: https://youtube.com/watch?v=UXRkNEvgxJU
          * 
          */
 
