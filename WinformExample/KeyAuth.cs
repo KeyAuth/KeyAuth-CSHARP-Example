@@ -129,6 +129,22 @@ namespace KeyAuth
                 return true;
             }
         }
+        
+        public void log(string message)
+        {
+            var init_iv = encryption.sha256(encryption.iv_key()); // can be changed to whatever you want
+            var values_to_upload = new NameValueCollection
+            {
+                ["type"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes("log")),
+                ["key"] = encryption.encrypt(user_data.key, secret, init_iv),
+                ["message"] = encryption.encrypt(message, secret, init_iv),
+                ["name"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(name)),
+                ["ownerid"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(ownerid)),
+                ["init_iv"] = init_iv
+            };
+
+            req(values_to_upload);
+        }
 
         public static string checksum(string filename)
         {
