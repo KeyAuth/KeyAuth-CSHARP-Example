@@ -21,9 +21,9 @@ namespace KeyAuth
          * 
          */
 
-        static string name = "Showcase";
-        static string ownerid = "DKjdsk232k22";
-        static string secret = "ffc4853dadaac9214aaad86111f9d3f8aec6209028d18a2ce60285cd9237ddab";
+        static string name = "";
+        static string ownerid = "";
+        static string secret = "";
         static string version = "1.0";
 
         public static api KeyAuthApp = new api(name, ownerid, secret, version);
