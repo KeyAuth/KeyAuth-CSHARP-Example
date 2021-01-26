@@ -98,7 +98,7 @@ namespace KeyAuth {
 
         }
 
-        public void login(string key)
+        public bool login(string key)
         {
             string hwid = WindowsIdentity.GetCurrent().User.Value;
 
@@ -121,14 +121,14 @@ namespace KeyAuth {
 
             if (!json.success)
             {
-                Console.WriteLine("\n\n " + json.message);
-                Thread.Sleep(3500);
-                Environment.Exit(0);
+                MessageBox.Show(json.message);
+                return false;
             }
             else
             {
                 load_user_data(json.info);
                 File.WriteAllText(@"C:\ProgramData\" + name, key);
+                return true;
             }
         }
 
