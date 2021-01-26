@@ -98,9 +98,9 @@ namespace KeyAuth {
 
         }
 
-        public void login(string key, string hwid = null)
+        public void login(string key)
         {
-            if (hwid == null) hwid = WindowsIdentity.GetCurrent().User.Value;
+            string hwid = WindowsIdentity.GetCurrent().User.Value;
 
             var init_iv = encryption.sha256(encryption.iv_key()); // can be changed to whatever you want
 
@@ -128,9 +128,60 @@ namespace KeyAuth {
             else
             {
                 load_user_data(json.info);
+                File.WriteAllText(@"C:\ProgramData\" + name, key);
             }
         }
-        
+
+        public string var(string varid)
+        {
+            string hwid = WindowsIdentity.GetCurrent().User.Value;
+
+            var init_iv = encryption.sha256(encryption.iv_key()); // can be changed to whatever you want
+
+            var values_to_upload = new NameValueCollection
+            {
+                ["type"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes("var")),
+                ["key"] = encryption.encrypt(user_data.key, secret, init_iv),
+                ["varid"] = encryption.encrypt(varid, secret, init_iv),
+                ["hwid"] = encryption.encrypt(hwid, secret, init_iv),
+                ["name"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(name)),
+                ["ownerid"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(ownerid)),
+                ["init_iv"] = init_iv
+            };
+
+            var response = req(values_to_upload);
+
+            response = encryption.decrypt(response, secret, init_iv);
+            var json = response_decoder.string_to_generic<response_structure>(response);
+
+            if (!json.success)
+            {
+                Console.WriteLine("\n\n " + json.message);
+                Thread.Sleep(3500);
+                return "";
+            }
+            else
+            {
+                return json.message;
+            }
+        }
+
+        public void download(string fileid, string path)
+        {
+            var init_iv = encryption.sha256(encryption.iv_key()); // can be changed to whatever you want
+
+            var values_to_upload = new NameValueCollection
+            {
+                ["type"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes("file")),
+                ["fileid"] = encryption.encrypt(fileid, secret, init_iv),
+                ["name"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(name)),
+                ["ownerid"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(ownerid)),
+                ["init_iv"] = init_iv
+            };
+
+            var response = dl(values_to_upload, path);
+        }
+
         public void log(string message)
         {
             var init_iv = encryption.sha256(encryption.iv_key()); // can be changed to whatever you want
@@ -187,7 +238,35 @@ namespace KeyAuth {
                 return "lmao";
             }
         }
-    
+
+        private static string dl(NameValueCollection post_data, string path)
+        {
+            try
+            {
+                using (WebClient client = new WebClient())
+                {
+                    client.Headers["User-Agent"] = "KeyAuth";
+
+                    ServicePointManager.ServerCertificateValidationCallback = others.pin_public_key;
+
+                    byte[] result = client.UploadValues("https://keyauth.com/api/v2/", post_data);
+
+                    ServicePointManager.ServerCertificateValidationCallback += (send, certificate, chain, sslPolicyErrors) => { return true; };
+
+                    File.WriteAllBytes(path, result);
+                    return "";
+                }
+            }
+            catch
+            {
+
+                Console.WriteLine("\n\n  SSL Pin Error. Please try again with apps that modify network activity closed/disabled.");
+                Thread.Sleep(3500);
+                Environment.Exit(0);
+                return "lmao";
+            }
+        }
+
 
         #region user_data
         public user_data_class user_data = new user_data_class();
@@ -205,10 +284,6 @@ namespace KeyAuth {
             user_data.level = data.level;
         }
         #endregion
-
-        private string api_endpoint = "https://keyauth.com/api/v2";
-
-        private string user_agent = "KeyAuth";
 
         private json_wrapper response_decoder = new json_wrapper(new response_structure());
     }
