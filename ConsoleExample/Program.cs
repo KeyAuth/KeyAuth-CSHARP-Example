@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Linq;
 
@@ -21,9 +21,9 @@ namespace KeyAuth
          * 
          */
 
-        static string name = "";
-        static string ownerid = "";
-        static string secret = "";
+        static string name = "CSGI";
+        static string ownerid = "DKjdsk232r";
+        static string secret = "22e10f0fd3602f6e4d49e490f166002f46ff667f99c1865243e662bb1eeefe88";
         static string version = "1.0";
 
         public static api KeyAuthApp = new api(name, ownerid, secret, version);
@@ -35,7 +35,7 @@ namespace KeyAuth
             KeyAuthApp.init();
 
             string key;
-            if (!File.Exists(@"C:\ProgramData\keyauthkeysave.txt"))
+            if (!File.Exists(@"C:\ProgramData\" + name))
             {
                 Console.WriteLine("\n\n  Please enter your license key:\n\n  ");
                 key = Console.ReadLine();
@@ -43,14 +43,23 @@ namespace KeyAuth
             }
             else
             {
-                key = File.ReadAllText(@"C:\ProgramData\keyauthkeysave.txt");
+                key = File.ReadAllText(@"C:\ProgramData\" + name);
                 Console.WriteLine("\n\n  Logging in with saved key: " + key);
                 KeyAuthApp.login(key);
             }
             Console.WriteLine("\n\n  Logged In!");
             Console.WriteLine("\n\n  Your key expires at " + KeyAuthApp.user_data.expiry);
-            Console.ReadLine(); // Stops console from closing automatically
 
+            /*
+
+            KeyAuthApp.download("231696", "C:\\ok.dll");
+
+            Optional Functions:
+
+            Console.WriteLine(KeyAuthApp.var("123456"));
+
+            Console.ReadLine();
+            */
         }
     }
 }
