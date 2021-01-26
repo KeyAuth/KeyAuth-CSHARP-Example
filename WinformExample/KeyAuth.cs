@@ -22,8 +22,7 @@ namespace KeyAuth {
 
             if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(ownerid) || string.IsNullOrWhiteSpace(secret) || string.IsNullOrWhiteSpace(version))
             {
-                Console.WriteLine("\n\n  Application not setup correctly. Please watch video link found in Program.cs");
-                Thread.Sleep(3500);
+                MessageBox.Show("Application not setup correctly. Please watch video link found in Login.cs");
                 Environment.Exit(0);
             }
 
@@ -87,8 +86,7 @@ namespace KeyAuth {
 
             if (!json.success)
             {
-                Console.WriteLine("\n\n " + json.message);
-                Thread.Sleep(3500);
+                MessageBox.Show(json.message);
                 Environment.Exit(0);
             }
             else
@@ -156,8 +154,7 @@ namespace KeyAuth {
 
             if (!json.success)
             {
-                Console.WriteLine("\n\n " + json.message);
-                Thread.Sleep(3500);
+                MessageBox.Show(json.message);
                 return "";
             }
             else
@@ -232,8 +229,7 @@ namespace KeyAuth {
             catch 
             {
                 
-                Console.WriteLine("\n\n  SSL Pin Error. Please try again with apps that modify network activity closed/disabled.");
-                Thread.Sleep(3500);
+                MessageBox.Show(json.message);
                 Environment.Exit(0);
                 return "lmao";
             }
@@ -260,8 +256,7 @@ namespace KeyAuth {
             catch
             {
 
-                Console.WriteLine("\n\n  SSL Pin Error. Please try again with apps that modify network activity closed/disabled.");
-                Thread.Sleep(3500);
+                MessageBox.Show(json.message);
                 Environment.Exit(0);
                 return "lmao";
             }
