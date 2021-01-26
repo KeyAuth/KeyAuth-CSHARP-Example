@@ -238,7 +238,7 @@ namespace KeyAuth {
             catch 
             {
                 
-                MessageBox.Show(json.message);
+                MessageBox.Show("SSL Pin Error. Please try again with apps that modify network activity closed/disabled.");
                 Environment.Exit(0);
                 return "lmao";
             }
@@ -265,7 +265,7 @@ namespace KeyAuth {
             catch
             {
 
-                MessageBox.Show(json.message);
+                MessageBox.Show("SSL Pin Error. Please try again with apps that modify network activity closed/disabled.");
                 Environment.Exit(0);
                 return "lmao";
             }
