@@ -23,6 +23,15 @@ namespace KeyAuth
         static string ownerid = "";
         static string secret = "";
         static string version = "1.0";
+        
+                    /*
+
+            KeyAuthApp.download("231696", "C:\\ok.dll");
+
+            Optional Functions:
+
+            MessageBox.Show(KeyAuthApp.var("123456"));
+            */
 
         public static api KeyAuthApp = new api(name, ownerid, secret, version);
 
