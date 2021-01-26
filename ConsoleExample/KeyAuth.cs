@@ -49,6 +49,9 @@ namespace KeyAuth {
             [DataMember]
             public string message { get; set; }
 
+            [DataMember]
+            public string download { get; set; }
+
             [DataMember(IsRequired = false, EmitDefaultValue = false)]
             public user_data_structure info { get; set; }
         }
@@ -74,6 +77,7 @@ namespace KeyAuth {
             var values_to_upload = new NameValueCollection
             {
                 ["type"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes("init")),
+                ["ver"] = encryption.encrypt(version, secret, init_iv),
                 ["hash"] = checksum(Process.GetCurrentProcess().MainModule.FileName),
                 ["name"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(name)),
                 ["ownerid"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(ownerid)),
@@ -85,15 +89,22 @@ namespace KeyAuth {
             response = encryption.decrypt(response, secret, init_iv);
             var json = response_decoder.string_to_generic<response_structure>(response);
 
-            if (!json.success)
+            
+
+            if (json.success)
             {
-                Console.WriteLine("\n\n " + json.message);
-                Thread.Sleep(3500);
+                // optional success message
+            }
+            else if(json.message == "invalidver")
+            {
+                Process.Start(json.download);
                 Environment.Exit(0);
             }
             else
             {
-                // optional success message
+                Console.WriteLine("\n\n " + json.message);
+                Thread.Sleep(3500);
+                Environment.Exit(0);
             }
 
         }
@@ -222,7 +233,7 @@ namespace KeyAuth {
 
                     ServicePointManager.ServerCertificateValidationCallback = others.pin_public_key;
 
-                    var raw_response = client.UploadValues("https://keyauth.com/api/v2/", post_data);
+                    var raw_response = client.UploadValues("https://keyauth.com/api/v3/", post_data);
 
                     ServicePointManager.ServerCertificateValidationCallback += (send, certificate, chain, sslPolicyErrors) => { return true; };
 
@@ -249,7 +260,7 @@ namespace KeyAuth {
 
                     ServicePointManager.ServerCertificateValidationCallback = others.pin_public_key;
 
-                    byte[] result = client.UploadValues("https://keyauth.com/api/v2/", post_data);
+                    byte[] result = client.UploadValues("https://keyauth.com/api/v3/", post_data);
 
                     ServicePointManager.ServerCertificateValidationCallback += (send, certificate, chain, sslPolicyErrors) => { return true; };
 
