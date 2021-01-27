@@ -21,9 +21,9 @@ namespace KeyAuth
          * 
          */
 
-        static string name = "CSGI";
-        static string ownerid = "DKjdsk232r";
-        static string secret = "22e10f0fd3602f6e4d49e490f166002f46ff667f99c1865243e662bb1eeefe88";
+        static string name = "";
+        static string ownerid = "";
+        static string secret = "";
         static string version = "1.0";
 
         public static api KeyAuthApp = new api(name, ownerid, secret, version);
