@@ -25,12 +25,14 @@ namespace KeyAuth
         static string version = "1.0";
         
                     /*
-
-            KeyAuthApp.download("231696", "C:\\ok.dll");
-
             Optional Functions:
+            
+            KeyAuthApp.webhook("lfvbBrbFhIr", "?sellerkey=CUqDqlCIgl&type=resethash");
+            // send secure request to webhook which is impossible to crack into. the base link set on the website is https://keyauth.com/api/seller/, which nobody except you can see, so the final request is https://keyauth.com/api/seller/?sellerkey=CUqDqlCIgl&type=resethash
+            
+            KeyAuthApp.download("231696", "C:\\ok.dll"); // download an application file
 
-            MessageBox.Show(KeyAuthApp.var("123456"));
+            MessageBox.Show(KeyAuthApp.var("123456")); // retrieve application variable
             */
 
         public static api KeyAuthApp = new api(name, ownerid, secret, version);
