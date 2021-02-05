@@ -12,6 +12,7 @@ using System.Runtime.Serialization.Json;
 using System.Diagnostics;
 using System.Security.Principal;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace KeyAuth {
     public class api
