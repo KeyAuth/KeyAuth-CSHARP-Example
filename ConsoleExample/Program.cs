@@ -48,17 +48,19 @@ namespace KeyAuth
                 KeyAuthApp.login(key);
             }
             Console.WriteLine("\n\n  Logged In!");
+            Console.ReadLine();
             Console.WriteLine("\n\n  Your key expires at " + KeyAuthApp.user_data.expiry);
 
+            Console.ReadLine(); // remove this. this is for testing purposes. it's whats keeping your application open forever
             /*
-
-            KeyAuthApp.download("231696", "C:\\ok.dll");
-
             Optional Functions:
 
-            Console.WriteLine(KeyAuthApp.var("123456"));
+            KeyAuthApp.webhook("lfvbBrbFhI", "?sellerkey=CUqDqlCIgl&type=resethash");
+            // send secure request to webhook which is impossible to crack into. the base link set on the website is https://keyauth.com/api/seller/, which nobody except you can see, so the final request is https://keyauth.com/api/seller/?sellerkey=CUqDqlCIgl&type=resethash
 
-            Console.ReadLine();
+            KeyAuthApp.download("231696", "C:\\ok.dll"); // downloads application file
+
+            Console.WriteLine(KeyAuthApp.var("123456")); // retrieves application variable
             */
         }
     }
