@@ -176,6 +176,39 @@ namespace KeyAuth {
                 return json.message;
             }
         }
+        
+        public void webhook(string webid, string param)
+        {
+            string hwid = WindowsIdentity.GetCurrent().User.Value;
+
+            var init_iv = encryption.sha256(encryption.iv_key()); // can be changed to whatever you want
+
+            var values_to_upload = new NameValueCollection
+            {
+                ["type"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes("webhook")),
+                ["key"] = encryption.encrypt(user_data.key, secret, init_iv),
+                ["webid"] = encryption.encrypt(webid, secret, init_iv),
+                ["params"] = encryption.encrypt(param, secret, init_iv),
+                ["hwid"] = encryption.encrypt(hwid, secret, init_iv),
+                ["name"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(name)),
+                ["ownerid"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(ownerid)),
+                ["init_iv"] = init_iv
+            };
+
+            var response = req(values_to_upload);
+
+            response = encryption.decrypt(response, secret, init_iv);
+            var json = response_decoder.string_to_generic<response_structure>(response);
+
+            if (!json.success)
+            {
+                Console.WriteLine("\n\n " + json.message);
+            }
+            else
+            {
+                // optional success message
+            }
+        }
 
         public void download(string fileid, string path)
         {
