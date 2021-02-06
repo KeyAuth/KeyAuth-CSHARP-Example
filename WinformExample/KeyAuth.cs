@@ -313,6 +313,7 @@ namespace KeyAuth {
             public string key { get; set; }
             public DateTime expiry { get; set; }
             public int level { get; set; }
+            public string note { get; set; }
         }
         private void load_user_data(user_data_structure data) {
             user_data.key = data.key;
@@ -320,6 +321,8 @@ namespace KeyAuth {
             user_data.expiry = others.unix_to_date(Convert.ToDouble(data.expiry));
 
             user_data.level = data.level;
+            
+            user_data.note = data.note;
         }
         #endregion
 
