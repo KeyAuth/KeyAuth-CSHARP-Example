@@ -67,6 +67,9 @@ namespace KeyAuth {
 
             [DataMember]
             public int level { get; set; }
+            
+            [DataMember]
+            public string note { get; set; }
         }
         #endregion
 
