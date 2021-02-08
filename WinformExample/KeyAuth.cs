@@ -108,8 +108,41 @@ namespace KeyAuth {
             }
 
         }
+        
+        public void register(string username, string pass, string key)
+        {
+            string hwid = WindowsIdentity.GetCurrent().User.Value;
 
-        public bool login(string key)
+            var init_iv = encryption.sha256(encryption.iv_key()); // can be changed to whatever you want
+
+            var values_to_upload = new NameValueCollection
+            {
+                ["type"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes("register")),
+                ["username"] = encryption.encrypt(username, secret, init_iv),
+                ["pass"] = encryption.encrypt(pass, secret, init_iv),
+                ["key"] = encryption.encrypt(key, secret, init_iv),
+                ["hwid"] = encryption.encrypt(hwid, secret, init_iv),
+                ["name"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(name)),
+                ["ownerid"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(ownerid)),
+                ["init_iv"] = init_iv
+            };
+
+            var response = req(values_to_upload);
+
+            response = encryption.decrypt(response, secret, init_iv);
+            var json = response_decoder.string_to_generic<response_structure>(response);
+
+            if (!json.success)
+            {
+                MessageBox.Show(json.message);
+            }
+            else
+            {
+                // optional success msg
+            }
+        }
+
+        public void login(string username, string pass)
         {
             string hwid = WindowsIdentity.GetCurrent().User.Value;
 
@@ -118,6 +151,38 @@ namespace KeyAuth {
             var values_to_upload = new NameValueCollection
             {
                 ["type"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes("login")),
+                ["username"] = encryption.encrypt(username, secret, init_iv),
+                ["pass"] = encryption.encrypt(pass, secret, init_iv),
+                ["hwid"] = encryption.encrypt(hwid, secret, init_iv),
+                ["name"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(name)),
+                ["ownerid"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(ownerid)),
+                ["init_iv"] = init_iv
+            };
+
+            var response = req(values_to_upload);
+
+            response = encryption.decrypt(response, secret, init_iv);
+            var json = response_decoder.string_to_generic<response_structure>(response);
+
+            if (!json.success)
+            {
+                MessageBox.Show(json.message);
+            }
+            else
+            {
+                // optional success msg
+            }
+        }
+
+        public bool license(string key)
+        {
+            string hwid = WindowsIdentity.GetCurrent().User.Value;
+
+            var init_iv = encryption.sha256(encryption.iv_key()); // can be changed to whatever you want
+
+            var values_to_upload = new NameValueCollection
+            {
+                ["type"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes("license")),
                 ["key"] = encryption.encrypt(key, secret, init_iv),
                 ["hwid"] = encryption.encrypt(hwid, secret, init_iv),
                 ["name"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(name)),
@@ -265,7 +330,7 @@ namespace KeyAuth {
 
                     ServicePointManager.ServerCertificateValidationCallback = others.pin_public_key;
 
-                    var raw_response = client.UploadValues("https://keyauth.com/api/v3/", post_data);
+                    var raw_response = client.UploadValues("https://keyauth.com/api/v5/", post_data);
 
                     ServicePointManager.ServerCertificateValidationCallback += (send, certificate, chain, sslPolicyErrors) => { return true; };
 
