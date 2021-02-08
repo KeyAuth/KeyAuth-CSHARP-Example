@@ -34,6 +34,10 @@ namespace KeyAuth
 
             MessageBox.Show(KeyAuthApp.var("123456")); // retrieve application variable
             */
+            
+                        // Register and Login Functions (still in beta)
+            // KeyAuthApp.register("username", "password", "key");
+            //KeyAuthApp.login("username", "password"); 
 
         public static api KeyAuthApp = new api(name, ownerid, secret, version);
 
@@ -49,7 +53,7 @@ namespace KeyAuth
 
         private void siticoneRoundedButton1_Click(object sender, EventArgs e)
         {
-            if(KeyAuthApp.login(key.Text))
+            if(KeyAuthApp.license(key.Text))
             {
                 Main main = new Main();
                 main.Show();
