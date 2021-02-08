@@ -24,7 +24,7 @@ namespace KeyAuth
         static string name = "";
         static string ownerid = "";
         static string secret = "";
-        static string version = "1.0";
+        static string version = "";
 
         public static api KeyAuthApp = new api(name, ownerid, secret, version);
 
@@ -34,18 +34,23 @@ namespace KeyAuth
             Console.WriteLine("\n\n  Connecting..");
             KeyAuthApp.init();
 
+
+            // Register and Login Functions (still in beta)
+            // KeyAuthApp.register("username", "password", "key");
+            //KeyAuthApp.login("username", "password"); 
+
             string key;
             if (!File.Exists(@"C:\ProgramData\" + name))
             {
                 Console.WriteLine("\n\n  Please enter your license key:\n\n  ");
                 key = Console.ReadLine();
-                KeyAuthApp.login(key);
+                KeyAuthApp.license(key);
             }
             else
             {
                 key = File.ReadAllText(@"C:\ProgramData\" + name);
                 Console.WriteLine("\n\n  Logging in with saved key: " + key);
-                KeyAuthApp.login(key);
+                KeyAuthApp.license(key);
             }
             Console.WriteLine("\n\n  Logged In!");
             Console.ReadLine();
