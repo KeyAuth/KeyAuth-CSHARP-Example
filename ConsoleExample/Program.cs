@@ -24,7 +24,7 @@ namespace KeyAuth
         static string name = "";
         static string ownerid = "";
         static string secret = "";
-        static string version = "";
+        static string version = "1.0";
 
         public static api KeyAuthApp = new api(name, ownerid, secret, version);
 
