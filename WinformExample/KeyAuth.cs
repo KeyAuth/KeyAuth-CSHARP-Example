@@ -215,7 +215,7 @@ namespace KeyAuth {
             }
         }
 
-        public void license(string key)
+        public bool license(string key)
         {
             string hwid = WindowsIdentity.GetCurrent().User.Value;
 
@@ -242,11 +242,13 @@ namespace KeyAuth {
             {
                 MessageBox.Show(json.message);
                 Environment.Exit(0);
+                return false;
             }
             else
             {
                 // optional success msg
                 load_user_data(json.info);
+                return true;
             }
         }
 
