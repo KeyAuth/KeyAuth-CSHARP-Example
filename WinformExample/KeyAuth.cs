@@ -112,7 +112,7 @@ namespace KeyAuth {
 
         }
 
-        public void register(string username, string pass, string key)
+        public bool register(string username, string pass, string key)
         {
             string hwid = WindowsIdentity.GetCurrent().User.Value;
 
@@ -139,15 +139,16 @@ namespace KeyAuth {
             if (!json.success)
             {
                 MessageBox.Show(json.message);
-                Environment.Exit(0);
+                return false;
             }
             else
             {
                 // optional success msg
+                return true;
             }
         }
 
-        public void login(string username, string pass)
+        public bool login(string username, string pass)
         {
             string hwid = WindowsIdentity.GetCurrent().User.Value;
 
@@ -173,12 +174,13 @@ namespace KeyAuth {
             if (!json.success)
             {
                 MessageBox.Show(json.message);
-                Environment.Exit(0);
+                return false;
             }
             else
             {
                 load_user_data(json.info);
                 // optional success msg
+                return true;
             }
         }
 
