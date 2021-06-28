@@ -24,7 +24,7 @@ namespace KeyAuth
 
         private void Main_Load(object sender, EventArgs e)
         {
-            key.Text = "Key: " + Login.KeyAuthApp.user_data.username;
+            key.Text = "Username: " + Login.KeyAuthApp.user_data.username;
         }
     }
 }
