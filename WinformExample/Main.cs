@@ -24,9 +24,7 @@ namespace KeyAuth
 
         private void Main_Load(object sender, EventArgs e)
         {
-            key.Text = "Key: " + Login.KeyAuthApp.user_data.key;
-            expiry.Text = "Expiry: " + Login.KeyAuthApp.user_data.expiry;
-            level.Text = "Level: " + Login.KeyAuthApp.user_data.level;
+            key.Text = "Key: " + Login.KeyAuthApp.user_data.username;
         }
     }
 }
