@@ -11,6 +11,7 @@ using System.Runtime.Serialization.Json;
 using System.Diagnostics;
 using System.Security.Principal;
 using System.Threading;
+using System.Collections.Generic;
 
 namespace KeyAuth {
     public class api
@@ -66,6 +67,9 @@ namespace KeyAuth {
         {
             [DataMember]
             public string username { get; set; }
+
+            [DataMember]
+            public List<Data> subscriptions { get; set; }
         }
         #endregion
         private string sessionid, enckey;
@@ -434,9 +438,17 @@ namespace KeyAuth {
 
         public class user_data_class {
             public string username { get; set; }
+            public List<Data> subscriptions { get; set; }
         }
+        public class Data
+        {
+            public string subscription { get; set; }
+            public string expiry { get; set; }
+        }
+
         private void load_user_data(user_data_structure data) {
             user_data.username = data.username;
+            user_data.subscriptions = data.subscriptions;
         }
         #endregion
 

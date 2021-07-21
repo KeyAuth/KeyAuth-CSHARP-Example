@@ -12,6 +12,7 @@ using System.Diagnostics;
 using System.Security.Principal;
 using System.Threading;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace KeyAuth {
     public class api
@@ -66,6 +67,9 @@ namespace KeyAuth {
         {
             [DataMember]
             public string username { get; set; }
+
+            [DataMember]
+            public List<Data> subscriptions { get; set; }
         }
         #endregion
         private string sessionid, enckey;
@@ -213,6 +217,7 @@ namespace KeyAuth {
             }
             else
             {
+                MessageBox.Show(json.message);
                 // optional success msg
             }
         }
@@ -237,7 +242,7 @@ namespace KeyAuth {
             var response = req(values_to_upload);
             
             response = encryption.decrypt(response, enckey, init_iv);
-            
+
             var json = response_decoder.string_to_generic<response_structure>(response);
 
             if (!json.success)
@@ -427,11 +432,19 @@ namespace KeyAuth {
         #region user_data
         public user_data_class user_data = new user_data_class();
 
-        public class user_data_class {
+        public class user_data_class
+        {
             public string username { get; set; }
+            public List<Data> subscriptions { get; set; }
+        }
+        public class Data
+        {
+            public string subscription { get; set; }
+            public string expiry { get; set; }
         }
         private void load_user_data(user_data_structure data) {
             user_data.username = data.username;
+            user_data.subscriptions = data.subscriptions;
         }
         #endregion
 

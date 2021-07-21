@@ -19,10 +19,10 @@ namespace KeyAuth
         * 
         */
 
-        static string name = "";
-        static string ownerid = "";
-        static string secret = "";
-        static string version = "1.0";
+        static string name = ""; // application name. right above the blurred text aka the secret on the licenses tab among other tabs
+        static string ownerid = ""; // ownerid, found in account settings. click your profile picture on top right of dashboard and then account settings.
+        static string secret = ""; // app secret, the blurred text on licenses tab and other tabs
+        static string version = "1.0"; // leave alone unless you've changed version on website
         
                     /*
             Optional Functions:
@@ -51,9 +51,20 @@ namespace KeyAuth
             Environment.Exit(0);
         }
 
-        private void siticoneRoundedButton1_Click(object sender, EventArgs e)
+        private void Login_Load(object sender, EventArgs e)
         {
-            if(KeyAuthApp.license(key.Text))
+            KeyAuthApp.init();
+        }
+
+        private void UpgradeBtn_Click(object sender, EventArgs e)
+        {
+            KeyAuthApp.upgrade(username.Text, key.Text);
+            // don't login, because they haven't authenticated. this is just to extend expiry with new key.
+        }
+
+        private void LoginBtn_Click(object sender, EventArgs e)
+        {
+            if (KeyAuthApp.login(username.Text,password.Text))
             {
                 Main main = new Main();
                 main.Show();
@@ -61,9 +72,24 @@ namespace KeyAuth
             }
         }
 
-        private void Login_Load(object sender, EventArgs e)
+        private void RgstrBtn_Click(object sender, EventArgs e)
         {
-            KeyAuthApp.init();
+            if (KeyAuthApp.register(username.Text, password.Text, key.Text))
+            {
+                Main main = new Main();
+                main.Show();
+                this.Hide();
+            }
+        }
+
+        private void LicBtn_Click(object sender, EventArgs e)
+        {
+            if (KeyAuthApp.license(key.Text))
+            {
+                Main main = new Main();
+                main.Show();
+                this.Hide();
+            }
         }
     }
 }

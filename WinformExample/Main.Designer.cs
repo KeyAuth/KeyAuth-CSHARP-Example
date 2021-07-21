@@ -14,7 +14,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            Siticone.UI.AnimatorNS.Animation animation2 = new Siticone.UI.AnimatorNS.Animation();
+            Siticone.UI.AnimatorNS.Animation animation3 = new Siticone.UI.AnimatorNS.Animation();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.siticoneDragControl1 = new Siticone.UI.WinForms.SiticoneDragControl(this.components);
             this.siticoneControlBox1 = new Siticone.UI.WinForms.SiticoneControlBox();
@@ -24,7 +24,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.key = new Siticone.UI.WinForms.SiticoneLabel();
             this.expiry = new Siticone.UI.WinForms.SiticoneLabel();
-            this.level = new Siticone.UI.WinForms.SiticoneLabel();
+            this.subscription = new Siticone.UI.WinForms.SiticoneLabel();
             this.siticoneShadowForm = new Siticone.UI.WinForms.SiticoneShadowForm(this.components);
             this.SuspendLayout();
             // 
@@ -68,22 +68,22 @@
             // 
             this.siticoneTransition1.AnimationType = Siticone.UI.AnimatorNS.AnimationType.Rotate;
             this.siticoneTransition1.Cursor = null;
-            animation2.AnimateOnlyDifferences = true;
-            animation2.BlindCoeff = ((System.Drawing.PointF)(resources.GetObject("animation2.BlindCoeff")));
-            animation2.LeafCoeff = 0F;
-            animation2.MaxTime = 1F;
-            animation2.MinTime = 0F;
-            animation2.MosaicCoeff = ((System.Drawing.PointF)(resources.GetObject("animation2.MosaicCoeff")));
-            animation2.MosaicShift = ((System.Drawing.PointF)(resources.GetObject("animation2.MosaicShift")));
-            animation2.MosaicSize = 0;
-            animation2.Padding = new System.Windows.Forms.Padding(50);
-            animation2.RotateCoeff = 1F;
-            animation2.RotateLimit = 0F;
-            animation2.ScaleCoeff = ((System.Drawing.PointF)(resources.GetObject("animation2.ScaleCoeff")));
-            animation2.SlideCoeff = ((System.Drawing.PointF)(resources.GetObject("animation2.SlideCoeff")));
-            animation2.TimeCoeff = 0F;
-            animation2.TransparencyCoeff = 1F;
-            this.siticoneTransition1.DefaultAnimation = animation2;
+            animation3.AnimateOnlyDifferences = true;
+            animation3.BlindCoeff = ((System.Drawing.PointF)(resources.GetObject("animation3.BlindCoeff")));
+            animation3.LeafCoeff = 0F;
+            animation3.MaxTime = 1F;
+            animation3.MinTime = 0F;
+            animation3.MosaicCoeff = ((System.Drawing.PointF)(resources.GetObject("animation3.MosaicCoeff")));
+            animation3.MosaicShift = ((System.Drawing.PointF)(resources.GetObject("animation3.MosaicShift")));
+            animation3.MosaicSize = 0;
+            animation3.Padding = new System.Windows.Forms.Padding(50);
+            animation3.RotateCoeff = 1F;
+            animation3.RotateLimit = 0F;
+            animation3.ScaleCoeff = ((System.Drawing.PointF)(resources.GetObject("animation3.ScaleCoeff")));
+            animation3.SlideCoeff = ((System.Drawing.PointF)(resources.GetObject("animation3.SlideCoeff")));
+            animation3.TimeCoeff = 0F;
+            animation3.TransparencyCoeff = 1F;
+            this.siticoneTransition1.DefaultAnimation = animation3;
             // 
             // label1
             // 
@@ -118,9 +118,9 @@
             this.key.Location = new System.Drawing.Point(20, 60);
             this.key.Margin = new System.Windows.Forms.Padding(2);
             this.key.Name = "key";
-            this.key.Size = new System.Drawing.Size(69, 14);
+            this.key.Size = new System.Drawing.Size(71, 14);
             this.key.TabIndex = 37;
-            this.key.Text = "siticoneLabel1";
+            this.key.Text = "usernameLabel";
             // 
             // expiry
             // 
@@ -131,22 +131,22 @@
             this.expiry.Location = new System.Drawing.Point(20, 80);
             this.expiry.Margin = new System.Windows.Forms.Padding(2);
             this.expiry.Name = "expiry";
-            this.expiry.Size = new System.Drawing.Size(69, 14);
+            this.expiry.Size = new System.Drawing.Size(56, 14);
             this.expiry.TabIndex = 38;
-            this.expiry.Text = "siticoneLabel2";
+            this.expiry.Text = "expiryLabel";
             // 
-            // level
+            // subscription
             // 
-            this.level.BackColor = System.Drawing.Color.Transparent;
-            this.siticoneTransition1.SetDecoration(this.level, Siticone.UI.AnimatorNS.DecorationType.None);
-            this.level.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.level.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.level.Location = new System.Drawing.Point(20, 101);
-            this.level.Margin = new System.Windows.Forms.Padding(2);
-            this.level.Name = "level";
-            this.level.Size = new System.Drawing.Size(69, 14);
-            this.level.TabIndex = 39;
-            this.level.Text = "siticoneLabel3";
+            this.subscription.BackColor = System.Drawing.Color.Transparent;
+            this.siticoneTransition1.SetDecoration(this.subscription, Siticone.UI.AnimatorNS.DecorationType.None);
+            this.subscription.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.subscription.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.subscription.Location = new System.Drawing.Point(20, 101);
+            this.subscription.Margin = new System.Windows.Forms.Padding(2);
+            this.subscription.Name = "subscription";
+            this.subscription.Size = new System.Drawing.Size(84, 14);
+            this.subscription.TabIndex = 39;
+            this.subscription.Text = "subscriptionLabel";
             // 
             // Main
             // 
@@ -155,7 +155,7 @@
             this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(42)))));
             this.ClientSize = new System.Drawing.Size(343, 278);
-            this.Controls.Add(this.level);
+            this.Controls.Add(this.subscription);
             this.Controls.Add(this.expiry);
             this.Controls.Add(this.key);
             this.Controls.Add(this.label2);
@@ -193,7 +193,7 @@
         private global::System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private Siticone.UI.WinForms.SiticoneShadowForm siticoneShadowForm;
-        private Siticone.UI.WinForms.SiticoneLabel level;
+        private Siticone.UI.WinForms.SiticoneLabel subscription;
         private Siticone.UI.WinForms.SiticoneLabel expiry;
         private Siticone.UI.WinForms.SiticoneLabel key;
     }
