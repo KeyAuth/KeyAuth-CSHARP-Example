@@ -74,7 +74,8 @@ namespace KeyAuth
             }
             
             Console.WriteLine("\n\n  Logged In!"); // at this point, the client has been authenticated
-
+            
+            // Console.WriteLine(KeyAuthApp.user_data.ip); // print out user's ip
             // Console.WriteLine(KeyAuthApp.user_data.subscriptions[0].subscription); // print out subscription name (basically level)
             // Console.WriteLine(UnixTimeToDateTime(long.Parse(KeyAuthApp.user_data.subscriptions[0].expiry))); // print out expiry
             // byte[] result = KeyAuthApp.download("902901"); // downloads application file
