@@ -70,6 +70,9 @@ namespace KeyAuth {
 
             [DataMember]
             public List<Data> subscriptions { get; set; }
+
+            [DataMember]
+            public string ip { get; set; }
         }
         #endregion
         private string sessionid, enckey;
@@ -439,6 +442,8 @@ namespace KeyAuth {
         public class user_data_class {
             public string username { get; set; }
             public List<Data> subscriptions { get; set; }
+
+            public string ip { get; set; }
         }
         public class Data
         {
@@ -448,6 +453,7 @@ namespace KeyAuth {
 
         private void load_user_data(user_data_structure data) {
             user_data.username = data.username;
+            user_data.ip = data.ip;
             user_data.subscriptions = data.subscriptions;
         }
         #endregion
