@@ -18,7 +18,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            Siticone.UI.AnimatorNS.Animation animation4 = new Siticone.UI.AnimatorNS.Animation();
+            Siticone.UI.AnimatorNS.Animation animation1 = new Siticone.UI.AnimatorNS.Animation();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             this.siticoneDragControl1 = new Siticone.UI.WinForms.SiticoneDragControl(this.components);
             this.siticoneControlBox1 = new Siticone.UI.WinForms.SiticoneControlBox();
@@ -27,9 +27,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.LoginBtn = new Siticone.UI.WinForms.SiticoneRoundedButton();
-            this.password = new Siticone.UI.WinForms.SiticoneRoundedTextBox();
-            this.username = new Siticone.UI.WinForms.SiticoneRoundedTextBox();
             this.key = new Siticone.UI.WinForms.SiticoneRoundedTextBox();
+            this.username = new Siticone.UI.WinForms.SiticoneRoundedTextBox();
+            this.password = new Siticone.UI.WinForms.SiticoneRoundedTextBox();
             this.RgstrBtn = new Siticone.UI.WinForms.SiticoneRoundedButton();
             this.UpgradeBtn = new Siticone.UI.WinForms.SiticoneRoundedButton();
             this.LicBtn = new Siticone.UI.WinForms.SiticoneRoundedButton();
@@ -76,22 +76,22 @@
             // 
             this.siticoneTransition1.AnimationType = Siticone.UI.AnimatorNS.AnimationType.Rotate;
             this.siticoneTransition1.Cursor = null;
-            animation4.AnimateOnlyDifferences = true;
-            animation4.BlindCoeff = ((System.Drawing.PointF)(resources.GetObject("animation4.BlindCoeff")));
-            animation4.LeafCoeff = 0F;
-            animation4.MaxTime = 1F;
-            animation4.MinTime = 0F;
-            animation4.MosaicCoeff = ((System.Drawing.PointF)(resources.GetObject("animation4.MosaicCoeff")));
-            animation4.MosaicShift = ((System.Drawing.PointF)(resources.GetObject("animation4.MosaicShift")));
-            animation4.MosaicSize = 0;
-            animation4.Padding = new System.Windows.Forms.Padding(50);
-            animation4.RotateCoeff = 1F;
-            animation4.RotateLimit = 0F;
-            animation4.ScaleCoeff = ((System.Drawing.PointF)(resources.GetObject("animation4.ScaleCoeff")));
-            animation4.SlideCoeff = ((System.Drawing.PointF)(resources.GetObject("animation4.SlideCoeff")));
-            animation4.TimeCoeff = 0F;
-            animation4.TransparencyCoeff = 1F;
-            this.siticoneTransition1.DefaultAnimation = animation4;
+            animation1.AnimateOnlyDifferences = true;
+            animation1.BlindCoeff = ((System.Drawing.PointF)(resources.GetObject("animation1.BlindCoeff")));
+            animation1.LeafCoeff = 0F;
+            animation1.MaxTime = 1F;
+            animation1.MinTime = 0F;
+            animation1.MosaicCoeff = ((System.Drawing.PointF)(resources.GetObject("animation1.MosaicCoeff")));
+            animation1.MosaicShift = ((System.Drawing.PointF)(resources.GetObject("animation1.MosaicShift")));
+            animation1.MosaicSize = 0;
+            animation1.Padding = new System.Windows.Forms.Padding(50);
+            animation1.RotateCoeff = 1F;
+            animation1.RotateLimit = 0F;
+            animation1.ScaleCoeff = ((System.Drawing.PointF)(resources.GetObject("animation1.ScaleCoeff")));
+            animation1.SlideCoeff = ((System.Drawing.PointF)(resources.GetObject("animation1.SlideCoeff")));
+            animation1.TimeCoeff = 0F;
+            animation1.TransparencyCoeff = 1F;
+            this.siticoneTransition1.DefaultAnimation = animation1;
             // 
             // label1
             // 
@@ -137,33 +137,33 @@
             this.LoginBtn.Text = "Login";
             this.LoginBtn.Click += new System.EventHandler(this.LoginBtn_Click);
             // 
-            // password
+            // key
             // 
-            this.password.AllowDrop = true;
-            this.password.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(127)))), ((int)(((byte)(243)))));
-            this.password.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.siticoneTransition1.SetDecoration(this.password, Siticone.UI.AnimatorNS.DecorationType.None);
-            this.password.DefaultText = "Password";
-            this.password.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.password.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.password.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.password.DisabledState.Parent = this.password;
-            this.password.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.password.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(42)))));
-            this.password.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.password.FocusedState.Parent = this.password;
-            this.password.HoveredState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.password.HoveredState.Parent = this.password;
-            this.password.Location = new System.Drawing.Point(48, 92);
-            this.password.Margin = new System.Windows.Forms.Padding(4);
-            this.password.Name = "password";
-            this.password.PasswordChar = '\0';
-            this.password.PlaceholderText = "";
-            this.password.SelectedText = "";
-            this.password.ShadowDecoration.Parent = this.password;
-            this.password.Size = new System.Drawing.Size(236, 30);
-            this.password.TabIndex = 32;
-            this.password.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.key.AllowDrop = true;
+            this.key.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(127)))), ((int)(((byte)(243)))));
+            this.key.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.siticoneTransition1.SetDecoration(this.key, Siticone.UI.AnimatorNS.DecorationType.None);
+            this.key.DefaultText = "Key";
+            this.key.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.key.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.key.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.key.DisabledState.Parent = this.key;
+            this.key.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.key.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(42)))));
+            this.key.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.key.FocusedState.Parent = this.key;
+            this.key.HoveredState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.key.HoveredState.Parent = this.key;
+            this.key.Location = new System.Drawing.Point(48, 130);
+            this.key.Margin = new System.Windows.Forms.Padding(4);
+            this.key.Name = "key";
+            this.key.PasswordChar = '\0';
+            this.key.PlaceholderText = "";
+            this.key.SelectedText = "";
+            this.key.ShadowDecoration.Parent = this.key;
+            this.key.Size = new System.Drawing.Size(236, 30);
+            this.key.TabIndex = 32;
+            this.key.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // username
             // 
@@ -193,33 +193,33 @@
             this.username.TabIndex = 33;
             this.username.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // key
+            // password
             // 
-            this.key.AllowDrop = true;
-            this.key.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(127)))), ((int)(((byte)(243)))));
-            this.key.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.siticoneTransition1.SetDecoration(this.key, Siticone.UI.AnimatorNS.DecorationType.None);
-            this.key.DefaultText = "Key";
-            this.key.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.key.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.key.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.key.DisabledState.Parent = this.key;
-            this.key.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.key.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(42)))));
-            this.key.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.key.FocusedState.Parent = this.key;
-            this.key.HoveredState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.key.HoveredState.Parent = this.key;
-            this.key.Location = new System.Drawing.Point(48, 130);
-            this.key.Margin = new System.Windows.Forms.Padding(4);
-            this.key.Name = "key";
-            this.key.PasswordChar = '\0';
-            this.key.PlaceholderText = "";
-            this.key.SelectedText = "";
-            this.key.ShadowDecoration.Parent = this.key;
-            this.key.Size = new System.Drawing.Size(236, 30);
-            this.key.TabIndex = 34;
-            this.key.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.password.AllowDrop = true;
+            this.password.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(127)))), ((int)(((byte)(243)))));
+            this.password.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.siticoneTransition1.SetDecoration(this.password, Siticone.UI.AnimatorNS.DecorationType.None);
+            this.password.DefaultText = "Password";
+            this.password.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.password.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.password.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.password.DisabledState.Parent = this.password;
+            this.password.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.password.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(42)))));
+            this.password.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.password.FocusedState.Parent = this.password;
+            this.password.HoveredState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.password.HoveredState.Parent = this.password;
+            this.password.Location = new System.Drawing.Point(48, 92);
+            this.password.Margin = new System.Windows.Forms.Padding(4);
+            this.password.Name = "password";
+            this.password.PasswordChar = '\0';
+            this.password.PlaceholderText = "";
+            this.password.SelectedText = "";
+            this.password.ShadowDecoration.Parent = this.password;
+            this.password.Size = new System.Drawing.Size(236, 30);
+            this.password.TabIndex = 34;
+            this.password.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // RgstrBtn
             // 
@@ -291,9 +291,9 @@
             this.Controls.Add(this.LicBtn);
             this.Controls.Add(this.UpgradeBtn);
             this.Controls.Add(this.RgstrBtn);
-            this.Controls.Add(this.key);
-            this.Controls.Add(this.username);
             this.Controls.Add(this.password);
+            this.Controls.Add(this.username);
+            this.Controls.Add(this.key);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.LoginBtn);
             this.Controls.Add(this.label1);
@@ -331,8 +331,8 @@
         private System.Windows.Forms.Label label2;
         private Siticone.UI.WinForms.SiticoneRoundedButton LoginBtn;
         private Siticone.UI.WinForms.SiticoneShadowForm siticoneShadowForm;
-        private Siticone.UI.WinForms.SiticoneRoundedTextBox password;
         private Siticone.UI.WinForms.SiticoneRoundedTextBox key;
+        private Siticone.UI.WinForms.SiticoneRoundedTextBox password;
         private Siticone.UI.WinForms.SiticoneRoundedTextBox username;
         private Siticone.UI.WinForms.SiticoneRoundedButton LicBtn;
         private Siticone.UI.WinForms.SiticoneRoundedButton UpgradeBtn;
