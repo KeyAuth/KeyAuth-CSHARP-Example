@@ -153,6 +153,7 @@ namespace KeyAuth {
             }
             else
             {
+                load_user_data(json.info);
                 // optional success msg
             }
         }
