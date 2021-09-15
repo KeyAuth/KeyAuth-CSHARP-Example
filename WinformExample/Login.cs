@@ -21,9 +21,9 @@ namespace KeyAuth
         * 
         */
 
-        static string name = ""; // application name. right above the blurred text aka the secret on the licenses tab among other tabs
-        static string ownerid = ""; // ownerid, found in account settings. click your profile picture on top right of dashboard and then account settings.
-        static string secret = ""; // app secret, the blurred text on licenses tab and other tabs
+        static string name = "example"; // application name. right above the blurred text aka the secret on the licenses tab among other tabs
+        static string ownerid = "oVXxM3uu77"; // ownerid, found in account settings. click your profile picture on top right of dashboard and then account settings.
+        static string secret = "db40d586f4b189e04e5c18c3c94b7e72221be3f6551995adc05236948d1762bc"; // app secret, the blurred text on licenses tab and other tabs
         static string version = "1.0"; // leave alone unless you've changed version on website
 
         /*
@@ -55,7 +55,6 @@ MessageBox.Show(KeyAuthApp.var("123456")); // retrieve application variable
 
         private void Login_Load(object sender, EventArgs e)
         {
-            SetDNS("1.1.1.1"); // this should resolve any issues with people who are getting blocked by their ISP. you could also change DNS manually or go to 1.1.1.1 and download their app, though this is the best way for your clients I presume
             KeyAuthApp.init();
         }
 
@@ -92,65 +91,6 @@ MessageBox.Show(KeyAuthApp.var("123456")); // retrieve application variable
                 Main main = new Main();
                 main.Show();
                 this.Hide();
-            }
-        }
-
-        public static NetworkInterface GetActiveEthernetOrWifiNetworkInterface()
-        {
-            var Nic = NetworkInterface.GetAllNetworkInterfaces().FirstOrDefault(
-                a => a.OperationalStatus == OperationalStatus.Up &&
-                (a.NetworkInterfaceType == NetworkInterfaceType.Wireless80211 || a.NetworkInterfaceType == NetworkInterfaceType.Ethernet) &&
-                a.GetIPProperties().GatewayAddresses.Any(g => g.Address.AddressFamily.ToString() == "InterNetwork"));
-
-            return Nic;
-        }
-
-        public static void SetDNS(string DnsString)
-        {
-            string[] Dns = { DnsString };
-            var CurrentInterface = GetActiveEthernetOrWifiNetworkInterface();
-            if (CurrentInterface == null) return;
-
-            ManagementClass objMC = new ManagementClass("Win32_NetworkAdapterConfiguration");
-            ManagementObjectCollection objMOC = objMC.GetInstances();
-            foreach (ManagementObject objMO in objMOC)
-            {
-                if ((bool)objMO["IPEnabled"])
-                {
-                    if (objMO["Description"].ToString().Equals(CurrentInterface.Description))
-                    {
-                        ManagementBaseObject objdns = objMO.GetMethodParameters("SetDNSServerSearchOrder");
-                        if (objdns != null)
-                        {
-                            objdns["DNSServerSearchOrder"] = Dns;
-                            objMO.InvokeMethod("SetDNSServerSearchOrder", objdns, null);
-                        }
-                    }
-                }
-            }
-        }
-
-        public static void UnsetDNS()
-        {
-            var CurrentInterface = GetActiveEthernetOrWifiNetworkInterface();
-            if (CurrentInterface == null) return;
-
-            ManagementClass objMC = new ManagementClass("Win32_NetworkAdapterConfiguration");
-            ManagementObjectCollection objMOC = objMC.GetInstances();
-            foreach (ManagementObject objMO in objMOC)
-            {
-                if ((bool)objMO["IPEnabled"])
-                {
-                    if (objMO["Description"].ToString().Equals(CurrentInterface.Description))
-                    {
-                        ManagementBaseObject objdns = objMO.GetMethodParameters("SetDNSServerSearchOrder");
-                        if (objdns != null)
-                        {
-                            objdns["DNSServerSearchOrder"] = null;
-                            objMO.InvokeMethod("SetDNSServerSearchOrder", objdns, null);
-                        }
-                    }
-                }
             }
         }
     }
