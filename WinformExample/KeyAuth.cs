@@ -194,7 +194,6 @@ namespace KeyAuth {
 
         public void upgrade(string username, string key)
         {
-            string hwid = WindowsIdentity.GetCurrent().User.Value;
 
             var init_iv = encryption.sha256(encryption.iv_key());
 
@@ -295,7 +294,6 @@ namespace KeyAuth {
 
         public string var(string varid)
         {
-            string hwid = WindowsIdentity.GetCurrent().User.Value;
 
             var init_iv = encryption.sha256(encryption.iv_key());
 
@@ -327,7 +325,6 @@ namespace KeyAuth {
         
         public void webhook(string webid, string param)
         {
-            string hwid = WindowsIdentity.GetCurrent().User.Value;
 
             var init_iv = encryption.sha256(encryption.iv_key());
 

@@ -21,9 +21,9 @@ namespace KeyAuth
         * 
         */
 
-        static string name = "example"; // application name. right above the blurred text aka the secret on the licenses tab among other tabs
-        static string ownerid = "oVXxM3uu77"; // ownerid, found in account settings. click your profile picture on top right of dashboard and then account settings.
-        static string secret = "db40d586f4b189e04e5c18c3c94b7e72221be3f6551995adc05236948d1762bc"; // app secret, the blurred text on licenses tab and other tabs
+        static string name = ""; // application name. right above the blurred text aka the secret on the licenses tab among other tabs
+        static string ownerid = ""; // ownerid, found in account settings. click your profile picture on top right of dashboard and then account settings.
+        static string secret = ""; // app secret, the blurred text on licenses tab and other tabs
         static string version = "1.0"; // leave alone unless you've changed version on website
 
         /*
