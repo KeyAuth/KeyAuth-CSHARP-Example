@@ -87,6 +87,13 @@ namespace KeyAuth
             Thread.Sleep(3200); // I lied! Jk, it takes the average person 1.8 seconds to read the above output, so I've accounted for that. it would be a huge travesty if it didn't close in five seconds from the ouptput being displayed :)
             Environment.Exit(0);
         }
+        
+        public static DateTime UnixTimeToDateTime(long unixtime)
+        {
+            System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Local);
+            dtDateTime = dtDateTime.AddSeconds(unixtime).ToLocalTime();
+            return dtDateTime;
+        }
     }
 
 }
