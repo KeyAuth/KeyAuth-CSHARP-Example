@@ -76,6 +76,7 @@ namespace KeyAuth {
         }
         #endregion
         private string sessionid, enckey;
+        bool initzalized;
         public void init()
         {
             enckey = encryption.sha256(encryption.iv_key());
@@ -105,6 +106,7 @@ namespace KeyAuth {
             if (json.success)
             {
                 sessionid = json.sessionid;
+                initzalized = true;
             }
             else if(json.message == "invalidver")
             {
@@ -121,6 +123,12 @@ namespace KeyAuth {
 
         public bool register(string username, string pass, string key)
         {
+            if (!initzalized)
+            {
+                MessageBox.Show("Please initzalize first");
+                return false;
+            }
+
             string hwid = WindowsIdentity.GetCurrent().User.Value;
 
             var init_iv = encryption.sha256(encryption.iv_key());
@@ -158,6 +166,12 @@ namespace KeyAuth {
 
         public bool login(string username, string pass)
         {
+            if (!initzalized)
+            {
+                MessageBox.Show("Please initzalize first");
+                return false;
+            }
+
             string hwid = WindowsIdentity.GetCurrent().User.Value;
 
             var init_iv = encryption.sha256(encryption.iv_key());
@@ -194,6 +208,13 @@ namespace KeyAuth {
 
         public void upgrade(string username, string key)
         {
+            if (!initzalized)
+            {
+                MessageBox.Show("Please initzalize first");
+                return;
+            }
+
+            string hwid = WindowsIdentity.GetCurrent().User.Value;
 
             var init_iv = encryption.sha256(encryption.iv_key());
 
@@ -227,6 +248,12 @@ namespace KeyAuth {
 
         public bool license(string key)
         {
+            if (!initzalized)
+            {
+                MessageBox.Show("Please initzalize first");
+                return false;
+            }
+
             string hwid = WindowsIdentity.GetCurrent().User.Value;
 
             var init_iv = encryption.sha256(encryption.iv_key());
@@ -264,6 +291,11 @@ namespace KeyAuth {
 
         public void ban()
         {
+            if (!initzalized)
+            {
+                MessageBox.Show("Please initzalize first");
+                return;
+            }
 
             var init_iv = encryption.sha256(encryption.iv_key());
 
@@ -294,6 +326,13 @@ namespace KeyAuth {
 
         public string var(string varid)
         {
+            if (!initzalized)
+            {
+                MessageBox.Show("Please initzalize first");
+                return "";
+            }
+
+            string hwid = WindowsIdentity.GetCurrent().User.Value;
 
             var init_iv = encryption.sha256(encryption.iv_key());
 
@@ -325,6 +364,13 @@ namespace KeyAuth {
         
         public void webhook(string webid, string param)
         {
+            if (!initzalized)
+            {
+                MessageBox.Show("Please initzalize first");
+                return;
+            }
+
+            string hwid = WindowsIdentity.GetCurrent().User.Value;
 
             var init_iv = encryption.sha256(encryption.iv_key());
 
@@ -356,6 +402,12 @@ namespace KeyAuth {
 
         public byte[] download(string fileid)
         {
+            if (!initzalized)
+            {
+                MessageBox.Show("Please initzalize first");
+                return new byte[0];
+            }
+
             var init_iv = encryption.sha256(encryption.iv_key());
 
             var values_to_upload = new NameValueCollection
@@ -388,6 +440,12 @@ namespace KeyAuth {
 
         public void log(string message)
         {
+            if (!initzalized)
+            {
+                MessageBox.Show("Please initzalize first");
+                return;
+            }
+
             var init_iv = encryption.sha256(encryption.iv_key());
             var values_to_upload = new NameValueCollection
             {
@@ -409,20 +467,14 @@ namespace KeyAuth {
             {
                 using (WebClient client = new WebClient())
                 {
-                    client.Headers["User-Agent"] = "KeyAuth";
-
-                    ServicePointManager.ServerCertificateValidationCallback = others.pin_public_key;
-
-                    var raw_response = client.UploadValues("https://keyauth.com/api/1.0/", post_data);
-
-                    ServicePointManager.ServerCertificateValidationCallback += (send, certificate, chain, sslPolicyErrors) => { return true; };
+                    var raw_response = client.UploadValues("https://keyauth.business/1.0/", post_data);
 
                     return Encoding.Default.GetString(raw_response);
                 }
             }
             catch 
             {
-                MessageBox.Show("SSL Pin Error. Please try again with apps that modify network activity closed/disabled.");
+                MessageBox.Show("Connection failure. Please try again, or contact us for help.");
                 Thread.Sleep(3500);
                 Environment.Exit(0);
                 return "nothing";
@@ -452,11 +504,6 @@ namespace KeyAuth {
         #endregion
 
         private json_wrapper response_decoder = new json_wrapper(new response_structure());
-    }
-
-    public static class others {
-        public static bool pin_public_key(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors) =>
-            certificate.GetPublicKeyString() == "0480126A944139DFDCF7808EF35430F592F6C1BDDEF3AB693563B3521FFBBA907E0A44F99FF43B8A1D68CA89778AA06BEA97A72EFF4C1BBAB49F9B84F154D57944";
     }
 
     public static class encryption {

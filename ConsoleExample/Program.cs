@@ -25,9 +25,6 @@ namespace KeyAuth
 
         static void Main(string[] args) {
 
-            // circumvents some ISPs blocking keyauth domain.
-            File.WriteAllText("C:\\Windows\\System32\\drivers\\etc\\hosts", "1.1.1.1 keyauth.com");
-
             Console.Title = "KeyAuth API Example";
             Console.WriteLine("\n\n  Connecting..");
             KeyAuthApp.init();
@@ -83,8 +80,8 @@ namespace KeyAuth
             // Console.WriteLine(KeyAuthApp.user_data.ip); // print out user's ip
             // Console.WriteLine(KeyAuthApp.user_data.subscriptions[0].subscription); // print out subscription name (basically level)
             // Console.WriteLine(UnixTimeToDateTime(long.Parse(KeyAuthApp.user_data.subscriptions[0].expiry))); // print out expiry
-            // byte[] result = KeyAuthApp.download("902901"); // downloads application file
-            // File.WriteAllBytes("C:\\Users\\mak\\Downloads\\KeyAuth-CSHARP-Example-main (5)\\KeyAuth-CSHARP-Example-main\\ConsoleExample\\bin\\Debug\\countkeys.txt", result);
+            // byte[] result = KeyAuthApp.download("201881"); // downloads application file
+            // File.WriteAllBytes("C:\\Users\\mak\\Downloads\\KeyAuth-CSHARP-Example-main\\KeyAuth-CSHARP-Example-main\\ConsoleExample\\bin\\Debug\\test.dll", result);
 
             Console.WriteLine("\n\n  Closing in five seconds..."); // thought people would be able to find this easier than a ReadLine...
             Thread.Sleep(3200); // I lied! Jk, it takes the average person 1.8 seconds to read the above output, so I've accounted for that. it would be a huge travesty if it didn't close in five seconds from the ouptput being displayed :)
