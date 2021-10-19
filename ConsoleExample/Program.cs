@@ -75,6 +75,14 @@ namespace KeyAuth
             
             Console.WriteLine("\n\n  Logged In!"); // at this point, the client has been authenticated
 
+			/*
+			bool hasFortnite = KeyAuthApp.user_data.subscriptions.Any(x => x.subscription == "fortnite");
+            if(hasFortnite) // check if user has subscription with name fortnite
+            {
+                Console.WriteLine("user has fortnite subscription");
+            }
+			*/
+			
             // KeyAuthApp.webhook("HDb5HiwOSM", "&type=black&ip=1.1.1.1&hwid=abc");
 
             // Console.WriteLine(KeyAuthApp.user_data.ip); // print out user's ip
