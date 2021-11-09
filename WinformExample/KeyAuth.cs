@@ -472,12 +472,23 @@ namespace KeyAuth {
                     return Encoding.Default.GetString(raw_response);
                 }
             }
-            catch 
+            catch (WebException webex)
             {
-                MessageBox.Show("Connection failure. Please try again, or contact us for help.");
-                Thread.Sleep(3500);
-                Environment.Exit(0);
-                return "nothing";
+                var response = (HttpWebResponse)webex.Response;
+                switch (response.StatusCode)
+                {
+                    case (HttpStatusCode)429: // client hit our rate limit
+                        Console.WriteLine("\n\n  You're connecting too fast to loader, slow down.");
+                        Thread.Sleep(3500);
+                        Environment.Exit(0);
+                        return "";
+                        break;
+                    default: // site won't resolve. you should use keyauth.uk domain since it's not blocked by any ISPs
+                        Console.WriteLine("\n\n  Connection failure. Please try again, or contact us for help.");
+                        Thread.Sleep(3500);
+                        Environment.Exit(0);
+                        return "";
+                }
             }
         }
 
