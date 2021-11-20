@@ -12,8 +12,10 @@ using System.Diagnostics;
 using System.Security.Principal;
 using System.Threading;
 using System.Collections.Generic;
+using System.Windows;
 
-namespace KeyAuth {
+namespace KeyAuth
+{
     public class api
     {
         public string name, ownerid, secret, version;
@@ -22,8 +24,7 @@ namespace KeyAuth {
 
             if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(ownerid) || string.IsNullOrWhiteSpace(secret) || string.IsNullOrWhiteSpace(version))
             {
-                Console.WriteLine("\n\n  Application not setup correctly. Please watch video link found in Program.cs");
-                Thread.Sleep(3500);
+                error("Application not setup correctly. Please watch video link found in Program.cs");
                 Environment.Exit(0);
             }
 
@@ -60,6 +61,16 @@ namespace KeyAuth {
 
             [DataMember(IsRequired = false, EmitDefaultValue = false)]
             public user_data_structure info { get; set; }
+
+            [DataMember]
+            public List<msg> messages { get; set; }
+        }
+
+        public class msg
+        {
+            public string message { get; set; }
+            public string author { get; set; }
+            public string timestamp { get; set; }
         }
 
         [DataContract]
@@ -69,10 +80,15 @@ namespace KeyAuth {
             public string username { get; set; }
 
             [DataMember]
-            public List<Data> subscriptions { get; set; }
-
-            [DataMember]
             public string ip { get; set; }
+            [DataMember]
+            public string hwid { get; set; }
+            [DataMember]
+            public string createdate { get; set; }
+            [DataMember]
+            public string lastlogin { get; set; }
+            [DataMember]
+            public List<Data> subscriptions { get; set; } // array of subscriptions (basically multiple user ranks for user with individual expiry dates
         }
         #endregion
         private string sessionid, enckey;
@@ -85,6 +101,7 @@ namespace KeyAuth {
             {
                 ["type"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes("init")),
                 ["ver"] = encryption.encrypt(version, secret, init_iv),
+                ["hash"] = checksum(Process.GetCurrentProcess().MainModule.FileName),
                 ["enckey"] = encryption.encrypt(enckey, secret, init_iv),
                 ["name"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(name)),
                 ["ownerid"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(ownerid)),
@@ -92,32 +109,30 @@ namespace KeyAuth {
             };
 
             var response = req(values_to_upload);
-            
 
-            if(response == "KeyAuth_Invalid")
+
+            if (response == "KeyAuth_Invalid")
             {
-                Console.WriteLine("\n\n  Application not found");
-                Thread.Sleep(3500);
+                error("Application not found");
                 Environment.Exit(0);
             }
 
             response = encryption.decrypt(response, secret, init_iv);
-            var json = response_decoder.string_to_generic<response_structure>(response);            
+            var json = response_decoder.string_to_generic<response_structure>(response);
 
             if (json.success)
             {
                 sessionid = json.sessionid;
                 initzalized = true;
             }
-            else if(json.message == "invalidver")
+            else if (json.message == "invalidver")
             {
                 Process.Start(json.download);
                 Environment.Exit(0);
             }
             else
             {
-                Console.WriteLine("\n\n " + json.message);
-                Thread.Sleep(3500);
+                error(json.message);
                 Environment.Exit(0);
             }
 
@@ -127,8 +142,8 @@ namespace KeyAuth {
         {
             if (!initzalized)
             {
-                Console.WriteLine("\n\n Please initzalize first");
-                return;
+                error("Please initzalize first");
+                Environment.Exit(0);
             }
 
             string hwid = WindowsIdentity.GetCurrent().User.Value;
@@ -155,8 +170,7 @@ namespace KeyAuth {
 
             if (!json.success)
             {
-                Console.WriteLine("\n\n " + json.message);
-                Thread.Sleep(3500);
+                error(json.message);
                 Environment.Exit(0);
             }
             else
@@ -170,8 +184,8 @@ namespace KeyAuth {
         {
             if (!initzalized)
             {
-                Console.WriteLine("\n\n Please initzalize first");
-                return;
+                error("Please initzalize first");
+                Environment.Exit(0);
             }
 
             string hwid = WindowsIdentity.GetCurrent().User.Value;
@@ -197,8 +211,7 @@ namespace KeyAuth {
 
             if (!json.success)
             {
-                Console.WriteLine("\n\n " + json.message);
-                Thread.Sleep(3500);
+                error(json.message);
                 Environment.Exit(0);
             }
             else
@@ -212,8 +225,8 @@ namespace KeyAuth {
         {
             if (!initzalized)
             {
-                Console.WriteLine("\n\n Please initzalize first");
-                return;
+                error("Please initzalize first");
+                Environment.Exit(0);
             }
 
             string hwid = WindowsIdentity.GetCurrent().User.Value;
@@ -238,8 +251,7 @@ namespace KeyAuth {
 
             if (!json.success)
             {
-                Console.WriteLine("\n\n " + json.message);
-                Thread.Sleep(3500);
+                error(json.message);
                 Environment.Exit(0);
             }
             else
@@ -252,8 +264,8 @@ namespace KeyAuth {
         {
             if (!initzalized)
             {
-                Console.WriteLine("\n\n Please initzalize first");
-                return;
+                error("Please initzalize first");
+                Environment.Exit(0);
             }
 
             string hwid = WindowsIdentity.GetCurrent().User.Value;
@@ -272,15 +284,14 @@ namespace KeyAuth {
             };
 
             var response = req(values_to_upload);
-            
+
             response = encryption.decrypt(response, enckey, init_iv);
-            
+
             var json = response_decoder.string_to_generic<response_structure>(response);
 
             if (!json.success)
             {
-                Console.WriteLine("\n\n " + json.message);
-                Thread.Sleep(3500);
+                error(json.message);
                 Environment.Exit(0);
             }
             else
@@ -290,12 +301,88 @@ namespace KeyAuth {
             }
         }
 
+        public void setvar(string var, string data)
+        {
+            if (!initzalized)
+            {
+                error("Please initzalize first");
+                Environment.Exit(0);
+            }
+
+            var init_iv = encryption.sha256(encryption.iv_key());
+
+            var values_to_upload = new NameValueCollection
+            {
+                ["type"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes("setvar")),
+                ["var"] = encryption.encrypt(var, enckey, init_iv),
+                ["data"] = encryption.encrypt(data, enckey, init_iv),
+                ["sessionid"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(sessionid)),
+                ["name"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(name)),
+                ["ownerid"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(ownerid)),
+                ["init_iv"] = init_iv
+            };
+
+            var response = req(values_to_upload);
+
+            response = encryption.decrypt(response, enckey, init_iv);
+            var json = response_decoder.string_to_generic<response_structure>(response);
+
+            if (!json.success)
+            {
+                error(json.message);
+                Environment.Exit(0);
+            }
+            else
+            {
+                // optional success msg
+            }
+        }
+
+        public string getvar(string var)
+        {
+
+            if (!initzalized)
+            {
+                error("Please initzalize first");
+                Environment.Exit(0);
+            }
+
+            var init_iv = encryption.sha256(encryption.iv_key());
+
+            var values_to_upload = new NameValueCollection
+            {
+                ["type"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes("getvar")),
+                ["var"] = encryption.encrypt(var, enckey, init_iv),
+                ["sessionid"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(sessionid)),
+                ["name"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(name)),
+                ["ownerid"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(ownerid)),
+                ["init_iv"] = init_iv
+            };
+
+            var response = req(values_to_upload);
+
+            response = encryption.decrypt(response, enckey, init_iv);
+            var json = response_decoder.string_to_generic<response_structure>(response);
+
+            if (!json.success)
+            {
+                error(json.message);
+                Environment.Exit(0);
+                return null;
+            }
+            else
+            {
+                // optional success msg
+                return json.response;
+            }
+        }
+
         public void ban()
         {
             if (!initzalized)
             {
-                Console.WriteLine("\n\n Please initzalize first");
-                return;
+                error("Please initzalize first");
+                Environment.Exit(0);
             }
 
             var init_iv = encryption.sha256(encryption.iv_key());
@@ -316,8 +403,7 @@ namespace KeyAuth {
 
             if (!json.success)
             {
-                Console.WriteLine("\n\n " + json.message);
-                Thread.Sleep(3500);
+                error(json.message);
                 Environment.Exit(0);
             }
             else
@@ -330,8 +416,8 @@ namespace KeyAuth {
         {
             if (!initzalized)
             {
-                Console.WriteLine("\n\n Please initzalize first");
-                return "";
+                error("Please initzalize first");
+                Environment.Exit(0);
             }
 
             string hwid = WindowsIdentity.GetCurrent().User.Value;
@@ -355,22 +441,132 @@ namespace KeyAuth {
 
             if (!json.success)
             {
-                Console.WriteLine("\n\n " + json.message);
-                Thread.Sleep(3500);
-                return "";
+                error(json.message);
+                Environment.Exit(0);
+                return null;
             }
             else
             {
                 return json.message;
             }
         }
-        
+
+        public List<msg> chatget(string channelname)
+        {
+            if (!initzalized)
+            {
+                error("Please initzalize first");
+                Environment.Exit(0);
+            }
+
+            var init_iv = encryption.sha256(encryption.iv_key());
+
+            var values_to_upload = new NameValueCollection
+            {
+                ["type"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes("chatget")),
+                ["channel"] = encryption.encrypt(channelname, enckey, init_iv),
+                ["sessionid"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(sessionid)),
+                ["name"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(name)),
+                ["ownerid"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(ownerid)),
+                ["init_iv"] = init_iv
+            };
+
+            var response = req(values_to_upload);
+
+            response = encryption.decrypt(response, enckey, init_iv);
+            var json = response_decoder.string_to_generic<response_structure>(response);
+
+            if (!json.success)
+            {
+                error(json.message);
+                Environment.Exit(0);
+                return null;
+            }
+            else
+            {
+                return json.messages;
+            }
+        }
+
+        public bool chatsend(string msg, string channelname)
+        {
+            if (!initzalized)
+            {
+                error("Please initzalize first");
+                Environment.Exit(0);
+            }
+
+            var init_iv = encryption.sha256(encryption.iv_key());
+
+            var values_to_upload = new NameValueCollection
+            {
+                ["type"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes("chatsend")),
+                ["message"] = encryption.encrypt(msg, enckey, init_iv),
+                ["channel"] = encryption.encrypt(channelname, enckey, init_iv),
+                ["sessionid"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(sessionid)),
+                ["name"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(name)),
+                ["ownerid"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(ownerid)),
+                ["init_iv"] = init_iv
+            };
+
+            var response = req(values_to_upload);
+
+            response = encryption.decrypt(response, enckey, init_iv);
+            var json = response_decoder.string_to_generic<response_structure>(response);
+
+            if (!json.success)
+            {
+                error(json.message);
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public bool checkblack()
+        {
+            if (!initzalized)
+            {
+                error("Please initzalize first");
+                Environment.Exit(0);
+            }
+            string hwid = WindowsIdentity.GetCurrent().User.Value;
+
+            var init_iv = encryption.sha256(encryption.iv_key());
+
+            var values_to_upload = new NameValueCollection
+            {
+                ["type"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes("checkblacklist")),
+                ["hwid"] = encryption.encrypt(hwid, enckey, init_iv),
+                ["sessionid"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(sessionid)),
+                ["name"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(name)),
+                ["ownerid"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(ownerid)),
+                ["init_iv"] = init_iv
+            };
+
+            var response = req(values_to_upload);
+
+            response = encryption.decrypt(response, enckey, init_iv);
+            var json = response_decoder.string_to_generic<response_structure>(response);
+
+            if (!json.success)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
         public void webhook(string webid, string param)
         {
             if (!initzalized)
             {
-                Console.WriteLine("\n\n Please initzalize first");
-                return;
+                error("Please initzalize first");
+                Environment.Exit(0);
             }
 
             var init_iv = encryption.sha256(encryption.iv_key());
@@ -394,7 +590,8 @@ namespace KeyAuth {
 
             if (!json.success)
             {
-                Console.WriteLine("\n\n " + json.message);
+                error(json.message);
+                Environment.Exit(0);
             }
             else
             {
@@ -406,8 +603,8 @@ namespace KeyAuth {
         {
             if (!initzalized)
             {
-                Console.WriteLine("\n\n Please initzalize first. File is empty since no request could be made.");
-                return new byte[0];
+                error("Please initzalize first. File is empty since no request could be made.");
+                Environment.Exit(0);
             }
 
             var init_iv = encryption.sha256(encryption.iv_key());
@@ -424,15 +621,15 @@ namespace KeyAuth {
             };
 
             var response = req(values_to_upload);
-            
+
             response = encryption.decrypt(response, enckey, init_iv);
-            
+
             var json = response_decoder.string_to_generic<response_structure>(response);
 
             if (!json.success)
             {
-                Console.WriteLine("\n\n " + json.message);
-                return new byte[0];
+                error(json.message);
+                Environment.Exit(0);
             }
             else
             {
@@ -446,8 +643,8 @@ namespace KeyAuth {
         {
             if (!initzalized)
             {
-                Console.WriteLine("\n\n Please initzalize first");
-                return;
+                error("Please initzalize first");
+                Environment.Exit(0);
             }
 
             var init_iv = encryption.sha256(encryption.iv_key());
@@ -464,14 +661,37 @@ namespace KeyAuth {
 
             req(values_to_upload);
         }
-
+        public static string checksum(string filename)
+        {
+            string result;
+            using (MD5 md = MD5.Create())
+            {
+                using (FileStream fileStream = File.OpenRead(filename))
+                {
+                    byte[] value = md.ComputeHash(fileStream);
+                    result = BitConverter.ToString(value).Replace("-", "").ToLowerInvariant();
+                }
+            }
+            return result;
+        }
+        public static void error(string message)
+        {
+            Process.Start(new ProcessStartInfo("cmd.exe", $"/c start cmd /C \"color b && title Error && echo {message} && timeout /t 5\"")
+            {
+                CreateNoWindow = true,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                UseShellExecute = false
+            });
+            Environment.Exit(0);
+        }
         private static string req(NameValueCollection post_data)
         {
             try
             {
                 using (WebClient client = new WebClient())
                 {
-                    var raw_response = client.UploadValues("https://keyauth.uk/api/1.0/", post_data);
+                    var raw_response = client.UploadValues("https://keyauth.win/api/1.0/", post_data);
 
                     return Encoding.Default.GetString(raw_response);
                 }
@@ -482,14 +702,12 @@ namespace KeyAuth {
                 switch (response.StatusCode)
                 {
                     case (HttpStatusCode)429: // client hit our rate limit
-                        Console.WriteLine("\n\n  You're connecting too fast to loader, slow down.");
-                        Thread.Sleep(3500);
+                        error("You're connecting too fast to loader, slow down.");
                         Environment.Exit(0);
                         return "";
                         break;
                     default: // site won't resolve. you should use keyauth.uk domain since it's not blocked by any ISPs
-                        Console.WriteLine("\n\n  Connection failure. Please try again, or contact us for help.");
-                        Thread.Sleep(3500);
+                        error("Connection failure. Please try again, or contact us for help.");
                         Environment.Exit(0);
                         return "";
                 }
@@ -500,54 +718,79 @@ namespace KeyAuth {
         #region user_data
         public user_data_class user_data = new user_data_class();
 
-        public class user_data_class {
+        public class user_data_class
+        {
             public string username { get; set; }
-            public List<Data> subscriptions { get; set; }
-
             public string ip { get; set; }
+            public string hwid { get; set; }
+            public string createdate { get; set; }
+            public string lastlogin { get; set; }
+            public List<Data> subscriptions { get; set; } // array of subscriptions (basically multiple user ranks for user with individual expiry dates
         }
         public class Data
         {
             public string subscription { get; set; }
             public string expiry { get; set; }
+            public string timeleft { get; set; }
         }
 
-        private void load_user_data(user_data_structure data) {
+        private void load_user_data(user_data_structure data)
+        {
             user_data.username = data.username;
             user_data.ip = data.ip;
-            user_data.subscriptions = data.subscriptions;
+            user_data.hwid = data.hwid;
+            user_data.createdate = data.createdate;
+            user_data.lastlogin = data.lastlogin;
+            user_data.subscriptions = data.subscriptions; // array of subscriptions (basically multiple user ranks for user with individual expiry dates 
         }
         #endregion
 
         private json_wrapper response_decoder = new json_wrapper(new response_structure());
     }
 
-    public static class encryption {
-        public static string byte_arr_to_str(byte[] ba) {
+    public static class encryption
+    {
+        public static string byte_arr_to_str(byte[] ba)
+        {
             StringBuilder hex = new StringBuilder(ba.Length * 2);
             foreach (byte b in ba)
                 hex.AppendFormat("{0:x2}", b);
             return hex.ToString();
         }
 
-        public static byte[] str_to_byte_arr(string hex) {
-            int NumberChars = hex.Length;
-            byte[] bytes = new byte[NumberChars / 2];
-            for (int i = 0; i < NumberChars; i += 2)
-                bytes[i / 2] = Convert.ToByte(hex.Substring(i, 2), 16);
-            return bytes;
+        public static byte[] str_to_byte_arr(string hex)
+        {
+            try
+            {
+                int NumberChars = hex.Length;
+                byte[] bytes = new byte[NumberChars / 2];
+                for (int i = 0; i < NumberChars; i += 2)
+                    bytes[i / 2] = Convert.ToByte(hex.Substring(i, 2), 16);
+                return bytes;
+            }
+            catch
+            {
+                Console.WriteLine("\n\n  The session has ended, open program again.");
+                Thread.Sleep(3500);
+                Environment.Exit(0);
+                return null;
+            }
         }
 
-        public static string encrypt_string(string plain_text, byte[] key, byte[] iv) {
+        public static string encrypt_string(string plain_text, byte[] key, byte[] iv)
+        {
             Aes encryptor = Aes.Create();
 
             encryptor.Mode = CipherMode.CBC;
             encryptor.Key = key;
             encryptor.IV = iv;
 
-            using (MemoryStream mem_stream = new MemoryStream()) {
-                using (ICryptoTransform aes_encryptor = encryptor.CreateEncryptor()) {
-                    using (CryptoStream crypt_stream = new CryptoStream(mem_stream, aes_encryptor, CryptoStreamMode.Write)) {
+            using (MemoryStream mem_stream = new MemoryStream())
+            {
+                using (ICryptoTransform aes_encryptor = encryptor.CreateEncryptor())
+                {
+                    using (CryptoStream crypt_stream = new CryptoStream(mem_stream, aes_encryptor, CryptoStreamMode.Write))
+                    {
                         byte[] p_bytes = Encoding.Default.GetBytes(plain_text);
 
                         crypt_stream.Write(p_bytes, 0, p_bytes.Length);
@@ -562,16 +805,20 @@ namespace KeyAuth {
             }
         }
 
-        public static string decrypt_string(string cipher_text, byte[] key, byte[] iv) {
+        public static string decrypt_string(string cipher_text, byte[] key, byte[] iv)
+        {
             Aes encryptor = Aes.Create();
 
             encryptor.Mode = CipherMode.CBC;
             encryptor.Key = key;
             encryptor.IV = iv;
 
-            using (MemoryStream mem_stream = new MemoryStream()) {
-                using (ICryptoTransform aes_decryptor = encryptor.CreateDecryptor()) {
-                    using (CryptoStream crypt_stream = new CryptoStream(mem_stream, aes_decryptor, CryptoStreamMode.Write)) {
+            using (MemoryStream mem_stream = new MemoryStream())
+            {
+                using (ICryptoTransform aes_decryptor = encryptor.CreateDecryptor())
+                {
+                    using (CryptoStream crypt_stream = new CryptoStream(mem_stream, aes_decryptor, CryptoStreamMode.Write))
+                    {
                         byte[] c_bytes = str_to_byte_arr(cipher_text);
 
                         crypt_stream.Write(c_bytes, 0, c_bytes.Length);
@@ -592,7 +839,8 @@ namespace KeyAuth {
         public static string sha256(string r) =>
             byte_arr_to_str(new SHA256Managed().ComputeHash(Encoding.Default.GetBytes(r)));
 
-        public static string encrypt(string message, string enc_key, string iv) {
+        public static string encrypt(string message, string enc_key, string iv)
+        {
             byte[] _key = Encoding.Default.GetBytes(sha256(enc_key).Substring(0, 32));
 
             byte[] _iv = Encoding.Default.GetBytes(sha256(iv).Substring(0, 16));
@@ -600,7 +848,8 @@ namespace KeyAuth {
             return encrypt_string(message, _key, _iv);
         }
 
-        public static string decrypt(string message, string enc_key, string iv) {
+        public static string decrypt(string message, string enc_key, string iv)
+        {
             byte[] _key = Encoding.Default.GetBytes(sha256(enc_key).Substring(0, 32));
 
             byte[] _iv = Encoding.Default.GetBytes(sha256(iv).Substring(0, 16));
@@ -609,11 +858,13 @@ namespace KeyAuth {
         }
     }
 
-    public class json_wrapper {
+    public class json_wrapper
+    {
         public static bool is_serializable(Type to_check) =>
             to_check.IsSerializable || to_check.IsDefined(typeof(DataContractAttribute), true);
 
-        public json_wrapper(object obj_to_work_with) {
+        public json_wrapper(object obj_to_work_with)
+        {
             current_object = obj_to_work_with;
 
             var object_type = current_object.GetType();
@@ -624,7 +875,8 @@ namespace KeyAuth {
                 throw new Exception($"the object {current_object} isn't a serializable");
         }
 
-        public object string_to_object(string json) {
+        public object string_to_object(string json)
+        {
             var buffer = Encoding.Default.GetBytes(json);
 
             //SerializationException = session expired

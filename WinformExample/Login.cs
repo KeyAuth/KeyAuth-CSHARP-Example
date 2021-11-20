@@ -27,16 +27,16 @@ namespace KeyAuth
         static string version = "1.0"; // leave alone unless you've changed version on website
 
         /*
-        Optional Functions:
-        
-        KeyAuthApp.webhook("lfvbBrbFhIr", "?sellerkey=CUqDqlCIgl&type=resethash");
-        // send secure request to webhook which is impossible to crack into. the base link set on the website is https://keyauth.com/api/seller/, which nobody except you can see, so the final request is https://keyauth.com/api/seller/?sellerkey=CUqDqlCIgl&type=resethash
-        
-        // byte[] result = KeyAuthApp.download("902901"); // downloads application file
-        // File.WriteAllBytes("C:\\Users\\mak\\Downloads\\KeyAuth-CSHARP-Example-main (5)\\KeyAuth-CSHARP-Example-main\\ConsoleExample\\bin\\Debug\\countkeys.txt", result);
-        
-        MessageBox.Show(KeyAuthApp.var("123456")); // retrieve application variable
-        */
+Optional Functions:
+
+KeyAuthApp.webhook("lfvbBrbFhIr", "?sellerkey=CUqDqlCIgl&type=resethash");
+// send secure request to webhook which is impossible to crack into. the base link set on the website is https://keyauth.com/api/seller/, which nobody except you can see, so the final request is https://keyauth.com/api/seller/?sellerkey=CUqDqlCIgl&type=resethash
+
+// byte[] result = KeyAuthApp.download("902901"); // downloads application file
+// File.WriteAllBytes("C:\\Users\\mak\\Downloads\\KeyAuth-CSHARP-Example-main (5)\\KeyAuth-CSHARP-Example-main\\ConsoleExample\\bin\\Debug\\countkeys.txt", result);
+
+MessageBox.Show(KeyAuthApp.var("123456")); // retrieve application variable
+*/
 
         // KeyAuthApp.register("username", "password", "key");
         //KeyAuthApp.login("username", "password"); 
@@ -56,6 +56,10 @@ namespace KeyAuth
         private void Login_Load(object sender, EventArgs e)
         {
             KeyAuthApp.init();
+            if(KeyAuthApp.checkblack()) // check if hwid is blacklisted
+            {
+                Environment.Exit(0);
+            }
         }
 
         private void UpgradeBtn_Click(object sender, EventArgs e)
@@ -66,32 +70,26 @@ namespace KeyAuth
 
         private void LoginBtn_Click(object sender, EventArgs e)
         {
-            if (KeyAuthApp.login(username.Text,password.Text))
-            {
-                Main main = new Main();
-                main.Show();
-                this.Hide();
-            }
+            KeyAuthApp.login(username.Text,password.Text);
+            Main main = new Main();
+            main.Show();
+            this.Hide();
         }
 
         private void RgstrBtn_Click(object sender, EventArgs e)
         {
-            if (KeyAuthApp.register(username.Text, password.Text, key.Text))
-            {
-                Main main = new Main();
-                main.Show();
-                this.Hide();
-            }
+            KeyAuthApp.register(username.Text, password.Text, key.Text);
+             Main main = new Main();
+             main.Show();
+             this.Hide();   
         }
 
         private void LicBtn_Click(object sender, EventArgs e)
         {
-            if (KeyAuthApp.license(key.Text))
-            {
-                Main main = new Main();
-                main.Show();
-                this.Hide();
-            }
+            KeyAuthApp.license(key.Text);
+            Main main = new Main();
+            main.Show();
+            this.Hide();
         }
     }
 }

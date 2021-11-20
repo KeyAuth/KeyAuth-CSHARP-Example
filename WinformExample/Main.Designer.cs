@@ -14,7 +14,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            Siticone.UI.AnimatorNS.Animation animation3 = new Siticone.UI.AnimatorNS.Animation();
+            Siticone.UI.AnimatorNS.Animation animation1 = new Siticone.UI.AnimatorNS.Animation();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.siticoneDragControl1 = new Siticone.UI.WinForms.SiticoneDragControl(this.components);
             this.siticoneControlBox1 = new Siticone.UI.WinForms.SiticoneControlBox();
@@ -25,7 +25,15 @@
             this.key = new Siticone.UI.WinForms.SiticoneLabel();
             this.expiry = new Siticone.UI.WinForms.SiticoneLabel();
             this.subscription = new Siticone.UI.WinForms.SiticoneLabel();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Sender = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Message = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sendmsg = new Siticone.UI.WinForms.SiticoneRoundedButton();
+            this.chatmsg = new Siticone.UI.WinForms.SiticoneRoundedTextBox();
             this.siticoneShadowForm = new Siticone.UI.WinForms.SiticoneShadowForm(this.components);
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // siticoneDragControl1
@@ -42,7 +50,7 @@
             this.siticoneControlBox1.HoveredState.IconColor = System.Drawing.Color.White;
             this.siticoneControlBox1.HoveredState.Parent = this.siticoneControlBox1;
             this.siticoneControlBox1.IconColor = System.Drawing.Color.White;
-            this.siticoneControlBox1.Location = new System.Drawing.Point(294, 4);
+            this.siticoneControlBox1.Location = new System.Drawing.Point(618, 4);
             this.siticoneControlBox1.Name = "siticoneControlBox1";
             this.siticoneControlBox1.ShadowDecoration.Parent = this.siticoneControlBox1;
             this.siticoneControlBox1.Size = new System.Drawing.Size(45, 29);
@@ -58,7 +66,7 @@
             this.siticoneControlBox2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(42)))));
             this.siticoneControlBox2.HoveredState.Parent = this.siticoneControlBox2;
             this.siticoneControlBox2.IconColor = System.Drawing.Color.White;
-            this.siticoneControlBox2.Location = new System.Drawing.Point(249, 4);
+            this.siticoneControlBox2.Location = new System.Drawing.Point(573, 4);
             this.siticoneControlBox2.Name = "siticoneControlBox2";
             this.siticoneControlBox2.ShadowDecoration.Parent = this.siticoneControlBox2;
             this.siticoneControlBox2.Size = new System.Drawing.Size(45, 29);
@@ -68,22 +76,22 @@
             // 
             this.siticoneTransition1.AnimationType = Siticone.UI.AnimatorNS.AnimationType.Rotate;
             this.siticoneTransition1.Cursor = null;
-            animation3.AnimateOnlyDifferences = true;
-            animation3.BlindCoeff = ((System.Drawing.PointF)(resources.GetObject("animation3.BlindCoeff")));
-            animation3.LeafCoeff = 0F;
-            animation3.MaxTime = 1F;
-            animation3.MinTime = 0F;
-            animation3.MosaicCoeff = ((System.Drawing.PointF)(resources.GetObject("animation3.MosaicCoeff")));
-            animation3.MosaicShift = ((System.Drawing.PointF)(resources.GetObject("animation3.MosaicShift")));
-            animation3.MosaicSize = 0;
-            animation3.Padding = new System.Windows.Forms.Padding(50);
-            animation3.RotateCoeff = 1F;
-            animation3.RotateLimit = 0F;
-            animation3.ScaleCoeff = ((System.Drawing.PointF)(resources.GetObject("animation3.ScaleCoeff")));
-            animation3.SlideCoeff = ((System.Drawing.PointF)(resources.GetObject("animation3.SlideCoeff")));
-            animation3.TimeCoeff = 0F;
-            animation3.TransparencyCoeff = 1F;
-            this.siticoneTransition1.DefaultAnimation = animation3;
+            animation1.AnimateOnlyDifferences = true;
+            animation1.BlindCoeff = ((System.Drawing.PointF)(resources.GetObject("animation1.BlindCoeff")));
+            animation1.LeafCoeff = 0F;
+            animation1.MaxTime = 1F;
+            animation1.MinTime = 0F;
+            animation1.MosaicCoeff = ((System.Drawing.PointF)(resources.GetObject("animation1.MosaicCoeff")));
+            animation1.MosaicShift = ((System.Drawing.PointF)(resources.GetObject("animation1.MosaicShift")));
+            animation1.MosaicSize = 0;
+            animation1.Padding = new System.Windows.Forms.Padding(50);
+            animation1.RotateCoeff = 1F;
+            animation1.RotateLimit = 0F;
+            animation1.ScaleCoeff = ((System.Drawing.PointF)(resources.GetObject("animation1.ScaleCoeff")));
+            animation1.SlideCoeff = ((System.Drawing.PointF)(resources.GetObject("animation1.SlideCoeff")));
+            animation1.TimeCoeff = 0F;
+            animation1.TransparencyCoeff = 1F;
+            this.siticoneTransition1.DefaultAnimation = animation1;
             // 
             // label1
             // 
@@ -148,13 +156,102 @@
             this.subscription.TabIndex = 39;
             this.subscription.Text = "subscriptionLabel";
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Sender,
+            this.Message,
+            this.Time});
+            this.siticoneTransition1.SetDecoration(this.dataGridView1, Siticone.UI.AnimatorNS.DecorationType.None);
+            this.dataGridView1.Location = new System.Drawing.Point(20, 278);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(493, 227);
+            this.dataGridView1.TabIndex = 41;
+            // 
+            // Sender
+            // 
+            this.Sender.HeaderText = "Sender";
+            this.Sender.Name = "Sender";
+            this.Sender.Width = 75;
+            // 
+            // Message
+            // 
+            this.Message.HeaderText = "Message";
+            this.Message.Name = "Message";
+            this.Message.Width = 200;
+            // 
+            // Time
+            // 
+            this.Time.HeaderText = "Time";
+            this.Time.MaxInputLength = 50000;
+            this.Time.Name = "Time";
+            this.Time.Width = 175;
+            // 
+            // sendmsg
+            // 
+            this.sendmsg.BorderColor = System.Drawing.Color.DodgerBlue;
+            this.sendmsg.BorderThickness = 1;
+            this.sendmsg.CheckedState.Parent = this.sendmsg;
+            this.sendmsg.CustomImages.Parent = this.sendmsg;
+            this.siticoneTransition1.SetDecoration(this.sendmsg, Siticone.UI.AnimatorNS.DecorationType.None);
+            this.sendmsg.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(127)))), ((int)(((byte)(243)))));
+            this.sendmsg.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.sendmsg.ForeColor = System.Drawing.Color.White;
+            this.sendmsg.HoveredState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(218)))), ((int)(((byte)(223)))));
+            this.sendmsg.HoveredState.Parent = this.sendmsg;
+            this.sendmsg.Location = new System.Drawing.Point(362, 511);
+            this.sendmsg.Name = "sendmsg";
+            this.sendmsg.ShadowDecoration.Parent = this.sendmsg;
+            this.sendmsg.Size = new System.Drawing.Size(151, 27);
+            this.sendmsg.TabIndex = 42;
+            this.sendmsg.Text = "Send";
+            this.sendmsg.Click += new System.EventHandler(this.sendmsg_Click);
+            // 
+            // chatmsg
+            // 
+            this.chatmsg.AllowDrop = true;
+            this.chatmsg.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(127)))), ((int)(((byte)(243)))));
+            this.chatmsg.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.siticoneTransition1.SetDecoration(this.chatmsg, Siticone.UI.AnimatorNS.DecorationType.None);
+            this.chatmsg.DefaultText = "Messages";
+            this.chatmsg.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.chatmsg.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.chatmsg.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.chatmsg.DisabledState.Parent = this.chatmsg;
+            this.chatmsg.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.chatmsg.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(42)))));
+            this.chatmsg.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.chatmsg.FocusedState.Parent = this.chatmsg;
+            this.chatmsg.HoveredState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.chatmsg.HoveredState.Parent = this.chatmsg;
+            this.chatmsg.Location = new System.Drawing.Point(20, 508);
+            this.chatmsg.Margin = new System.Windows.Forms.Padding(4);
+            this.chatmsg.Name = "chatmsg";
+            this.chatmsg.PasswordChar = '\0';
+            this.chatmsg.PlaceholderText = "";
+            this.chatmsg.SelectedText = "";
+            this.chatmsg.ShadowDecoration.Parent = this.chatmsg;
+            this.chatmsg.Size = new System.Drawing.Size(335, 30);
+            this.chatmsg.TabIndex = 43;
+            this.chatmsg.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 1;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(42)))));
-            this.ClientSize = new System.Drawing.Size(343, 278);
+            this.ClientSize = new System.Drawing.Size(667, 543);
+            this.Controls.Add(this.chatmsg);
+            this.Controls.Add(this.sendmsg);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.subscription);
             this.Controls.Add(this.expiry);
             this.Controls.Add(this.key);
@@ -169,6 +266,7 @@
             this.Text = "Loader";
             this.TransparencyKey = System.Drawing.Color.Maroon;
             this.Load += new System.EventHandler(this.Main_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -196,5 +294,12 @@
         private Siticone.UI.WinForms.SiticoneLabel subscription;
         private Siticone.UI.WinForms.SiticoneLabel expiry;
         private Siticone.UI.WinForms.SiticoneLabel key;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Sender;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Message;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Time;
+        private Siticone.UI.WinForms.SiticoneRoundedButton sendmsg;
+        private Siticone.UI.WinForms.SiticoneRoundedTextBox chatmsg;
+        private System.Windows.Forms.Timer timer1;
     }
 }
