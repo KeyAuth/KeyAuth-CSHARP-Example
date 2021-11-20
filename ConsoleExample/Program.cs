@@ -85,6 +85,7 @@ namespace KeyAuth
             Console.WriteLine("\n  Username: " + KeyAuthApp.user_data.username);
             Console.WriteLine("\n  IP address: " + KeyAuthApp.user_data.ip);
             Console.WriteLine("\n  Hardware-Id: " + KeyAuthApp.user_data.hwid);
+			if (!String.IsNullOrEmpty(KeyAuthApp.user_data.createdate))
             Console.WriteLine("\n  Created at: " + UnixTimeToDateTime(long.Parse(KeyAuthApp.user_data.createdate)));
             if (!String.IsNullOrEmpty(KeyAuthApp.user_data.lastlogin)) // don't show last login on register since there is no last login at that point
                 Console.WriteLine("\n  Last login at: " + UnixTimeToDateTime(long.Parse(KeyAuthApp.user_data.lastlogin)));
