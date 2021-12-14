@@ -561,12 +561,13 @@ namespace KeyAuth
             }
         }
 
-        public void webhook(string webid, string param)
+        public string webhook(string webid, string param)
         {
             if (!initzalized)
             {
                 error("Please initzalize first");
                 Environment.Exit(0);
+                return null;
             }
 
             var init_iv = encryption.sha256(encryption.iv_key());
@@ -592,9 +593,11 @@ namespace KeyAuth
             {
                 error(json.message);
                 Environment.Exit(0);
+                return null;
             }
             else
             {
+                return json.response;
                 // optional success message
             }
         }

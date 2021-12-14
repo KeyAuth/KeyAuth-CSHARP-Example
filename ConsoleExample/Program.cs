@@ -105,6 +105,14 @@ namespace KeyAuth
             // File.WriteAllBytes("C:\\Users\\mak\\Downloads\\KeyAuth-CSHARP-Example-main (5)\\KeyAuth-CSHARP-Example-main\\ConsoleExample\\bin\\Debug\\countkeys.txt", result);
 
             // Console.WriteLine(KeyAuthApp.var("testvar"));
+			
+			// check if user has subscription with name. Subscription name is case sensitive
+            // string sub = "default";
+            // var hasSub = KeyAuthApp.user_data.subscriptions.Where(x => x.subscription.Contains(sub)).FirstOrDefault();
+            // if (hasSub != null)
+            // {
+            //     Console.WriteLine("\n  This user has subscription with name: " + sub);
+            // }
 
             // KeyAuthApp.ban(); // ban the current user, must be logged in
 
