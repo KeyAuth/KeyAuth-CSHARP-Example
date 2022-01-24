@@ -19,16 +19,26 @@ namespace KeyAuth
 
         public static api KeyAuthApp = new api(name, ownerid, secret, version);
 
-        static void Main(string[] args) {            
+        static void Main(string[] args)
+        {
+            string username;
+            string password;
+            string key;
+
+            username = Loader.Properties.Settings.Default.userName;
+            password = Loader.Properties.Settings.Default.userPassword;
+            key = Loader.Properties.Settings.Default.userKey;
             Console.Title = "Loader";
             Console.WriteLine("\n\n Connecting..");
             KeyAuthApp.init();
-            if (!KeyAuthApp.response.success)
-            {
-                Console.WriteLine("\n Status: " + KeyAuthApp.response.message);
-                Thread.Sleep(1500);
-                Environment.Exit(0);
-            }
+
+            //if (!KeyAuthApp.response.success)
+            //{
+            //    Console.WriteLine("\n Status: " + KeyAuthApp.response.message);
+            //    Thread.Sleep(1500);
+            //    Environment.Exit(0);
+            //}
+
             // app data
             Console.WriteLine("\n App data:");
             Console.WriteLine(" Number of users: " + KeyAuthApp.app_data.numUsers);
@@ -39,20 +49,35 @@ namespace KeyAuth
 
             Console.WriteLine("\n [1] Login\n [2] Register\n [3] Upgrade\n [4] License key only\n\n Choose option: ");
 
-            string username;
-            string password;
-            string key;
 
             int option = int.Parse(Console.ReadLine());
             switch (option)
             {
                 case 1:
-                    Console.WriteLine("\n\n Enter username: ");
-                    username = Console.ReadLine();
-                    Console.WriteLine("\n\n Enter password: ");
-                    password = Console.ReadLine();
-                    KeyAuthApp.login(username, password);
+                    if (Loader.Properties.Settings.Default.userKey != null)
+                    {
+                        Console.WriteLine("\n\n Previous UserName , Password Is Added ");
+                        username = Loader.Properties.Settings.Default.userName;
+                        password = Loader.Properties.Settings.Default.userPassword;
+                        KeyAuthApp.login(username, password);
+                    }
+                    if(!KeyAuthApp.response.success)
+                    {
+                        Console.WriteLine("\n\n (Previous UserName and Password Cant be Found) Please Enter Your UserName and Password: ");
+                        Console.WriteLine("\n\n Enter username: ");
+                        username = Console.ReadLine();
+                        Console.WriteLine("\n\n Enter password: ");
+                        password = Console.ReadLine();
+                        KeyAuthApp.login(username, password);
+                    }
+                    if (KeyAuthApp.response.success)
+                    {
+                        Loader.Properties.Settings.Default.userName = username;
+                        Loader.Properties.Settings.Default.userPassword = password;
+                        Loader.Properties.Settings.Default.Save();
+                    }
                     break;
+
                 case 2:
                     Console.WriteLine("\n\n Enter username: ");
                     username = Console.ReadLine();
@@ -61,6 +86,14 @@ namespace KeyAuth
                     Console.WriteLine("\n\n Enter license: ");
                     key = Console.ReadLine();
                     KeyAuthApp.register(username, password, key);
+                    if (KeyAuthApp.response.success)
+                    {
+                        Loader.Properties.Settings.Default.userName = username;
+                        Loader.Properties.Settings.Default.userPassword = password;
+                        Loader.Properties.Settings.Default.userKey = key;
+                        Loader.Properties.Settings.Default.Save();
+                    }
+
                     break;
                 case 3:
                     Console.WriteLine("\n\n Enter username: ");
@@ -69,10 +102,25 @@ namespace KeyAuth
                     key = Console.ReadLine();
                     KeyAuthApp.upgrade(username, key);
                     break;
-                case 4:
-                    Console.WriteLine("\n\n Enter license: ");
-                    key = Console.ReadLine();
-                    KeyAuthApp.license(key);
+                case 4:       
+                    if (Loader.Properties.Settings.Default.userKey != null)
+                    {
+                        Console.WriteLine("\n\n Previous Key : ");
+                        Console.Write(Loader.Properties.Settings.Default.userKey);
+                        key = Loader.Properties.Settings.Default.userKey;
+                        KeyAuthApp.license(key);
+                    }
+                    if(!KeyAuthApp.response.success)
+                    {
+                        Console.WriteLine("\n\n (Previous license is not working) Enter New license: ");
+                        key = Console.ReadLine();
+                        KeyAuthApp.license(key);
+                    }
+                    if (KeyAuthApp.response.success)
+                    {
+                        Loader.Properties.Settings.Default.userKey = key;
+                        Loader.Properties.Settings.Default.Save();
+                    }
                     break;
                 default:
                     Console.WriteLine("\n\n Invalid Selection");
