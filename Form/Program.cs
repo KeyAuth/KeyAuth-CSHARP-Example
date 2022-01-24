@@ -19,6 +19,7 @@ namespace KeyAuth
 
         static void Main()
         {
+            anticrack.Start(); //To Start Anti Dump System
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Login());
