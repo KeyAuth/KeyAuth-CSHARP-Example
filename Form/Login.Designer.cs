@@ -18,7 +18,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            Siticone.UI.AnimatorNS.Animation animation3 = new Siticone.UI.AnimatorNS.Animation();
+            Siticone.UI.AnimatorNS.Animation animation2 = new Siticone.UI.AnimatorNS.Animation();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             this.siticoneDragControl1 = new Siticone.UI.WinForms.SiticoneDragControl(this.components);
             this.siticoneControlBox1 = new Siticone.UI.WinForms.SiticoneControlBox();
@@ -33,8 +33,9 @@
             this.RgstrBtn = new Siticone.UI.WinForms.SiticoneRoundedButton();
             this.UpgradeBtn = new Siticone.UI.WinForms.SiticoneRoundedButton();
             this.LicBtn = new Siticone.UI.WinForms.SiticoneRoundedButton();
-            this.siticoneShadowForm = new Siticone.UI.WinForms.SiticoneShadowForm(this.components);
             this.status = new Siticone.UI.WinForms.SiticoneLabel();
+            this.siticoneShadowForm = new Siticone.UI.WinForms.SiticoneShadowForm(this.components);
+            this.remember_checkBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // siticoneDragControl1
@@ -77,22 +78,22 @@
             // 
             this.siticoneTransition1.AnimationType = Siticone.UI.AnimatorNS.AnimationType.Rotate;
             this.siticoneTransition1.Cursor = null;
-            animation3.AnimateOnlyDifferences = true;
-            animation3.BlindCoeff = ((System.Drawing.PointF)(resources.GetObject("animation3.BlindCoeff")));
-            animation3.LeafCoeff = 0F;
-            animation3.MaxTime = 1F;
-            animation3.MinTime = 0F;
-            animation3.MosaicCoeff = ((System.Drawing.PointF)(resources.GetObject("animation3.MosaicCoeff")));
-            animation3.MosaicShift = ((System.Drawing.PointF)(resources.GetObject("animation3.MosaicShift")));
-            animation3.MosaicSize = 0;
-            animation3.Padding = new System.Windows.Forms.Padding(50);
-            animation3.RotateCoeff = 1F;
-            animation3.RotateLimit = 0F;
-            animation3.ScaleCoeff = ((System.Drawing.PointF)(resources.GetObject("animation3.ScaleCoeff")));
-            animation3.SlideCoeff = ((System.Drawing.PointF)(resources.GetObject("animation3.SlideCoeff")));
-            animation3.TimeCoeff = 0F;
-            animation3.TransparencyCoeff = 1F;
-            this.siticoneTransition1.DefaultAnimation = animation3;
+            animation2.AnimateOnlyDifferences = true;
+            animation2.BlindCoeff = ((System.Drawing.PointF)(resources.GetObject("animation2.BlindCoeff")));
+            animation2.LeafCoeff = 0F;
+            animation2.MaxTime = 1F;
+            animation2.MinTime = 0F;
+            animation2.MosaicCoeff = ((System.Drawing.PointF)(resources.GetObject("animation2.MosaicCoeff")));
+            animation2.MosaicShift = ((System.Drawing.PointF)(resources.GetObject("animation2.MosaicShift")));
+            animation2.MosaicSize = 0;
+            animation2.Padding = new System.Windows.Forms.Padding(50);
+            animation2.RotateCoeff = 1F;
+            animation2.RotateLimit = 0F;
+            animation2.ScaleCoeff = ((System.Drawing.PointF)(resources.GetObject("animation2.ScaleCoeff")));
+            animation2.SlideCoeff = ((System.Drawing.PointF)(resources.GetObject("animation2.SlideCoeff")));
+            animation2.TimeCoeff = 0F;
+            animation2.TransparencyCoeff = 1F;
+            this.siticoneTransition1.DefaultAnimation = animation2;
             // 
             // label1
             // 
@@ -144,7 +145,7 @@
             this.key.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(127)))), ((int)(((byte)(243)))));
             this.key.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.siticoneTransition1.SetDecoration(this.key, Siticone.UI.AnimatorNS.DecorationType.None);
-            this.key.DefaultText = "Key";
+            this.key.DefaultText = "";
             this.key.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
             this.key.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
             this.key.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
@@ -159,7 +160,7 @@
             this.key.Margin = new System.Windows.Forms.Padding(4);
             this.key.Name = "key";
             this.key.PasswordChar = '\0';
-            this.key.PlaceholderText = "";
+            this.key.PlaceholderText = "Key";
             this.key.SelectedText = "";
             this.key.ShadowDecoration.Parent = this.key;
             this.key.Size = new System.Drawing.Size(236, 30);
@@ -172,7 +173,7 @@
             this.username.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(127)))), ((int)(((byte)(243)))));
             this.username.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.siticoneTransition1.SetDecoration(this.username, Siticone.UI.AnimatorNS.DecorationType.None);
-            this.username.DefaultText = "Username";
+            this.username.DefaultText = "";
             this.username.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
             this.username.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
             this.username.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
@@ -187,7 +188,7 @@
             this.username.Margin = new System.Windows.Forms.Padding(4);
             this.username.Name = "username";
             this.username.PasswordChar = '\0';
-            this.username.PlaceholderText = "";
+            this.username.PlaceholderText = "Username";
             this.username.SelectedText = "";
             this.username.ShadowDecoration.Parent = this.username;
             this.username.Size = new System.Drawing.Size(236, 30);
@@ -200,7 +201,7 @@
             this.password.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(127)))), ((int)(((byte)(243)))));
             this.password.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.siticoneTransition1.SetDecoration(this.password, Siticone.UI.AnimatorNS.DecorationType.None);
-            this.password.DefaultText = "Password";
+            this.password.DefaultText = "";
             this.password.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
             this.password.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
             this.password.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
@@ -215,7 +216,7 @@
             this.password.Margin = new System.Windows.Forms.Padding(4);
             this.password.Name = "password";
             this.password.PasswordChar = '\0';
-            this.password.PlaceholderText = "";
+            this.password.PlaceholderText = "Password";
             this.password.SelectedText = "";
             this.password.ShadowDecoration.Parent = this.password;
             this.password.Size = new System.Drawing.Size(236, 30);
@@ -290,7 +291,7 @@
             this.status.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.status.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.status.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.status.Location = new System.Drawing.Point(0, 232);
+            this.status.Location = new System.Drawing.Point(0, 252);
             this.status.Margin = new System.Windows.Forms.Padding(2);
             this.status.Name = "status";
             this.status.Size = new System.Drawing.Size(334, 42);
@@ -298,13 +299,26 @@
             this.status.Text = "Status: Awaiting login";
             this.status.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // remember_checkBox
+            // 
+            this.remember_checkBox.AutoSize = true;
+            this.siticoneTransition1.SetDecoration(this.remember_checkBox, Siticone.UI.AnimatorNS.DecorationType.None);
+            this.remember_checkBox.ForeColor = System.Drawing.Color.White;
+            this.remember_checkBox.Location = new System.Drawing.Point(15, 234);
+            this.remember_checkBox.Name = "remember_checkBox";
+            this.remember_checkBox.Size = new System.Drawing.Size(95, 17);
+            this.remember_checkBox.TabIndex = 40;
+            this.remember_checkBox.Text = "Remember Me";
+            this.remember_checkBox.UseVisualStyleBackColor = true;
+            // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(42)))));
-            this.ClientSize = new System.Drawing.Size(334, 274);
+            this.ClientSize = new System.Drawing.Size(334, 294);
+            this.Controls.Add(this.remember_checkBox);
             this.Controls.Add(this.status);
             this.Controls.Add(this.LicBtn);
             this.Controls.Add(this.UpgradeBtn);
@@ -317,7 +331,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.siticoneControlBox2);
             this.Controls.Add(this.siticoneControlBox1);
-            this.siticoneTransition1.SetDecoration(this, Siticone.UI.AnimatorNS.DecorationType.BottomMirror);
+            this.siticoneTransition1.SetDecoration(this, Siticone.UI.AnimatorNS.DecorationType.None);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Login";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -356,5 +370,6 @@
         private Siticone.UI.WinForms.SiticoneRoundedButton UpgradeBtn;
         private Siticone.UI.WinForms.SiticoneRoundedButton RgstrBtn;
         private Siticone.UI.WinForms.SiticoneLabel status;
+        private System.Windows.Forms.CheckBox remember_checkBox;
     }
 }
