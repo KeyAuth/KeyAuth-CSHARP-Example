@@ -143,8 +143,14 @@ namespace KeyAuth
             }
             else if (json.message == "invalidver")
             {
-                Process.Start(json.download);
+                if(!String.IsNullOrEmpty(json.download))
+                {
+                    Process.Start(json.download);
+                    Environment.Exit(0);
+                }
+                error("Invalid Version \n Message: Download link is empty contact app owner to add a download link to latest app download");
                 Environment.Exit(0);
+                
             }
 
         }
