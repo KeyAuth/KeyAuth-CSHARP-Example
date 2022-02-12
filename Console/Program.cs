@@ -12,12 +12,14 @@ namespace KeyAuth
          * 
          */
 
-        static string name = ""; // application name. right above the blurred text aka the secret on the licenses tab among other tabs
-        static string ownerid = ""; // ownerid, found in account settings. click your profile picture on top right of dashboard and then account settings.
-        static string secret = ""; // app secret, the blurred text on licenses tab and other tabs
-        static string version = "1.0"; // leave alone unless you've changed version on website
+        
 
-        public static api KeyAuthApp = new api(name, ownerid, secret, version);
+        public static api KeyAuthApp = new api(
+            name: "Xenox",
+            ownerid: "8BjBjwBkBy",
+            secret: "34fac07616f7030b71c9bd1756e1d9b6fa8a3bf505d52bedecdf4fc1c2031722",
+            version: "1.0"
+        );
 
         static void Main(string[] args) {            
             Console.Title = "Loader";
@@ -36,6 +38,8 @@ namespace KeyAuth
             Console.WriteLine(" Number of keys: " + KeyAuthApp.app_data.numKeys);
             Console.WriteLine(" Application Version: " + KeyAuthApp.app_data.version);
             Console.WriteLine(" Customer panel link: " + KeyAuthApp.app_data.customerPanelLink);
+            KeyAuthApp.check();
+            Console.WriteLine($"Current Session Validation Status: {KeyAuthApp.response.message}"); // you can also just check the status but ill just print the message
 
             Console.WriteLine("\n [1] Login\n [2] Register\n [3] Upgrade\n [4] License key only\n\n Choose option: ");
 
@@ -185,7 +189,8 @@ namespace KeyAuth
 
             // KeyAuthApp.ban(); // ban the current user, must be logged in
             #endregion extras
-
+            KeyAuthApp.check();
+            Console.WriteLine($"Current Session Validation Status: {KeyAuthApp.response.message}"); // you can also just check the status but ill just print the message
             Console.WriteLine("\n Closing in ten seconds...");
             Thread.Sleep(10000);
             Environment.Exit(0);
