@@ -15,9 +15,9 @@ namespace KeyAuth
         
 
         public static api KeyAuthApp = new api(
-            name: "Xenox",
-            ownerid: "8BjBjwBkBy",
-            secret: "34fac07616f7030b71c9bd1756e1d9b6fa8a3bf505d52bedecdf4fc1c2031722",
+            name: "",
+            ownerid: "",
+            secret: "",
             version: "1.0"
         );
 
