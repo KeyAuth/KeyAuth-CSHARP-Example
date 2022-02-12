@@ -1,4 +1,4 @@
-﻿namespace KeyAuth
+namespace KeyAuth
 {
     // Token: 0x02000002 RID: 2
     public partial class Login : global::System.Windows.Forms.Form
@@ -18,7 +18,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            Siticone.UI.AnimatorNS.Animation animation3 = new Siticone.UI.AnimatorNS.Animation();
+            Siticone.UI.AnimatorNS.Animation animation2 = new Siticone.UI.AnimatorNS.Animation();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             this.siticoneDragControl1 = new Siticone.UI.WinForms.SiticoneDragControl(this.components);
             this.siticoneControlBox1 = new Siticone.UI.WinForms.SiticoneControlBox();
@@ -33,8 +33,9 @@
             this.RgstrBtn = new Siticone.UI.WinForms.SiticoneRoundedButton();
             this.UpgradeBtn = new Siticone.UI.WinForms.SiticoneRoundedButton();
             this.LicBtn = new Siticone.UI.WinForms.SiticoneRoundedButton();
-            this.siticoneShadowForm = new Siticone.UI.WinForms.SiticoneShadowForm(this.components);
             this.status = new Siticone.UI.WinForms.SiticoneLabel();
+            this.siticoneShadowForm = new Siticone.UI.WinForms.SiticoneShadowForm(this.components);
+            this.siticoneLabel1 = new Siticone.UI.WinForms.SiticoneLabel();
             this.SuspendLayout();
             // 
             // siticoneDragControl1
@@ -51,7 +52,7 @@
             this.siticoneControlBox1.HoveredState.IconColor = System.Drawing.Color.White;
             this.siticoneControlBox1.HoveredState.Parent = this.siticoneControlBox1;
             this.siticoneControlBox1.IconColor = System.Drawing.Color.White;
-            this.siticoneControlBox1.Location = new System.Drawing.Point(285, 4);
+            this.siticoneControlBox1.Location = new System.Drawing.Point(283, 4);
             this.siticoneControlBox1.Name = "siticoneControlBox1";
             this.siticoneControlBox1.ShadowDecoration.Parent = this.siticoneControlBox1;
             this.siticoneControlBox1.Size = new System.Drawing.Size(45, 29);
@@ -67,7 +68,7 @@
             this.siticoneControlBox2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(42)))));
             this.siticoneControlBox2.HoveredState.Parent = this.siticoneControlBox2;
             this.siticoneControlBox2.IconColor = System.Drawing.Color.White;
-            this.siticoneControlBox2.Location = new System.Drawing.Point(239, 4);
+            this.siticoneControlBox2.Location = new System.Drawing.Point(237, 4);
             this.siticoneControlBox2.Name = "siticoneControlBox2";
             this.siticoneControlBox2.ShadowDecoration.Parent = this.siticoneControlBox2;
             this.siticoneControlBox2.Size = new System.Drawing.Size(45, 29);
@@ -77,22 +78,22 @@
             // 
             this.siticoneTransition1.AnimationType = Siticone.UI.AnimatorNS.AnimationType.Rotate;
             this.siticoneTransition1.Cursor = null;
-            animation3.AnimateOnlyDifferences = true;
-            animation3.BlindCoeff = ((System.Drawing.PointF)(resources.GetObject("animation3.BlindCoeff")));
-            animation3.LeafCoeff = 0F;
-            animation3.MaxTime = 1F;
-            animation3.MinTime = 0F;
-            animation3.MosaicCoeff = ((System.Drawing.PointF)(resources.GetObject("animation3.MosaicCoeff")));
-            animation3.MosaicShift = ((System.Drawing.PointF)(resources.GetObject("animation3.MosaicShift")));
-            animation3.MosaicSize = 0;
-            animation3.Padding = new System.Windows.Forms.Padding(50);
-            animation3.RotateCoeff = 1F;
-            animation3.RotateLimit = 0F;
-            animation3.ScaleCoeff = ((System.Drawing.PointF)(resources.GetObject("animation3.ScaleCoeff")));
-            animation3.SlideCoeff = ((System.Drawing.PointF)(resources.GetObject("animation3.SlideCoeff")));
-            animation3.TimeCoeff = 0F;
-            animation3.TransparencyCoeff = 1F;
-            this.siticoneTransition1.DefaultAnimation = animation3;
+            animation2.AnimateOnlyDifferences = true;
+            animation2.BlindCoeff = ((System.Drawing.PointF)(resources.GetObject("animation2.BlindCoeff")));
+            animation2.LeafCoeff = 0F;
+            animation2.MaxTime = 1F;
+            animation2.MinTime = 0F;
+            animation2.MosaicCoeff = ((System.Drawing.PointF)(resources.GetObject("animation2.MosaicCoeff")));
+            animation2.MosaicShift = ((System.Drawing.PointF)(resources.GetObject("animation2.MosaicShift")));
+            animation2.MosaicSize = 0;
+            animation2.Padding = new System.Windows.Forms.Padding(50);
+            animation2.RotateCoeff = 1F;
+            animation2.RotateLimit = 0F;
+            animation2.ScaleCoeff = ((System.Drawing.PointF)(resources.GetObject("animation2.ScaleCoeff")));
+            animation2.SlideCoeff = ((System.Drawing.PointF)(resources.GetObject("animation2.SlideCoeff")));
+            animation2.TimeCoeff = 0F;
+            animation2.TransparencyCoeff = 1F;
+            this.siticoneTransition1.DefaultAnimation = animation2;
             // 
             // label1
             // 
@@ -290,13 +291,29 @@
             this.status.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.status.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.status.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.status.Location = new System.Drawing.Point(0, 232);
+            this.status.Location = new System.Drawing.Point(0, 302);
             this.status.Margin = new System.Windows.Forms.Padding(2);
             this.status.Name = "status";
-            this.status.Size = new System.Drawing.Size(334, 42);
+            this.status.Size = new System.Drawing.Size(332, 42);
             this.status.TabIndex = 38;
             this.status.Text = "Status: Awaiting login";
             this.status.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // siticoneLabel1
+            // 
+            this.siticoneLabel1.AutoSize = false;
+            this.siticoneLabel1.BackColor = System.Drawing.Color.Transparent;
+            this.siticoneTransition1.SetDecoration(this.siticoneLabel1, Siticone.UI.AnimatorNS.DecorationType.None);
+            this.siticoneLabel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.siticoneLabel1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.siticoneLabel1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.siticoneLabel1.Location = new System.Drawing.Point(0, 260);
+            this.siticoneLabel1.Margin = new System.Windows.Forms.Padding(2);
+            this.siticoneLabel1.Name = "siticoneLabel1";
+            this.siticoneLabel1.Size = new System.Drawing.Size(332, 42);
+            this.siticoneLabel1.TabIndex = 39;
+            this.siticoneLabel1.Text = "Current Session Validation Status: \r\n";
+            this.siticoneLabel1.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Login
             // 
@@ -304,7 +321,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(42)))));
-            this.ClientSize = new System.Drawing.Size(334, 274);
+            this.ClientSize = new System.Drawing.Size(332, 344);
+            this.Controls.Add(this.siticoneLabel1);
             this.Controls.Add(this.status);
             this.Controls.Add(this.LicBtn);
             this.Controls.Add(this.UpgradeBtn);
@@ -356,5 +374,6 @@
         private Siticone.UI.WinForms.SiticoneRoundedButton UpgradeBtn;
         private Siticone.UI.WinForms.SiticoneRoundedButton RgstrBtn;
         private Siticone.UI.WinForms.SiticoneLabel status;
+        private Siticone.UI.WinForms.SiticoneLabel siticoneLabel1;
     }
 }
