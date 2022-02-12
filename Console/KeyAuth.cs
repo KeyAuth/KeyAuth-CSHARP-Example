@@ -16,6 +16,13 @@ namespace KeyAuth
     public class api
     {
         public string name, ownerid, secret, version;
+        /// <summary>
+        /// Set up your application credentials in order to use keyauth
+        /// </summary>
+        /// <param name="name">Application Name</param>
+        /// <param name="ownerid">Your OwnerID, can be found in your account settings.</param>
+        /// <param name="secret">Application Secret</param>
+        /// <param name="version">Application Version, if version doesnt match it will open the download link you set up in your application settings and close the app, if empty the app will close</param>
         public api(string name, string ownerid, string secret, string version)
         {
 
@@ -108,6 +115,9 @@ namespace KeyAuth
         #endregion
         private string sessionid, enckey;
         bool initzalized;
+        /// <summary>
+        /// Initializes the connection with keyauth in order to use any of the functions
+        /// </summary>
         public void init()
         {
             enckey = encryption.sha256(encryption.iv_key());
@@ -154,7 +164,12 @@ namespace KeyAuth
             }
 
         }
-
+        /// <summary>
+        /// Registers the user using a license and gives the user a subscription that matches their license level
+        /// </summary>
+        /// <param name="username">Username</param>
+        /// <param name="pass">Password</param>
+        /// <param name="key">License</param>
         public void register(string username, string pass, string key)
         {
             if (!initzalized)
@@ -188,7 +203,11 @@ namespace KeyAuth
             if (json.success)
                 load_user_data(json.info);
         }
-
+        /// <summary>
+        /// Authenticates the user using their username and password
+        /// </summary>
+        /// <param name="username">Username</param>
+        /// <param name="pass">Password</param>
         public void login(string username, string pass)
         {
             if (!initzalized)
@@ -222,6 +241,11 @@ namespace KeyAuth
                 load_user_data(json.info);
         }
 
+        /// <summary>
+        /// Gives the user a subscription that has the same level as the key
+        /// </summary>
+        /// <param name="username">Username of the user thats going to get upgraded</param>
+        /// <param name="key">License with the same level as the subscription you want to give the user</param>
         public void upgrade(string username, string key)
         {
             if (!initzalized)
@@ -253,6 +277,10 @@ namespace KeyAuth
             load_response_struct(json);
         }
 
+        /// <summary>
+        /// Authenticate without using usernames and passwords
+        /// </summary>
+        /// <param name="key">Licence used to login with</param>
         public void license(string key)
         {
             if (!initzalized)
@@ -285,7 +313,38 @@ namespace KeyAuth
             if (json.success)
                 load_user_data(json.info);
         }
+        /// <summary>
+        /// checks if the current session is validated or not
+        /// </summary>
+        public void check()
+        {
+            if (!initzalized)
+            {
+                error("Please initzalize first");
+                Environment.Exit(0);
+            }
+            var init_iv = encryption.sha256(encryption.iv_key());
 
+            var values_to_upload = new NameValueCollection
+            {
+                ["type"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes("check")),
+                ["sessionid"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(sessionid)),
+                ["name"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(name)),
+                ["ownerid"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(ownerid)),
+                ["init_iv"] = init_iv
+            };
+
+            var response = req(values_to_upload);
+
+            response = encryption.decrypt(response, enckey, init_iv);
+            var json = response_decoder.string_to_generic<response_structure>(response);
+            load_response_struct(json);
+        }
+        /// <summary>
+        /// Change the data of an existing user variable, *User must be logged in*
+        /// </summary>
+        /// <param name="var">User variable name</param>
+        /// <param name="data">The content of the variable</param>
         public void setvar(string var, string data)
         {
             if (!initzalized)
@@ -313,7 +372,11 @@ namespace KeyAuth
             var json = response_decoder.string_to_generic<response_structure>(response);
             load_response_struct(json);
         }
-
+        /// <summary>
+        /// Gets the an existing user variable
+        /// </summary>
+        /// <param name="var">User Variable Name</param>
+        /// <returns>The content of the user variable</returns>
         public string getvar(string var)
         {
 
@@ -344,7 +407,9 @@ namespace KeyAuth
                 return json.response;
             return null;
         }
-
+        /// <summary>
+        /// Bans the current logged in user
+        /// </summary>
         public void ban()
         {
             if (!initzalized)
@@ -370,7 +435,11 @@ namespace KeyAuth
             var json = response_decoder.string_to_generic<response_structure>(response);
             load_response_struct(json);
         }
-
+        /// <summary>
+        /// Gets an existing global variable
+        /// </summary>
+        /// <param name="varid">Variable ID</param>
+        /// <returns>The content of the variable</returns>
         public string var(string varid)
         {
             if (!initzalized)
@@ -402,7 +471,11 @@ namespace KeyAuth
                 return json.message;
             return null;
         }
-
+        /// <summary>
+        /// Gets the last 20 sent messages of that channel
+        /// </summary>
+        /// <param name="channelname">The channel name</param>
+        /// <returns>the last 20 sent messages of that channel</returns>
         public List<msg> chatget(string channelname)
         {
             if (!initzalized)
@@ -432,7 +505,12 @@ namespace KeyAuth
                 return json.messages;
             return null;
         }
-
+        /// <summary>
+        /// Sends a message to the given channel name
+        /// </summary>
+        /// <param name="msg">Message</param>
+        /// <param name="channelname">Channel Name</param>
+        /// <returns>If the message was sent successfully, it returns true if not false</returns>
         public bool chatsend(string msg, string channelname)
         {
             if (!initzalized)
@@ -463,7 +541,10 @@ namespace KeyAuth
                 return true;
             return false;
         }
-
+        /// <summary>
+        /// Checks if the current ip address/hwid is blacklisted
+        /// </summary>
+        /// <returns>If found blacklisted returns true if not false</returns>
         public bool checkblack()
         {
             if (!initzalized)
@@ -494,7 +575,14 @@ namespace KeyAuth
                 return true;
             return false;
         }
-
+        /// <summary>
+        /// Sends a request to a webhook that you've added in the dashboard in a safe way without it being showed for example a http debugger
+        /// </summary>
+        /// <param name="webid">Webhook ID</param>
+        /// <param name="param">Parameters</param>
+        /// <param name="body">Body of the request, empty by default</param>
+        /// <param name="conttype">Content type, empty by default</param>
+        /// <returns>the webhook's response</returns>
         public string webhook(string webid, string param, string body = "", string conttype = "")
         {
             if (!initzalized)
@@ -529,7 +617,11 @@ namespace KeyAuth
                 return json.response;
             return null;
         }
-
+        /// <summary>
+        /// KeyAuth acts as proxy and downlods the file in a secure way
+        /// </summary>
+        /// <param name="fileid">File ID</param>
+        /// <returns>The bytes of the download file</returns>
         public byte[] download(string fileid)
         {
             if (!initzalized)
@@ -561,7 +653,10 @@ namespace KeyAuth
                 return encryption.str_to_byte_arr(json.contents);
             return null;
         }
-
+        /// <summary>
+        /// Logs the IP address,PC Name with a message, if a discord webhook is set up in the app settings, the log will get sent there and the dashboard if not set up it will only be in the dashboard
+        /// </summary>
+        /// <param name="message">Message</param>
         public void log(string message)
         {
             if (!initzalized)
