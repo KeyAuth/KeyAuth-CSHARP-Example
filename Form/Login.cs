@@ -7,6 +7,7 @@ using System.Linq;
 using System.Management;
 using System.Net.NetworkInformation;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -20,11 +21,6 @@ namespace KeyAuth
         * WATCH THIS VIDEO TO SETUP APPLICATION: https://youtube.com/watch?v=RfDTdiBq4_o
         * 
         */
-
-        static string name = ""; // application name. right above the blurred text aka the secret on the licenses tab among other tabs
-        static string ownerid = ""; // ownerid, found in account settings. click your profile picture on top right of dashboard and then account settings.
-        static string secret = ""; // app secret, the blurred text on licenses tab and other tabs
-        static string version = "1.0"; // leave alone unless you've changed version on website
 
         /*
 Optional Functions:
@@ -41,7 +37,12 @@ MessageBox.Show(KeyAuthApp.var("123456")); // retrieve application variable
         // KeyAuthApp.register("username", "password", "key");
         //KeyAuthApp.login("username", "password"); 
 
-        public static api KeyAuthApp = new api(name, ownerid, secret, version);
+        public static api KeyAuthApp = new api(
+            name: "",
+            ownerid: "",
+            secret: "",
+            version: "1.0"
+        );
 
         public Login()
         {
@@ -64,6 +65,9 @@ MessageBox.Show(KeyAuthApp.var("123456")); // retrieve application variable
             // {
             //     MessageBox.Show("user is not blacklisted");
             // }
+            Thread.Sleep(1500); // handle rate limit
+            KeyAuthApp.check();
+            siticoneLabel1.Text = $"Current Session Validation Status: {KeyAuthApp.response.success}";
         }
 
         private void UpgradeBtn_Click(object sender, EventArgs e)
