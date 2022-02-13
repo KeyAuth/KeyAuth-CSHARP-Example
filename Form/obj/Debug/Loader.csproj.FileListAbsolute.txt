@@ -9,3 +9,15 @@ C:\Users\mak\Downloads\KeyAuth-Csharp-localhost\KeyAuth-CSHARP-Example-main\Winf
 C:\Users\mak\Downloads\KeyAuth-Csharp-localhost\KeyAuth-CSHARP-Example-main\WinformExample\obj\Debug\Loader.csproj.CopyComplete
 C:\Users\mak\Downloads\KeyAuth-Csharp-localhost\KeyAuth-CSHARP-Example-main\WinformExample\obj\Debug\Loader.exe
 C:\Users\mak\Downloads\KeyAuth-Csharp-localhost\KeyAuth-CSHARP-Example-main\WinformExample\obj\Debug\Loader.pdb
+C:\Users\admin\Source\Repos\KeyAuth\KeyAuth-CSHARP-Example\Form\obj\Debug\Loader.csproj.SuggestedBindingRedirects.cache
+C:\Users\admin\Source\Repos\KeyAuth\KeyAuth-CSHARP-Example\Form\obj\Debug\KeyAuth.Main.resources
+C:\Users\admin\Source\Repos\KeyAuth\KeyAuth-CSHARP-Example\Form\obj\Debug\KeyAuth.Login.resources
+C:\Users\admin\Source\Repos\KeyAuth\KeyAuth-CSHARP-Example\Form\obj\Debug\Loader.Properties.Resources.resources
+C:\Users\admin\Source\Repos\KeyAuth\KeyAuth-CSHARP-Example\Form\obj\Debug\Loader.csproj.GenerateResource.cache
+C:\Users\admin\Source\Repos\KeyAuth\KeyAuth-CSHARP-Example\Form\obj\Debug\Loader.csproj.CoreCompileInputs.cache
+C:\Users\admin\Source\Repos\KeyAuth\KeyAuth-CSHARP-Example\Form\bin\Debug\Loader.exe.config
+C:\Users\admin\Source\Repos\KeyAuth\KeyAuth-CSHARP-Example\Form\bin\Debug\Loader.exe
+C:\Users\admin\Source\Repos\KeyAuth\KeyAuth-CSHARP-Example\Form\bin\Debug\Loader.pdb
+C:\Users\admin\Source\Repos\KeyAuth\KeyAuth-CSHARP-Example\Form\obj\Debug\Loader.csproj.CopyComplete
+C:\Users\admin\Source\Repos\KeyAuth\KeyAuth-CSHARP-Example\Form\obj\Debug\Loader.exe
+C:\Users\admin\Source\Repos\KeyAuth\KeyAuth-CSHARP-Example\Form\obj\Debug\Loader.pdb

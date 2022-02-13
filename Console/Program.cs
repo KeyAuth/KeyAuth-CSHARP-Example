@@ -1,5 +1,9 @@
 using System;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Net;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace KeyAuth
 {
@@ -12,7 +16,7 @@ namespace KeyAuth
          * 
          */
 
-        
+
 
         public static api KeyAuthApp = new api(
             name: "",
@@ -21,10 +25,15 @@ namespace KeyAuth
             version: "1.0"
         );
 
-        static void Main(string[] args) {            
+        static void Main(string[] args)
+        {
+
             Console.Title = "Loader";
             Console.WriteLine("\n\n Connecting..");
             KeyAuthApp.init();
+
+            autoUpdate();
+
             if (!KeyAuthApp.response.success)
             {
                 Console.WriteLine("\n Status: " + KeyAuthApp.response.message);
@@ -39,7 +48,7 @@ namespace KeyAuth
             Console.WriteLine(" Application Version: " + KeyAuthApp.app_data.version);
             Console.WriteLine(" Customer panel link: " + KeyAuthApp.app_data.customerPanelLink);
             KeyAuthApp.check();
-            Console.WriteLine($"Current Session Validation Status: {KeyAuthApp.response.message}"); // you can also just check the status but ill just print the message
+            Console.WriteLine($" Current Session Validation Status: {KeyAuthApp.response.message}"); // you can also just check the status but ill just print the message
 
             Console.WriteLine("\n [1] Login\n [2] Register\n [3] Upgrade\n [4] License key only\n\n Choose option: ");
 
@@ -85,13 +94,13 @@ namespace KeyAuth
                     break; // no point in this other than to not get error from IDE
             }
 
-            if(!KeyAuthApp.response.success)
+            if (!KeyAuthApp.response.success)
             {
                 Console.WriteLine("\n Status: " + KeyAuthApp.response.message);
                 Thread.Sleep(1500);
                 Environment.Exit(0);
             }
-            
+
             Console.WriteLine("\n Logged In!"); // at this point, the client has been authenticated. Put the code you want to run after here
 
             // user data
@@ -202,6 +211,70 @@ namespace KeyAuth
             dtDateTime = dtDateTime.AddSeconds(unixtime).ToLocalTime();
             return dtDateTime;
         }
-    }
 
+        static void autoUpdate()
+        {
+            if (KeyAuthApp.response.message == "invalidver")
+            {
+                if (!string.IsNullOrEmpty(KeyAuthApp.app_data.downloadLink))
+                {
+                    Console.WriteLine("\n Auto update avaliable!");
+                    Console.WriteLine(" Choose how you'd like to auto update:");
+                    Console.WriteLine(" [1] Open file in browser");
+                    Console.WriteLine(" [2] Download file directly");
+                    int choice = int.Parse(Console.ReadLine());
+                    switch (choice)
+                    {
+                        case 1:
+                            Process.Start(KeyAuthApp.app_data.downloadLink);
+                            Environment.Exit(0);
+                            break;
+                        case 2:
+                            Console.WriteLine(" Downloading file directly..");
+                            Console.WriteLine(" New file will be opened shortly..");
+
+                            WebClient webClient = new WebClient();
+                            string destFile = Application.ExecutablePath;
+
+                            string rand = random_string();
+
+                            destFile = destFile.Replace(".exe", $"-{rand}.exe");
+                            webClient.DownloadFile(KeyAuthApp.app_data.downloadLink, destFile);
+
+                            Process.Start(destFile);
+                            Process.Start(new ProcessStartInfo()
+                            {
+                                Arguments = "/C choice /C Y /N /D Y /T 3 & Del \"" + Application.ExecutablePath + "\"",
+                                WindowStyle = ProcessWindowStyle.Hidden,
+                                CreateNoWindow = true,
+                                FileName = "cmd.exe"
+                            });
+                            Environment.Exit(0);
+
+                            break;
+                        default:
+                            Console.WriteLine(" Invalid selection, terminating program..");
+                            Thread.Sleep(1500);
+                            Environment.Exit(0);
+                            break;
+                    }
+                }
+                Console.WriteLine("\n Status: Version of this program does not match the one online. Furthermore, the download link online isn't set. You will need to manually obtain the download link from the developer.");
+                Thread.Sleep(2500);
+                Environment.Exit(0);
+            }
+        }
+
+        static string random_string()
+        {
+            string str = null;
+
+            Random random = new Random();
+            for (int i = 0; i < 5; i++)
+            {
+                str += Convert.ToChar(Convert.ToInt32(Math.Floor(26 * random.NextDouble() + 65))).ToString();
+            }
+            return str;
+        }
+    }
 }

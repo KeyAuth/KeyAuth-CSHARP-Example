@@ -111,6 +111,8 @@ namespace KeyAuth
             public string version { get; set; }
             [DataMember]
             public string customerPanelLink { get; set; }
+            [DataMember]
+            public string downloadLink { get; set; }
         }
         #endregion
         private string sessionid, enckey;
@@ -153,14 +155,7 @@ namespace KeyAuth
             }
             else if (json.message == "invalidver")
             {
-                if(!String.IsNullOrEmpty(json.download))
-                {
-                    Process.Start(json.download);
-                    Environment.Exit(0);
-                }
-                error("Invalid Version \n Message: Download link is empty contact app owner to add a download link to latest app download");
-                Environment.Exit(0);
-                
+                app_data.downloadLink = json.download;
             }
 
         }
@@ -741,6 +736,7 @@ namespace KeyAuth
             public string numKeys { get; set; }
             public string version { get; set; }
             public string customerPanelLink { get; set; }
+            public string downloadLink { get; set; }
         }
 
         private void load_app_data(app_data_structure data)
