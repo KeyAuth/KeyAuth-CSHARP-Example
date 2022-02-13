@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -29,6 +29,8 @@ namespace KeyAuth
 
         private void Main_Load(object sender, EventArgs e)
         {
+            Login.KeyAuthApp.check();
+            siticoneLabel1.Text = $"Current Session Validation Status: {Login.KeyAuthApp.response.success}";
             key.Text = "Username: " + Login.KeyAuthApp.user_data.username;
             expiry.Text = "Expiry: " + UnixTimeToDateTime(long.Parse(Login.KeyAuthApp.user_data.subscriptions[0].expiry));
             subscription.Text = "Subscription: " + Login.KeyAuthApp.user_data.subscriptions[0].subscription;

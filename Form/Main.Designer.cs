@@ -1,4 +1,4 @@
-﻿namespace KeyAuth
+namespace KeyAuth
 {
     public partial class Main : global::System.Windows.Forms.Form
     {
@@ -14,7 +14,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            Siticone.UI.AnimatorNS.Animation animation7 = new Siticone.UI.AnimatorNS.Animation();
+            Siticone.UI.AnimatorNS.Animation animation1 = new Siticone.UI.AnimatorNS.Animation();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.siticoneDragControl1 = new Siticone.UI.WinForms.SiticoneDragControl(this.components);
             this.siticoneControlBox1 = new Siticone.UI.WinForms.SiticoneControlBox();
@@ -31,8 +31,6 @@
             this.Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.sendmsg = new Siticone.UI.WinForms.SiticoneRoundedButton();
             this.chatmsg = new Siticone.UI.WinForms.SiticoneRoundedTextBox();
-            this.siticoneShadowForm = new Siticone.UI.WinForms.SiticoneShadowForm(this.components);
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.ip = new Siticone.UI.WinForms.SiticoneLabel();
             this.hwid = new Siticone.UI.WinForms.SiticoneLabel();
             this.createDate = new Siticone.UI.WinForms.SiticoneLabel();
@@ -42,6 +40,9 @@
             this.numKeys = new Siticone.UI.WinForms.SiticoneLabel();
             this.version = new Siticone.UI.WinForms.SiticoneLabel();
             this.customerPanelLink = new Siticone.UI.WinForms.SiticoneLabel();
+            this.siticoneShadowForm = new Siticone.UI.WinForms.SiticoneShadowForm(this.components);
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.siticoneLabel1 = new Siticone.UI.WinForms.SiticoneLabel();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -85,22 +86,22 @@
             // 
             this.siticoneTransition1.AnimationType = Siticone.UI.AnimatorNS.AnimationType.Rotate;
             this.siticoneTransition1.Cursor = null;
-            animation7.AnimateOnlyDifferences = true;
-            animation7.BlindCoeff = ((System.Drawing.PointF)(resources.GetObject("animation7.BlindCoeff")));
-            animation7.LeafCoeff = 0F;
-            animation7.MaxTime = 1F;
-            animation7.MinTime = 0F;
-            animation7.MosaicCoeff = ((System.Drawing.PointF)(resources.GetObject("animation7.MosaicCoeff")));
-            animation7.MosaicShift = ((System.Drawing.PointF)(resources.GetObject("animation7.MosaicShift")));
-            animation7.MosaicSize = 0;
-            animation7.Padding = new System.Windows.Forms.Padding(50);
-            animation7.RotateCoeff = 1F;
-            animation7.RotateLimit = 0F;
-            animation7.ScaleCoeff = ((System.Drawing.PointF)(resources.GetObject("animation7.ScaleCoeff")));
-            animation7.SlideCoeff = ((System.Drawing.PointF)(resources.GetObject("animation7.SlideCoeff")));
-            animation7.TimeCoeff = 0F;
-            animation7.TransparencyCoeff = 1F;
-            this.siticoneTransition1.DefaultAnimation = animation7;
+            animation1.AnimateOnlyDifferences = true;
+            animation1.BlindCoeff = ((System.Drawing.PointF)(resources.GetObject("animation1.BlindCoeff")));
+            animation1.LeafCoeff = 0F;
+            animation1.MaxTime = 1F;
+            animation1.MinTime = 0F;
+            animation1.MosaicCoeff = ((System.Drawing.PointF)(resources.GetObject("animation1.MosaicCoeff")));
+            animation1.MosaicShift = ((System.Drawing.PointF)(resources.GetObject("animation1.MosaicShift")));
+            animation1.MosaicSize = 0;
+            animation1.Padding = new System.Windows.Forms.Padding(50);
+            animation1.RotateCoeff = 1F;
+            animation1.RotateLimit = 0F;
+            animation1.ScaleCoeff = ((System.Drawing.PointF)(resources.GetObject("animation1.ScaleCoeff")));
+            animation1.SlideCoeff = ((System.Drawing.PointF)(resources.GetObject("animation1.SlideCoeff")));
+            animation1.TimeCoeff = 0F;
+            animation1.TransparencyCoeff = 1F;
+            this.siticoneTransition1.DefaultAnimation = animation1;
             // 
             // label1
             // 
@@ -245,12 +246,6 @@
             this.chatmsg.TabIndex = 43;
             this.chatmsg.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // timer1
-            // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 1;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
             // ip
             // 
             this.ip.BackColor = System.Drawing.Color.Transparent;
@@ -368,6 +363,25 @@
             this.customerPanelLink.TabIndex = 52;
             this.customerPanelLink.Text = "customerPanelLinkLabel";
             // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 1;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // siticoneLabel1
+            // 
+            this.siticoneLabel1.BackColor = System.Drawing.Color.Transparent;
+            this.siticoneTransition1.SetDecoration(this.siticoneLabel1, Siticone.UI.AnimatorNS.DecorationType.None);
+            this.siticoneLabel1.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.siticoneLabel1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.siticoneLabel1.Location = new System.Drawing.Point(20, 191);
+            this.siticoneLabel1.Margin = new System.Windows.Forms.Padding(2);
+            this.siticoneLabel1.Name = "siticoneLabel1";
+            this.siticoneLabel1.Size = new System.Drawing.Size(161, 14);
+            this.siticoneLabel1.TabIndex = 53;
+            this.siticoneLabel1.Text = "Current Session Valdiation Status: ";
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -375,6 +389,7 @@
             this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(42)))));
             this.ClientSize = new System.Drawing.Size(622, 543);
+            this.Controls.Add(this.siticoneLabel1);
             this.Controls.Add(this.customerPanelLink);
             this.Controls.Add(this.version);
             this.Controls.Add(this.numKeys);
@@ -445,5 +460,6 @@
         private Siticone.UI.WinForms.SiticoneLabel numKeys;
         private Siticone.UI.WinForms.SiticoneLabel customerPanelLink;
         private Siticone.UI.WinForms.SiticoneLabel version;
+        private Siticone.UI.WinForms.SiticoneLabel siticoneLabel1;
     }
 }
