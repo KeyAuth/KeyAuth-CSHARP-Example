@@ -60,6 +60,11 @@ MessageBox.Show(KeyAuthApp.var("123456")); // retrieve application variable
         {
             KeyAuthApp.init();
 
+            if (!KeyAuthApp.response.success)
+            {
+                MessageBox.Show(KeyAuthApp.response.message);
+                Environment.Exit(0);
+            }
             if (KeyAuthApp.response.message == "invalidver")
             {
                 if (!string.IsNullOrEmpty(KeyAuthApp.app_data.downloadLink))
