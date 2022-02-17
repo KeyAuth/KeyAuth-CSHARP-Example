@@ -159,6 +159,48 @@ namespace KeyAuth
             }
 
         }
+<<<<<<< HEAD
+        #region Checkinit
+        public static bool IsDebugRelease
+        {
+            get
+            {
+#if DEBUG
+                return true;
+#else
+            return false;
+#endif
+            }
+        }
+        public void Checkinit()
+=======
+        /// <summary>
+        /// Registers the user using a license and gives the user a subscription that matches their license level
+        /// </summary>
+        /// <param name="username">Username</param>
+        /// <param name="pass">Password</param>
+        /// <param name="key">License</param>
+        public void register(string username, string pass, string key)
+>>>>>>> d8d2a02a9cccf9537d9858f5664c1a29d6b69b75
+        {
+            if (!initzalized)
+            {
+                if (IsDebugRelease)
+                {
+                    error("Not initialized Check if KeyAuthApp.init() does exist");
+                    
+                }
+                else
+                {
+                    error("Please initialize first");
+                    
+                }
+               
+                
+            }
+            
+        }
+        #endregion 
         /// <summary>
         /// Registers the user using a license and gives the user a subscription that matches their license level
         /// </summary>
@@ -167,11 +209,7 @@ namespace KeyAuth
         /// <param name="key">License</param>
         public void register(string username, string pass, string key)
         {
-            if (!initzalized)
-            {
-                error("Please initzalize first");
-                Environment.Exit(0);
-            }
+            Checkinit();
 
             string hwid = WindowsIdentity.GetCurrent().User.Value;
 
@@ -205,11 +243,7 @@ namespace KeyAuth
         /// <param name="pass">Password</param>
         public void login(string username, string pass)
         {
-            if (!initzalized)
-            {
-                error("Please initzalize first");
-                Environment.Exit(0);
-            }
+            Checkinit();
 
             string hwid = WindowsIdentity.GetCurrent().User.Value;
 
@@ -243,11 +277,7 @@ namespace KeyAuth
         /// <param name="key">License with the same level as the subscription you want to give the user</param>
         public void upgrade(string username, string key)
         {
-            if (!initzalized)
-            {
-                error("Please initzalize first");
-                Environment.Exit(0);
-            }
+            Checkinit();
 
             string hwid = WindowsIdentity.GetCurrent().User.Value;
 
@@ -278,11 +308,7 @@ namespace KeyAuth
         /// <param name="key">Licence used to login with</param>
         public void license(string key)
         {
-            if (!initzalized)
-            {
-                error("Please initzalize first");
-                Environment.Exit(0);
-            }
+            Checkinit();
 
             string hwid = WindowsIdentity.GetCurrent().User.Value;
 
@@ -313,6 +339,20 @@ namespace KeyAuth
         /// </summary>
         public void check()
         {
+<<<<<<< HEAD
+            Checkinit();
+            var init_iv = encryption.sha256(encryption.iv_key());
+
+            var values_to_upload = new NameValueCollection
+            {
+                ["type"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes("check")),
+                ["sessionid"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(sessionid)),
+                ["name"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(name)),
+                ["ownerid"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(ownerid)),
+                ["init_iv"] = init_iv
+            };
+
+=======
             if (!initzalized)
             {
                 error("Please initzalize first");
@@ -329,6 +369,7 @@ namespace KeyAuth
                 ["init_iv"] = init_iv
             };
 
+>>>>>>> d8d2a02a9cccf9537d9858f5664c1a29d6b69b75
             var response = req(values_to_upload);
 
             response = encryption.decrypt(response, enckey, init_iv);
@@ -342,11 +383,7 @@ namespace KeyAuth
         /// <param name="data">The content of the variable</param>
         public void setvar(string var, string data)
         {
-            if (!initzalized)
-            {
-                error("Please initzalize first");
-                Environment.Exit(0);
-            }
+            Checkinit();
 
             var init_iv = encryption.sha256(encryption.iv_key());
 
@@ -375,11 +412,7 @@ namespace KeyAuth
         public string getvar(string var)
         {
 
-            if (!initzalized)
-            {
-                error("Please initzalize first");
-                Environment.Exit(0);
-            }
+            Checkinit();
 
             var init_iv = encryption.sha256(encryption.iv_key());
 
@@ -407,11 +440,7 @@ namespace KeyAuth
         /// </summary>
         public void ban()
         {
-            if (!initzalized)
-            {
-                error("Please initzalize first");
-                Environment.Exit(0);
-            }
+            Checkinit();
 
             var init_iv = encryption.sha256(encryption.iv_key());
 
@@ -437,11 +466,7 @@ namespace KeyAuth
         /// <returns>The content of the variable</returns>
         public string var(string varid)
         {
-            if (!initzalized)
-            {
-                error("Please initzalize first");
-                Environment.Exit(0);
-            }
+            Checkinit();
 
             string hwid = WindowsIdentity.GetCurrent().User.Value;
 
@@ -473,11 +498,7 @@ namespace KeyAuth
         /// <returns>the last 20 sent messages of that channel</returns>
         public List<msg> chatget(string channelname)
         {
-            if (!initzalized)
-            {
-                error("Please initzalize first");
-                Environment.Exit(0);
-            }
+            Checkinit();
 
             var init_iv = encryption.sha256(encryption.iv_key());
 
@@ -508,11 +529,7 @@ namespace KeyAuth
         /// <returns>If the message was sent successfully, it returns true if not false</returns>
         public bool chatsend(string msg, string channelname)
         {
-            if (!initzalized)
-            {
-                error("Please initzalize first");
-                Environment.Exit(0);
-            }
+            Checkinit();
 
             var init_iv = encryption.sha256(encryption.iv_key());
 
@@ -542,11 +559,7 @@ namespace KeyAuth
         /// <returns>If found blacklisted returns true if not false</returns>
         public bool checkblack()
         {
-            if (!initzalized)
-            {
-                error("Please initzalize first");
-                Environment.Exit(0);
-            }
+            Checkinit();
             string hwid = WindowsIdentity.GetCurrent().User.Value;
 
             var init_iv = encryption.sha256(encryption.iv_key());
@@ -580,12 +593,7 @@ namespace KeyAuth
         /// <returns>the webhook's response</returns>
         public string webhook(string webid, string param, string body = "", string conttype = "")
         {
-            if (!initzalized)
-            {
-                error("Please initzalize first");
-                Environment.Exit(0);
-                return null;
-            }
+            Checkinit();
 
             var init_iv = encryption.sha256(encryption.iv_key());
 
@@ -619,11 +627,7 @@ namespace KeyAuth
         /// <returns>The bytes of the download file</returns>
         public byte[] download(string fileid)
         {
-            if (!initzalized)
-            {
-                error("Please initzalize first. File is empty since no request could be made.");
-                Environment.Exit(0);
-            }
+            Checkinit();
 
             var init_iv = encryption.sha256(encryption.iv_key());
 
@@ -654,11 +658,7 @@ namespace KeyAuth
         /// <param name="message">Message</param>
         public void log(string message)
         {
-            if (!initzalized)
-            {
-                error("Please initzalize first");
-                Environment.Exit(0);
-            }
+            Checkinit();
 
             var init_iv = encryption.sha256(encryption.iv_key());
             var values_to_upload = new NameValueCollection
@@ -697,6 +697,7 @@ namespace KeyAuth
                 UseShellExecute = false
             });
             Environment.Exit(0);
+
         }
         private static string req(NameValueCollection post_data)
         {
@@ -778,6 +779,15 @@ namespace KeyAuth
             user_data.subscriptions = data.subscriptions; // array of subscriptions (basically multiple user ranks for user with individual expiry dates 
         }
         #endregion
+        public string expirydaysleft()
+        {
+            Checkinit();
+
+            System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Local);
+            dtDateTime = dtDateTime.AddSeconds(long.Parse(user_data.subscriptions[0].expiry)).ToLocalTime();
+            TimeSpan difference = dtDateTime - DateTime.Now;
+            return Convert.ToString(difference.Days + " Days " + difference.Hours + " Hours Left");
+        }
 
         #region response_struct
         public response_class response = new response_class();

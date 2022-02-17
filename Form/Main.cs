@@ -38,7 +38,7 @@ namespace KeyAuth
             hwid.Text = "HWID: " + Login.KeyAuthApp.user_data.hwid;
             createDate.Text = "Creation date: " + UnixTimeToDateTime(long.Parse(Login.KeyAuthApp.user_data.createdate));
             lastLogin.Text = "Last login: " + UnixTimeToDateTime(long.Parse(Login.KeyAuthApp.user_data.lastlogin));
-
+            subscriptionDaysLabel.Text = "Expiry in Days: "+ Login.KeyAuthApp.expirydaysleft();
             numUsers.Text = "Number of users: " + Login.KeyAuthApp.app_data.numUsers;
             numOnlineUsers.Text = "Number of online users: " + Login.KeyAuthApp.app_data.numOnlineUsers;
             numKeys.Text = "Number of licenses: " + Login.KeyAuthApp.app_data.numKeys;

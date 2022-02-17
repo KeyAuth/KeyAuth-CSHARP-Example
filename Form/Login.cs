@@ -65,6 +65,8 @@ MessageBox.Show(KeyAuthApp.var("123456")); // retrieve application variable
                 MessageBox.Show(KeyAuthApp.response.message);
                 Environment.Exit(0);
             }
+<<<<<<< HEAD
+=======
             if (KeyAuthApp.response.message == "invalidver")
             {
                 if (!string.IsNullOrEmpty(KeyAuthApp.app_data.downloadLink))
@@ -130,6 +132,7 @@ MessageBox.Show(KeyAuthApp.var("123456")); // retrieve application variable
                 str += Convert.ToChar(Convert.ToInt32(Math.Floor(26 * random.NextDouble() + 65))).ToString();
             }
             return str;
+>>>>>>> d8d2a02a9cccf9537d9858f5664c1a29d6b69b75
         }
 
         private void UpgradeBtn_Click(object sender, EventArgs e)
