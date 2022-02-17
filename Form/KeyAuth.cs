@@ -159,7 +159,6 @@ namespace KeyAuth
             }
 
         }
-<<<<<<< HEAD
         #region Checkinit
         public static bool IsDebugRelease
         {
@@ -173,32 +172,23 @@ namespace KeyAuth
             }
         }
         public void Checkinit()
-=======
-        /// <summary>
-        /// Registers the user using a license and gives the user a subscription that matches their license level
-        /// </summary>
-        /// <param name="username">Username</param>
-        /// <param name="pass">Password</param>
-        /// <param name="key">License</param>
-        public void register(string username, string pass, string key)
->>>>>>> d8d2a02a9cccf9537d9858f5664c1a29d6b69b75
         {
             if (!initzalized)
             {
                 if (IsDebugRelease)
                 {
                     error("Not initialized Check if KeyAuthApp.init() does exist");
-                    
+
                 }
                 else
                 {
                     error("Please initialize first");
-                    
+
                 }
-               
-                
+
+
             }
-            
+
         }
         #endregion 
         /// <summary>
@@ -339,7 +329,6 @@ namespace KeyAuth
         /// </summary>
         public void check()
         {
-<<<<<<< HEAD
             Checkinit();
             var init_iv = encryption.sha256(encryption.iv_key());
 
@@ -352,24 +341,6 @@ namespace KeyAuth
                 ["init_iv"] = init_iv
             };
 
-=======
-            if (!initzalized)
-            {
-                error("Please initzalize first");
-                Environment.Exit(0);
-            }
-            var init_iv = encryption.sha256(encryption.iv_key());
-
-            var values_to_upload = new NameValueCollection
-            {
-                ["type"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes("check")),
-                ["sessionid"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(sessionid)),
-                ["name"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(name)),
-                ["ownerid"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(ownerid)),
-                ["init_iv"] = init_iv
-            };
-
->>>>>>> d8d2a02a9cccf9537d9858f5664c1a29d6b69b75
             var response = req(values_to_upload);
 
             response = encryption.decrypt(response, enckey, init_iv);

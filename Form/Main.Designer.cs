@@ -42,11 +42,11 @@ namespace KeyAuth
             this.customerPanelLink = new Siticone.UI.WinForms.SiticoneLabel();
             this.siticoneShadowForm = new Siticone.UI.WinForms.SiticoneShadowForm(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-<<<<<<< HEAD
+
             this.subscriptionDaysLabel = new Siticone.UI.WinForms.SiticoneLabel();
-=======
+
             this.siticoneLabel1 = new Siticone.UI.WinForms.SiticoneLabel();
->>>>>>> d8d2a02a9cccf9537d9858f5664c1a29d6b69b75
+
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -373,7 +373,7 @@ namespace KeyAuth
             this.timer1.Interval = 1;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-<<<<<<< HEAD
+
             // subscriptionDaysLabel
             // 
             this.subscriptionDaysLabel.BackColor = System.Drawing.Color.Transparent;
@@ -386,7 +386,7 @@ namespace KeyAuth
             this.subscriptionDaysLabel.Size = new System.Drawing.Size(105, 14);
             this.subscriptionDaysLabel.TabIndex = 53;
             this.subscriptionDaysLabel.Text = "subscriptionDaysLabel";
-=======
+
             // siticoneLabel1
             // 
             this.siticoneLabel1.BackColor = System.Drawing.Color.Transparent;
@@ -399,7 +399,7 @@ namespace KeyAuth
             this.siticoneLabel1.Size = new System.Drawing.Size(161, 14);
             this.siticoneLabel1.TabIndex = 53;
             this.siticoneLabel1.Text = "Current Session Valdiation Status: ";
->>>>>>> d8d2a02a9cccf9537d9858f5664c1a29d6b69b75
+
             // 
             // Main
             // 
@@ -408,11 +408,11 @@ namespace KeyAuth
             this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(42)))));
             this.ClientSize = new System.Drawing.Size(622, 543);
-<<<<<<< HEAD
+
             this.Controls.Add(this.subscriptionDaysLabel);
-=======
+
             this.Controls.Add(this.siticoneLabel1);
->>>>>>> d8d2a02a9cccf9537d9858f5664c1a29d6b69b75
+
             this.Controls.Add(this.customerPanelLink);
             this.Controls.Add(this.version);
             this.Controls.Add(this.numKeys);
@@ -483,10 +483,8 @@ namespace KeyAuth
         private Siticone.UI.WinForms.SiticoneLabel numKeys;
         private Siticone.UI.WinForms.SiticoneLabel customerPanelLink;
         private Siticone.UI.WinForms.SiticoneLabel version;
-<<<<<<< HEAD
         private Siticone.UI.WinForms.SiticoneLabel subscriptionDaysLabel;
-=======
         private Siticone.UI.WinForms.SiticoneLabel siticoneLabel1;
->>>>>>> d8d2a02a9cccf9537d9858f5664c1a29d6b69b75
+
     }
 }
