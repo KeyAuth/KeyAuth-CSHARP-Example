@@ -42,7 +42,11 @@ namespace KeyAuth
             this.customerPanelLink = new Siticone.UI.WinForms.SiticoneLabel();
             this.siticoneShadowForm = new Siticone.UI.WinForms.SiticoneShadowForm(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+
+            this.subscriptionDaysLabel = new Siticone.UI.WinForms.SiticoneLabel();
+
             this.siticoneLabel1 = new Siticone.UI.WinForms.SiticoneLabel();
+
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -369,6 +373,20 @@ namespace KeyAuth
             this.timer1.Interval = 1;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+
+            // subscriptionDaysLabel
+            // 
+            this.subscriptionDaysLabel.BackColor = System.Drawing.Color.Transparent;
+            this.siticoneTransition1.SetDecoration(this.subscriptionDaysLabel, Siticone.UI.AnimatorNS.DecorationType.None);
+            this.subscriptionDaysLabel.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.subscriptionDaysLabel.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.subscriptionDaysLabel.Location = new System.Drawing.Point(20, 210);
+            this.subscriptionDaysLabel.Margin = new System.Windows.Forms.Padding(2);
+            this.subscriptionDaysLabel.Name = "subscriptionDaysLabel";
+            this.subscriptionDaysLabel.Size = new System.Drawing.Size(105, 14);
+            this.subscriptionDaysLabel.TabIndex = 53;
+            this.subscriptionDaysLabel.Text = "subscriptionDaysLabel";
+
             // siticoneLabel1
             // 
             this.siticoneLabel1.BackColor = System.Drawing.Color.Transparent;
@@ -381,6 +399,7 @@ namespace KeyAuth
             this.siticoneLabel1.Size = new System.Drawing.Size(161, 14);
             this.siticoneLabel1.TabIndex = 53;
             this.siticoneLabel1.Text = "Current Session Valdiation Status: ";
+
             // 
             // Main
             // 
@@ -389,7 +408,11 @@ namespace KeyAuth
             this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(42)))));
             this.ClientSize = new System.Drawing.Size(622, 543);
+
+            this.Controls.Add(this.subscriptionDaysLabel);
+
             this.Controls.Add(this.siticoneLabel1);
+
             this.Controls.Add(this.customerPanelLink);
             this.Controls.Add(this.version);
             this.Controls.Add(this.numKeys);
@@ -460,6 +483,8 @@ namespace KeyAuth
         private Siticone.UI.WinForms.SiticoneLabel numKeys;
         private Siticone.UI.WinForms.SiticoneLabel customerPanelLink;
         private Siticone.UI.WinForms.SiticoneLabel version;
+        private Siticone.UI.WinForms.SiticoneLabel subscriptionDaysLabel;
         private Siticone.UI.WinForms.SiticoneLabel siticoneLabel1;
+
     }
 }
