@@ -229,8 +229,6 @@ namespace KeyAuth
 
             var response = req(values_to_upload);
 
-            Console.WriteLine(response);
-
             response = encryption.decrypt(response, enckey, init_iv);
             var json = response_decoder.string_to_generic<response_structure>(response);
             load_response_struct(json);
@@ -298,8 +296,6 @@ namespace KeyAuth
             };
 
             var response = req_unenc(values_to_upload);
-
-            Console.WriteLine(response);
 
             var json = response_decoder.string_to_generic<response_structure>(response);
             load_response_struct(json);
