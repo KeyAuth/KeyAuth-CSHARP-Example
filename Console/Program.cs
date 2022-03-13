@@ -117,6 +117,13 @@ namespace KeyAuth
                 Console.WriteLine(" Subscription name: " + KeyAuthApp.user_data.subscriptions[i].subscription + " - Expires at: " + UnixTimeToDateTime(long.Parse(KeyAuthApp.user_data.subscriptions[i].expiry)) + " - Time left in seconds: " + KeyAuthApp.user_data.subscriptions[i].timeleft);
             }
 
+            /*
+                  KeyAuthApp.web_login();
+
+                  Console.WriteLine("\n Waiting for button to be clicked");
+                  KeyAuthApp.button("close");
+            */
+            
             #region extras
             /*
             // set user variable 'discord' to 'test#0001' (if the user variable with name 'discord' doesn't exist, it'll be created)
