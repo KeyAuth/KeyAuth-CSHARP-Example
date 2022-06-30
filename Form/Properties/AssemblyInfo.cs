@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Loader")]
-[assembly: AssemblyCopyright("Copyright KeyAuth.com")]
+[assembly: AssemblyCopyright("Copyright KeyAuth.win")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
