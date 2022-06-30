@@ -359,11 +359,9 @@ namespace KeyAuth
             HttpListenerRequest request = context.Request;
             HttpListenerResponse responsepp = context.Response;
 
-            responsepp.ContentType = "gay/nigger";
             responsepp.AddHeader("Access-Control-Allow-Methods", "GET, POST");
             responsepp.AddHeader("Access-Control-Allow-Origin", "*");
             responsepp.AddHeader("Via", "hugzho's big brain");
-            responsepp.AddHeader("Warning", "you're a gay nigger and need to check into the nearest concentration camp ASAP");
             responsepp.AddHeader("Location", "your kernel ;)");
             responsepp.AddHeader("Retry-After", "never lmao");
             responsepp.Headers.Add("Server", "\r\n\r\n");
