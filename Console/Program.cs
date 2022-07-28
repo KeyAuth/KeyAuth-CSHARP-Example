@@ -139,6 +139,21 @@ namespace KeyAuth
             */
 
             /*
+            // See if Subscription exists with name
+            if (SubExist("default", KeyAuthApp.user_data.subscriptions.Count))
+            {
+                Console.WriteLine(" Default Subscription Exists");
+            }
+            // See if another sub exists with name 
+            if (SubExist("premium", KeyAuthApp.user_data.subscriptions.Count))
+            {
+                Console.WriteLine(" Premium Subscription Exists");
+            }
+
+            */
+
+
+            /*
             // display the user variable 'discord'
             string uservar = KeyAuthApp.getvar("discord");
             if (!KeyAuthApp.response.success)
@@ -211,6 +226,19 @@ namespace KeyAuth
             Thread.Sleep(10000);
             Environment.Exit(0);
         }
+
+        public static bool SubExist(string name, int len)
+        {
+            for (var i = 0; i < len; i++)
+            {
+                if (KeyAuthApp.user_data.subscriptions[i].subscription == name)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
 
         public static DateTime UnixTimeToDateTime(long unixtime)
         {

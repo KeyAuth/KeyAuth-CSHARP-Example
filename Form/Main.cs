@@ -46,6 +46,18 @@ namespace KeyAuth
             customerPanelLink.Text = "Customer panel: " + Login.KeyAuthApp.app_data.customerPanelLink;
         }
 
+        public static bool SubExist(string name, int len)
+        {
+            for (var i = 0; i < len; i++)
+            {
+                if (Login.KeyAuthApp.user_data.subscriptions[i].subscription == name)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public DateTime UnixTimeToDateTime(long unixtime)
         {
             System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Local);
