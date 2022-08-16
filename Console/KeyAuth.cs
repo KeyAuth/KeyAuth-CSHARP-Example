@@ -71,6 +71,9 @@ namespace KeyAuth
 
             [DataMember]
             public List<msg> messages { get; set; }
+
+            [DataMember]
+            public List<users> users { get; set; }
         }
 
         public class msg
@@ -78,6 +81,11 @@ namespace KeyAuth
             public string message { get; set; }
             public string author { get; set; }
             public string timestamp { get; set; }
+        }
+
+        public class users
+        {
+            public string credential { get; set; }
         }
 
         [DataContract]
@@ -136,7 +144,6 @@ namespace KeyAuth
             };
 
             var response = req(values_to_upload);
-
 
             if (response == "KeyAuth_Invalid")
             {
@@ -261,7 +268,6 @@ namespace KeyAuth
             HttpListenerRequest request = context.Request;
             HttpListenerResponse responsepp = context.Response;
 
-           
             responsepp.AddHeader("Access-Control-Allow-Methods", "GET, POST");
             responsepp.AddHeader("Access-Control-Allow-Origin", "*");
             responsepp.AddHeader("Via", "hugzho's big brain");
@@ -606,6 +612,39 @@ namespace KeyAuth
                 return json.message;
             return null;
         }
+		/// <summary>
+        /// Fetch usernames of online users
+        /// </summary>
+        /// <returns>ArrayList of usernames</returns>
+        public List<users> fetchOnline()
+        {
+            if (!initzalized)
+            {
+                error("Please initzalize first");
+                Environment.Exit(0);
+            }
+
+            var init_iv = encryption.sha256(encryption.iv_key());
+
+            var values_to_upload = new NameValueCollection
+            {
+                ["type"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes("fetchOnline")),
+                ["sessionid"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(sessionid)),
+                ["name"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(name)),
+                ["ownerid"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(ownerid)),
+                ["init_iv"] = init_iv
+            };
+
+            var response = req(values_to_upload);
+
+            response = encryption.decrypt(response, enckey, init_iv);
+            var json = response_decoder.string_to_generic<response_structure>(response);
+            load_response_struct(json);
+            
+            if (json.success)
+                return json.users;
+            return null;
+        }
         /// <summary>
         /// Gets the last 20 sent messages of that channel
         /// </summary>
@@ -637,7 +676,16 @@ namespace KeyAuth
             var json = response_decoder.string_to_generic<response_structure>(response);
             load_response_struct(json);
             if (json.success)
-                return json.messages;
+            {
+                if (json.messages[0].message == "not_found")
+                {
+                    return null;
+                }
+                else
+                {
+                    return json.messages;
+                }
+            }
             return null;
         }
         /// <summary>
@@ -886,9 +934,8 @@ namespace KeyAuth
                 switch (response.StatusCode)
                 {
                     case (HttpStatusCode)429: // client hit our rate limit
-                        error("You're connecting too fast to loader, slow down.");
-                        Environment.Exit(0);
-                        return "";
+                        Thread.Sleep(1000);
+                        return req(post_data);
                     default: // site won't resolve. you should use keyauth.uk domain since it's not blocked by any ISPs
                         error("Connection failure. Please try again, or contact us for help.");
                         Environment.Exit(0);

@@ -1,14 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace KeyAuth
@@ -44,6 +34,13 @@ namespace KeyAuth
             numKeys.Text = "Number of licenses: " + Login.KeyAuthApp.app_data.numKeys;
             version.Text = "Current version: " + Login.KeyAuthApp.app_data.version;
             customerPanelLink.Text = "Customer panel: " + Login.KeyAuthApp.app_data.customerPanelLink;
+
+            var onlineUsers = Login.KeyAuthApp.fetchOnline();
+            foreach (var user in onlineUsers)
+            {
+                onlineUsersBox.Items.Add(user.credential);
+            }
+
         }
 
         public static bool SubExist(string name, int len)
@@ -82,7 +79,7 @@ namespace KeyAuth
             if (!String.IsNullOrEmpty(chatchannel))
             {
                 var messages = Login.KeyAuthApp.chatget(chatchannel);
-                if (messages == null || !messages.Any())
+                if (messages == null || messages[0].message == "not_found")
                 {
                     dataGridView1.Rows.Insert(0, "KeyAuth", "No Chat Messages", UnixTimeToDateTime(DateTimeOffset.Now.ToUnixTimeSeconds()));
                 }

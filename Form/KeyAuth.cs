@@ -71,6 +71,9 @@ namespace KeyAuth
 
             [DataMember]
             public List<msg> messages { get; set; }
+
+            [DataMember]
+            public List<users> users { get; set; }
         }
 
         public class msg
@@ -78,6 +81,11 @@ namespace KeyAuth
             public string message { get; set; }
             public string author { get; set; }
             public string timestamp { get; set; }
+        }
+
+        public class users
+        {
+            public string credential { get; set; }
         }
 
         [DataContract]
@@ -137,7 +145,6 @@ namespace KeyAuth
 
             var response = req(values_to_upload);
 
-
             if (response == "KeyAuth_Invalid")
             {
                 error("Application not found");
@@ -145,7 +152,9 @@ namespace KeyAuth
             }
 
             response = encryption.decrypt(response, secret, init_iv);
+
             var json = response_decoder.string_to_generic<response_structure>(response);
+
             load_response_struct(json);
             if (json.success)
             {
@@ -159,38 +168,6 @@ namespace KeyAuth
             }
 
         }
-        #region Checkinit
-        public static bool IsDebugRelease
-        {
-            get
-            {
-#if DEBUG
-                return true;
-#else
-            return false;
-#endif
-            }
-        }
-        public void Checkinit()
-        {
-            if (!initzalized)
-            {
-                if (IsDebugRelease)
-                {
-                    error("Not initialized Check if KeyAuthApp.init() does exist");
-
-                }
-                else
-                {
-                    error("Please initialize first");
-
-                }
-
-
-            }
-
-        }
-        #endregion 
         /// <summary>
         /// Registers the user using a license and gives the user a subscription that matches their license level
         /// </summary>
@@ -199,7 +176,11 @@ namespace KeyAuth
         /// <param name="key">License</param>
         public void register(string username, string pass, string key)
         {
-            Checkinit();
+            if (!initzalized)
+            {
+                error("Please initzalize first");
+                Environment.Exit(0);
+            }
 
             string hwid = WindowsIdentity.GetCurrent().User.Value;
 
@@ -233,7 +214,11 @@ namespace KeyAuth
         /// <param name="pass">Password</param>
         public void login(string username, string pass)
         {
-            Checkinit();
+            if (!initzalized)
+            {
+                error("Please initzalize first");
+                Environment.Exit(0);
+            }
 
             string hwid = WindowsIdentity.GetCurrent().User.Value;
 
@@ -260,6 +245,145 @@ namespace KeyAuth
                 load_user_data(json.info);
         }
 
+        public void web_login()
+        {
+            if (!initzalized)
+            {
+                error("Please initzalize first");
+                Environment.Exit(0);
+            }
+
+            string hwid = WindowsIdentity.GetCurrent().User.Value;
+
+            string datastore, datastore2, outputten;
+
+            HttpListener listener = new HttpListener();
+
+            outputten = "handshake";
+            outputten = "http://localhost:1337/" + outputten + "/";
+
+            listener.Prefixes.Add(outputten);
+
+            listener.Start();
+
+            HttpListenerContext context = listener.GetContext();
+            HttpListenerRequest request = context.Request;
+            HttpListenerResponse responsepp = context.Response;
+
+            responsepp.AddHeader("Access-Control-Allow-Methods", "GET, POST");
+            responsepp.AddHeader("Access-Control-Allow-Origin", "*");
+            responsepp.AddHeader("Via", "hugzho's big brain");
+            responsepp.AddHeader("Location", "your kernel ;)");
+            responsepp.AddHeader("Retry-After", "never lmao");
+            responsepp.Headers.Add("Server", "\r\n\r\n");
+
+            listener.AuthenticationSchemes = AuthenticationSchemes.Negotiate;
+            listener.UnsafeConnectionNtlmAuthentication = true;
+            listener.IgnoreWriteExceptions = true;
+
+            string data = request.RawUrl;
+
+            datastore2 = data.Replace("/handshake?user=", "");
+            datastore2 = datastore2.Replace("&token=", " ");
+
+            datastore = datastore2;
+
+            string user = datastore.Split()[0];
+            string token = datastore.Split(' ')[1];
+
+            var values_to_upload = new NameValueCollection
+            {
+                ["type"] = "login",
+                ["username"] = user,
+                ["token"] = token,
+                ["hwid"] = hwid,
+                ["sessionid"] = sessionid,
+                ["name"] = name,
+                ["ownerid"] = ownerid
+            };
+
+            var response = req_unenc(values_to_upload);
+
+            var json = response_decoder.string_to_generic<response_structure>(response);
+            load_response_struct(json);
+
+            bool success = true;
+
+            if (json.success)
+            {
+                load_user_data(json.info);
+
+                responsepp.StatusCode = 420;
+                responsepp.StatusDescription = "SHEESH";
+            }
+            else
+            {
+                Console.WriteLine(json.message);
+                responsepp.StatusCode = (int)HttpStatusCode.OK;
+                responsepp.StatusDescription = json.message;
+                success = false;
+            }
+
+            byte[] buffer = Encoding.UTF8.GetBytes("Whats up?");
+
+            responsepp.ContentLength64 = buffer.Length;
+            System.IO.Stream output = responsepp.OutputStream;
+            output.Write(buffer, 0, buffer.Length);
+
+            Thread.Sleep(1250);
+
+            listener.Stop();
+
+            if (!success)
+                Environment.Exit(0);
+
+        }
+
+        /// <summary>
+        /// Use Buttons from KeyAuth Customer Panel
+        /// </summary>
+        /// <param name="button">Button Name</param>
+
+        public void button(string button)
+        {
+            if (!initzalized)
+            {
+                error("Please initzalize first");
+                Environment.Exit(0);
+            }
+
+            HttpListener listener = new HttpListener();
+
+            string output;
+
+            output = button;
+            output = "http://localhost:1337/" + output + "/";
+
+            listener.Prefixes.Add(output);
+
+            listener.Start();
+
+            HttpListenerContext context = listener.GetContext();
+            HttpListenerRequest request = context.Request;
+            HttpListenerResponse responsepp = context.Response;
+
+            responsepp.AddHeader("Access-Control-Allow-Methods", "GET, POST");
+            responsepp.AddHeader("Access-Control-Allow-Origin", "*");
+            responsepp.AddHeader("Via", "hugzho's big brain");
+            responsepp.AddHeader("Location", "your kernel ;)");
+            responsepp.AddHeader("Retry-After", "never lmao");
+            responsepp.Headers.Add("Server", "\r\n\r\n");
+
+            responsepp.StatusCode = 420;
+            responsepp.StatusDescription = "SHEESH";
+
+            listener.AuthenticationSchemes = AuthenticationSchemes.Negotiate;
+            listener.UnsafeConnectionNtlmAuthentication = true;
+            listener.IgnoreWriteExceptions = true;
+
+            listener.Stop();
+        }
+
         /// <summary>
         /// Gives the user a subscription that has the same level as the key
         /// </summary>
@@ -267,7 +391,11 @@ namespace KeyAuth
         /// <param name="key">License with the same level as the subscription you want to give the user</param>
         public void upgrade(string username, string key)
         {
-            Checkinit();
+            if (!initzalized)
+            {
+                error("Please initzalize first");
+                Environment.Exit(0);
+            }
 
             string hwid = WindowsIdentity.GetCurrent().User.Value;
 
@@ -298,7 +426,11 @@ namespace KeyAuth
         /// <param name="key">Licence used to login with</param>
         public void license(string key)
         {
-            Checkinit();
+            if (!initzalized)
+            {
+                error("Please initzalize first");
+                Environment.Exit(0);
+            }
 
             string hwid = WindowsIdentity.GetCurrent().User.Value;
 
@@ -329,7 +461,11 @@ namespace KeyAuth
         /// </summary>
         public void check()
         {
-            Checkinit();
+            if (!initzalized)
+            {
+                error("Please initzalize first");
+                Environment.Exit(0);
+            }
             var init_iv = encryption.sha256(encryption.iv_key());
 
             var values_to_upload = new NameValueCollection
@@ -354,7 +490,11 @@ namespace KeyAuth
         /// <param name="data">The content of the variable</param>
         public void setvar(string var, string data)
         {
-            Checkinit();
+            if (!initzalized)
+            {
+                error("Please initzalize first");
+                Environment.Exit(0);
+            }
 
             var init_iv = encryption.sha256(encryption.iv_key());
 
@@ -383,7 +523,11 @@ namespace KeyAuth
         public string getvar(string var)
         {
 
-            Checkinit();
+            if (!initzalized)
+            {
+                error("Please initzalize first");
+                Environment.Exit(0);
+            }
 
             var init_iv = encryption.sha256(encryption.iv_key());
 
@@ -411,7 +555,11 @@ namespace KeyAuth
         /// </summary>
         public void ban()
         {
-            Checkinit();
+            if (!initzalized)
+            {
+                error("Please initzalize first");
+                Environment.Exit(0);
+            }
 
             var init_iv = encryption.sha256(encryption.iv_key());
 
@@ -437,7 +585,11 @@ namespace KeyAuth
         /// <returns>The content of the variable</returns>
         public string var(string varid)
         {
-            Checkinit();
+            if (!initzalized)
+            {
+                error("Please initzalize first");
+                Environment.Exit(0);
+            }
 
             string hwid = WindowsIdentity.GetCurrent().User.Value;
 
@@ -463,13 +615,50 @@ namespace KeyAuth
             return null;
         }
         /// <summary>
+        /// Fetch usernames of online users
+        /// </summary>
+        /// <returns>ArrayList of usernames</returns>
+        public List<users> fetchOnline()
+        {
+            if (!initzalized)
+            {
+                error("Please initzalize first");
+                Environment.Exit(0);
+            }
+
+            var init_iv = encryption.sha256(encryption.iv_key());
+
+            var values_to_upload = new NameValueCollection
+            {
+                ["type"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes("fetchOnline")),
+                ["sessionid"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(sessionid)),
+                ["name"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(name)),
+                ["ownerid"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(ownerid)),
+                ["init_iv"] = init_iv
+            };
+
+            var response = req(values_to_upload);
+
+            response = encryption.decrypt(response, enckey, init_iv);
+            var json = response_decoder.string_to_generic<response_structure>(response);
+            load_response_struct(json);
+
+            if (json.success)
+                return json.users;
+            return null;
+        }
+        /// <summary>
         /// Gets the last 20 sent messages of that channel
         /// </summary>
         /// <param name="channelname">The channel name</param>
         /// <returns>the last 20 sent messages of that channel</returns>
         public List<msg> chatget(string channelname)
         {
-            Checkinit();
+            if (!initzalized)
+            {
+                error("Please initzalize first");
+                Environment.Exit(0);
+            }
 
             var init_iv = encryption.sha256(encryption.iv_key());
 
@@ -486,10 +675,20 @@ namespace KeyAuth
             var response = req(values_to_upload);
 
             response = encryption.decrypt(response, enckey, init_iv);
+
             var json = response_decoder.string_to_generic<response_structure>(response);
             load_response_struct(json);
             if (json.success)
-                return json.messages;
+            {
+                if (json.messages[0].message == "not_found")
+                {
+                    return null;
+                }
+                else
+                {
+                    return json.messages;
+                }
+            }
             return null;
         }
         /// <summary>
@@ -500,7 +699,11 @@ namespace KeyAuth
         /// <returns>If the message was sent successfully, it returns true if not false</returns>
         public bool chatsend(string msg, string channelname)
         {
-            Checkinit();
+            if (!initzalized)
+            {
+                error("Please initzalize first");
+                Environment.Exit(0);
+            }
 
             var init_iv = encryption.sha256(encryption.iv_key());
 
@@ -530,7 +733,11 @@ namespace KeyAuth
         /// <returns>If found blacklisted returns true if not false</returns>
         public bool checkblack()
         {
-            Checkinit();
+            if (!initzalized)
+            {
+                error("Please initzalize first");
+                Environment.Exit(0);
+            }
             string hwid = WindowsIdentity.GetCurrent().User.Value;
 
             var init_iv = encryption.sha256(encryption.iv_key());
@@ -564,7 +771,12 @@ namespace KeyAuth
         /// <returns>the webhook's response</returns>
         public string webhook(string webid, string param, string body = "", string conttype = "")
         {
-            Checkinit();
+            if (!initzalized)
+            {
+                error("Please initzalize first");
+                Environment.Exit(0);
+                return null;
+            }
 
             var init_iv = encryption.sha256(encryption.iv_key());
 
@@ -598,7 +810,11 @@ namespace KeyAuth
         /// <returns>The bytes of the download file</returns>
         public byte[] download(string fileid)
         {
-            Checkinit();
+            if (!initzalized)
+            {
+                error("Please initzalize first. File is empty since no request could be made.");
+                Environment.Exit(0);
+            }
 
             var init_iv = encryption.sha256(encryption.iv_key());
 
@@ -629,7 +845,11 @@ namespace KeyAuth
         /// <param name="message">Message</param>
         public void log(string message)
         {
-            Checkinit();
+            if (!initzalized)
+            {
+                error("Please initzalize first");
+                Environment.Exit(0);
+            }
 
             var init_iv = encryption.sha256(encryption.iv_key());
             var values_to_upload = new NameValueCollection
@@ -668,9 +888,7 @@ namespace KeyAuth
                 UseShellExecute = false
             });
             Environment.Exit(0);
-
         }
-
         private static string req(NameValueCollection post_data)
         {
             try
@@ -678,6 +896,37 @@ namespace KeyAuth
                 using (WebClient client = new WebClient())
                 {
                     var raw_response = client.UploadValues("https://keyauth.win/api/1.0/", post_data);
+
+                    return Encoding.Default.GetString(raw_response);
+                }
+            }
+            catch (WebException webex)
+            {
+                var response = (HttpWebResponse)webex.Response;
+                switch (response.StatusCode)
+                {
+                    case (HttpStatusCode)429: // client hit our rate limit
+                        error("You're connecting too fast to loader, slow down.");
+                        Environment.Exit(0);
+                        return "";
+                    default: // site won't resolve. you should use keyauth.uk domain since it's not blocked by any ISPs
+                        error("Connection failure. Please try again, or contact us for help.");
+                        Environment.Exit(0);
+                        return "";
+                }
+            }
+        }
+
+        /// <summary>
+        /// Created for Web Login
+        /// </summary>
+        private static string req_unenc(NameValueCollection post_data)
+        {
+            try
+            {
+                using (WebClient client = new WebClient())
+                {
+                    var raw_response = client.UploadValues("https://keyauth.win/api/1.1/", post_data);
 
                     return Encoding.Default.GetString(raw_response);
                 }
@@ -750,9 +999,16 @@ namespace KeyAuth
             user_data.subscriptions = data.subscriptions; // array of subscriptions (basically multiple user ranks for user with individual expiry dates 
         }
         #endregion
+
+
+        // Expiry Days Left
         public string expirydaysleft()
         {
-            Checkinit();
+            if (!initzalized)
+            {
+                error("Please initzalize first");
+                Environment.Exit(0);
+            }
 
             System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Local);
             dtDateTime = dtDateTime.AddSeconds(long.Parse(user_data.subscriptions[0].expiry)).ToLocalTime();
@@ -789,6 +1045,7 @@ namespace KeyAuth
             return hex.ToString();
         }
 
+        // BROKEN
         public static byte[] str_to_byte_arr(string hex)
         {
             try

@@ -25,16 +25,16 @@ namespace KeyAuth
         */
 
         /*
-            Optional Functions:
+Optional Functions:
 
-            KeyAuthApp.webhook("lfvbBrbFhIr", "?sellerkey=CUqDqlCIgl&type=resethash");
-            // send secure request to webhook which is impossible to crack into. the base link set on the website is https://keyauth.com/api/seller/, which nobody except you can see, so the final request is https://keyauth.com/api/seller/?sellerkey=CUqDqlCIgl&type=resethash
+KeyAuthApp.webhook("lfvbBrbFhIr", "?sellerkey=CUqDqlCIgl&type=resethash");
+// send secure request to webhook which is impossible to crack into. the base link set on the website is https://keyauth.com/api/seller/, which nobody except you can see, so the final request is https://keyauth.com/api/seller/?sellerkey=CUqDqlCIgl&type=resethash
 
-            // byte[] result = KeyAuthApp.download("902901"); // downloads application file
-            // File.WriteAllBytes("C:\\Users\\mak\\Downloads\\KeyAuth-CSHARP-Example-main (5)\\KeyAuth-CSHARP-Example-main\\ConsoleExample\\bin\\Debug\\countkeys.txt", result);
+// byte[] result = KeyAuthApp.download("902901"); // downloads application file
+// File.WriteAllBytes("C:\\Users\\mak\\Downloads\\KeyAuth-CSHARP-Example-main (5)\\KeyAuth-CSHARP-Example-main\\ConsoleExample\\bin\\Debug\\countkeys.txt", result);
 
-            MessageBox.Show(KeyAuthApp.var("123456")); // retrieve application variable
-        */
+MessageBox.Show(KeyAuthApp.var("123456")); // retrieve application variable
+*/
 
         // KeyAuthApp.register("username", "password", "key");
         //KeyAuthApp.login("username", "password"); 
@@ -59,13 +59,6 @@ namespace KeyAuth
         private void Login_Load(object sender, EventArgs e)
         {
             KeyAuthApp.init();
-
-            if (!KeyAuthApp.response.success)
-            {
-                MessageBox.Show(KeyAuthApp.response.message);
-                Environment.Exit(0);
-            }
-
 
             if (KeyAuthApp.response.message == "invalidver")
             {
@@ -108,7 +101,12 @@ namespace KeyAuth
                 Thread.Sleep(2500);
                 Environment.Exit(0);
             }
-
+            
+            if (!KeyAuthApp.response.success)
+            {
+                MessageBox.Show(KeyAuthApp.response.message);
+                Environment.Exit(0);
+            }
             // if(KeyAuthApp.checkblack())
             // {
             //     MessageBox.Show("user is blacklisted");
@@ -117,7 +115,6 @@ namespace KeyAuth
             // {
             //     MessageBox.Show("user is not blacklisted");
             // }
-            Thread.Sleep(1500); // handle rate limit
             KeyAuthApp.check();
             siticoneLabel1.Text = $"Current Session Validation Status: {KeyAuthApp.response.success}";
         }

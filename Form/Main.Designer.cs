@@ -14,7 +14,7 @@ namespace KeyAuth
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            Siticone.UI.AnimatorNS.Animation animation1 = new Siticone.UI.AnimatorNS.Animation();
+            Siticone.UI.AnimatorNS.Animation animation4 = new Siticone.UI.AnimatorNS.Animation();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.siticoneDragControl1 = new Siticone.UI.WinForms.SiticoneDragControl(this.components);
             this.siticoneControlBox1 = new Siticone.UI.WinForms.SiticoneControlBox();
@@ -40,13 +40,12 @@ namespace KeyAuth
             this.numKeys = new Siticone.UI.WinForms.SiticoneLabel();
             this.version = new Siticone.UI.WinForms.SiticoneLabel();
             this.customerPanelLink = new Siticone.UI.WinForms.SiticoneLabel();
+            this.subscriptionDaysLabel = new Siticone.UI.WinForms.SiticoneLabel();
+            this.siticoneLabel1 = new Siticone.UI.WinForms.SiticoneLabel();
             this.siticoneShadowForm = new Siticone.UI.WinForms.SiticoneShadowForm(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-
-            this.subscriptionDaysLabel = new Siticone.UI.WinForms.SiticoneLabel();
-
-            this.siticoneLabel1 = new Siticone.UI.WinForms.SiticoneLabel();
-
+            this.onlineUsersBox = new Siticone.UI.WinForms.SiticoneComboBox();
+            this.siticoneLabel2 = new Siticone.UI.WinForms.SiticoneLabel();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -88,24 +87,23 @@ namespace KeyAuth
             // 
             // siticoneTransition1
             // 
-            this.siticoneTransition1.AnimationType = Siticone.UI.AnimatorNS.AnimationType.Rotate;
             this.siticoneTransition1.Cursor = null;
-            animation1.AnimateOnlyDifferences = true;
-            animation1.BlindCoeff = ((System.Drawing.PointF)(resources.GetObject("animation1.BlindCoeff")));
-            animation1.LeafCoeff = 0F;
-            animation1.MaxTime = 1F;
-            animation1.MinTime = 0F;
-            animation1.MosaicCoeff = ((System.Drawing.PointF)(resources.GetObject("animation1.MosaicCoeff")));
-            animation1.MosaicShift = ((System.Drawing.PointF)(resources.GetObject("animation1.MosaicShift")));
-            animation1.MosaicSize = 0;
-            animation1.Padding = new System.Windows.Forms.Padding(50);
-            animation1.RotateCoeff = 1F;
-            animation1.RotateLimit = 0F;
-            animation1.ScaleCoeff = ((System.Drawing.PointF)(resources.GetObject("animation1.ScaleCoeff")));
-            animation1.SlideCoeff = ((System.Drawing.PointF)(resources.GetObject("animation1.SlideCoeff")));
-            animation1.TimeCoeff = 0F;
-            animation1.TransparencyCoeff = 1F;
-            this.siticoneTransition1.DefaultAnimation = animation1;
+            animation4.AnimateOnlyDifferences = true;
+            animation4.BlindCoeff = ((System.Drawing.PointF)(resources.GetObject("animation4.BlindCoeff")));
+            animation4.LeafCoeff = 0F;
+            animation4.MaxTime = 1F;
+            animation4.MinTime = 0F;
+            animation4.MosaicCoeff = ((System.Drawing.PointF)(resources.GetObject("animation4.MosaicCoeff")));
+            animation4.MosaicShift = ((System.Drawing.PointF)(resources.GetObject("animation4.MosaicShift")));
+            animation4.MosaicSize = 0;
+            animation4.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
+            animation4.RotateCoeff = 0F;
+            animation4.RotateLimit = 0F;
+            animation4.ScaleCoeff = ((System.Drawing.PointF)(resources.GetObject("animation4.ScaleCoeff")));
+            animation4.SlideCoeff = ((System.Drawing.PointF)(resources.GetObject("animation4.SlideCoeff")));
+            animation4.TimeCoeff = 0F;
+            animation4.TransparencyCoeff = 0F;
+            this.siticoneTransition1.DefaultAnimation = animation4;
             // 
             // label1
             // 
@@ -140,7 +138,7 @@ namespace KeyAuth
             this.key.Location = new System.Drawing.Point(20, 60);
             this.key.Margin = new System.Windows.Forms.Padding(2);
             this.key.Name = "key";
-            this.key.Size = new System.Drawing.Size(71, 14);
+            this.key.Size = new System.Drawing.Size(82, 15);
             this.key.TabIndex = 37;
             this.key.Text = "usernameLabel";
             // 
@@ -153,7 +151,7 @@ namespace KeyAuth
             this.expiry.Location = new System.Drawing.Point(20, 80);
             this.expiry.Margin = new System.Windows.Forms.Padding(2);
             this.expiry.Name = "expiry";
-            this.expiry.Size = new System.Drawing.Size(56, 14);
+            this.expiry.Size = new System.Drawing.Size(63, 15);
             this.expiry.TabIndex = 38;
             this.expiry.Text = "expiryLabel";
             // 
@@ -166,7 +164,7 @@ namespace KeyAuth
             this.subscription.Location = new System.Drawing.Point(20, 101);
             this.subscription.Margin = new System.Windows.Forms.Padding(2);
             this.subscription.Name = "subscription";
-            this.subscription.Size = new System.Drawing.Size(84, 14);
+            this.subscription.Size = new System.Drawing.Size(95, 15);
             this.subscription.TabIndex = 39;
             this.subscription.Text = "subscriptionLabel";
             // 
@@ -178,9 +176,9 @@ namespace KeyAuth
             this.Message,
             this.Time});
             this.siticoneTransition1.SetDecoration(this.dataGridView1, Siticone.UI.AnimatorNS.DecorationType.None);
-            this.dataGridView1.Location = new System.Drawing.Point(64, 255);
+            this.dataGridView1.Location = new System.Drawing.Point(20, 240);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(493, 227);
+            this.dataGridView1.Size = new System.Drawing.Size(495, 227);
             this.dataGridView1.TabIndex = 41;
             // 
             // Sender
@@ -214,7 +212,7 @@ namespace KeyAuth
             this.sendmsg.ForeColor = System.Drawing.Color.White;
             this.sendmsg.HoveredState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(218)))), ((int)(((byte)(223)))));
             this.sendmsg.HoveredState.Parent = this.sendmsg;
-            this.sendmsg.Location = new System.Drawing.Point(406, 488);
+            this.sendmsg.Location = new System.Drawing.Point(364, 482);
             this.sendmsg.Name = "sendmsg";
             this.sendmsg.ShadowDecoration.Parent = this.sendmsg;
             this.sendmsg.Size = new System.Drawing.Size(151, 27);
@@ -239,14 +237,14 @@ namespace KeyAuth
             this.chatmsg.FocusedState.Parent = this.chatmsg;
             this.chatmsg.HoveredState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.chatmsg.HoveredState.Parent = this.chatmsg;
-            this.chatmsg.Location = new System.Drawing.Point(64, 485);
+            this.chatmsg.Location = new System.Drawing.Point(20, 482);
             this.chatmsg.Margin = new System.Windows.Forms.Padding(4);
             this.chatmsg.Name = "chatmsg";
             this.chatmsg.PasswordChar = '\0';
             this.chatmsg.PlaceholderText = "";
             this.chatmsg.SelectedText = "";
             this.chatmsg.ShadowDecoration.Parent = this.chatmsg;
-            this.chatmsg.Size = new System.Drawing.Size(335, 30);
+            this.chatmsg.Size = new System.Drawing.Size(337, 27);
             this.chatmsg.TabIndex = 43;
             this.chatmsg.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -259,7 +257,7 @@ namespace KeyAuth
             this.ip.Location = new System.Drawing.Point(20, 119);
             this.ip.Margin = new System.Windows.Forms.Padding(2);
             this.ip.Name = "ip";
-            this.ip.Size = new System.Drawing.Size(36, 14);
+            this.ip.Size = new System.Drawing.Size(41, 15);
             this.ip.TabIndex = 44;
             this.ip.Text = "ipLabel";
             // 
@@ -272,7 +270,7 @@ namespace KeyAuth
             this.hwid.Location = new System.Drawing.Point(20, 137);
             this.hwid.Margin = new System.Windows.Forms.Padding(2);
             this.hwid.Name = "hwid";
-            this.hwid.Size = new System.Drawing.Size(50, 14);
+            this.hwid.Size = new System.Drawing.Size(57, 15);
             this.hwid.TabIndex = 45;
             this.hwid.Text = "hwidLabel";
             // 
@@ -285,7 +283,7 @@ namespace KeyAuth
             this.createDate.Location = new System.Drawing.Point(20, 155);
             this.createDate.Margin = new System.Windows.Forms.Padding(2);
             this.createDate.Name = "createDate";
-            this.createDate.Size = new System.Drawing.Size(76, 14);
+            this.createDate.Size = new System.Drawing.Size(86, 15);
             this.createDate.TabIndex = 46;
             this.createDate.Text = "createDateLabel";
             // 
@@ -298,7 +296,7 @@ namespace KeyAuth
             this.lastLogin.Location = new System.Drawing.Point(20, 173);
             this.lastLogin.Margin = new System.Windows.Forms.Padding(2);
             this.lastLogin.Name = "lastLogin";
-            this.lastLogin.Size = new System.Drawing.Size(69, 14);
+            this.lastLogin.Size = new System.Drawing.Size(79, 15);
             this.lastLogin.TabIndex = 47;
             this.lastLogin.Text = "lastLoginLabel";
             // 
@@ -311,7 +309,7 @@ namespace KeyAuth
             this.numUsers.Location = new System.Drawing.Point(325, 60);
             this.numUsers.Margin = new System.Windows.Forms.Padding(2);
             this.numUsers.Name = "numUsers";
-            this.numUsers.Size = new System.Drawing.Size(72, 14);
+            this.numUsers.Size = new System.Drawing.Size(83, 15);
             this.numUsers.TabIndex = 48;
             this.numUsers.Text = "numUsersLabel";
             // 
@@ -324,7 +322,7 @@ namespace KeyAuth
             this.numOnlineUsers.Location = new System.Drawing.Point(325, 80);
             this.numOnlineUsers.Margin = new System.Windows.Forms.Padding(2);
             this.numOnlineUsers.Name = "numOnlineUsers";
-            this.numOnlineUsers.Size = new System.Drawing.Size(103, 14);
+            this.numOnlineUsers.Size = new System.Drawing.Size(117, 15);
             this.numOnlineUsers.TabIndex = 49;
             this.numOnlineUsers.Text = "numOnlineUsersLabel";
             // 
@@ -337,7 +335,7 @@ namespace KeyAuth
             this.numKeys.Location = new System.Drawing.Point(325, 101);
             this.numKeys.Margin = new System.Windows.Forms.Padding(2);
             this.numKeys.Name = "numKeys";
-            this.numKeys.Size = new System.Drawing.Size(68, 14);
+            this.numKeys.Size = new System.Drawing.Size(79, 15);
             this.numKeys.TabIndex = 50;
             this.numKeys.Text = "numKeysLabel";
             // 
@@ -350,7 +348,7 @@ namespace KeyAuth
             this.version.Location = new System.Drawing.Point(325, 119);
             this.version.Margin = new System.Windows.Forms.Padding(2);
             this.version.Name = "version";
-            this.version.Size = new System.Drawing.Size(60, 14);
+            this.version.Size = new System.Drawing.Size(69, 15);
             this.version.TabIndex = 51;
             this.version.Text = "versionLabel";
             // 
@@ -363,17 +361,10 @@ namespace KeyAuth
             this.customerPanelLink.Location = new System.Drawing.Point(325, 137);
             this.customerPanelLink.Margin = new System.Windows.Forms.Padding(2);
             this.customerPanelLink.Name = "customerPanelLink";
-            this.customerPanelLink.Size = new System.Drawing.Size(115, 14);
+            this.customerPanelLink.Size = new System.Drawing.Size(130, 15);
             this.customerPanelLink.TabIndex = 52;
             this.customerPanelLink.Text = "customerPanelLinkLabel";
             // 
-            // timer1
-            // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 1;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-
             // subscriptionDaysLabel
             // 
             this.subscriptionDaysLabel.BackColor = System.Drawing.Color.Transparent;
@@ -383,10 +374,10 @@ namespace KeyAuth
             this.subscriptionDaysLabel.Location = new System.Drawing.Point(20, 210);
             this.subscriptionDaysLabel.Margin = new System.Windows.Forms.Padding(2);
             this.subscriptionDaysLabel.Name = "subscriptionDaysLabel";
-            this.subscriptionDaysLabel.Size = new System.Drawing.Size(105, 14);
+            this.subscriptionDaysLabel.Size = new System.Drawing.Size(120, 15);
             this.subscriptionDaysLabel.TabIndex = 53;
             this.subscriptionDaysLabel.Text = "subscriptionDaysLabel";
-
+            // 
             // siticoneLabel1
             // 
             this.siticoneLabel1.BackColor = System.Drawing.Color.Transparent;
@@ -396,10 +387,48 @@ namespace KeyAuth
             this.siticoneLabel1.Location = new System.Drawing.Point(20, 191);
             this.siticoneLabel1.Margin = new System.Windows.Forms.Padding(2);
             this.siticoneLabel1.Name = "siticoneLabel1";
-            this.siticoneLabel1.Size = new System.Drawing.Size(161, 14);
+            this.siticoneLabel1.Size = new System.Drawing.Size(178, 15);
             this.siticoneLabel1.TabIndex = 53;
             this.siticoneLabel1.Text = "Current Session Valdiation Status: ";
-
+            // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 1;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // onlineUsersBox
+            // 
+            this.onlineUsersBox.BackColor = System.Drawing.Color.Transparent;
+            this.siticoneTransition1.SetDecoration(this.onlineUsersBox, Siticone.UI.AnimatorNS.DecorationType.None);
+            this.onlineUsersBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.onlineUsersBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.onlineUsersBox.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.onlineUsersBox.ForeColor = System.Drawing.Color.Black;
+            this.onlineUsersBox.FormattingEnabled = true;
+            this.onlineUsersBox.HoveredState.Parent = this.onlineUsersBox;
+            this.onlineUsersBox.ItemHeight = 30;
+            this.onlineUsersBox.Items.AddRange(new object[] {
+            ""});
+            this.onlineUsersBox.ItemsAppearance.Parent = this.onlineUsersBox;
+            this.onlineUsersBox.Location = new System.Drawing.Point(325, 189);
+            this.onlineUsersBox.Name = "onlineUsersBox";
+            this.onlineUsersBox.ShadowDecoration.Parent = this.onlineUsersBox;
+            this.onlineUsersBox.Size = new System.Drawing.Size(269, 36);
+            this.onlineUsersBox.TabIndex = 54;
+            // 
+            // siticoneLabel2
+            // 
+            this.siticoneLabel2.BackColor = System.Drawing.Color.Transparent;
+            this.siticoneTransition1.SetDecoration(this.siticoneLabel2, Siticone.UI.AnimatorNS.DecorationType.None);
+            this.siticoneLabel2.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.siticoneLabel2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.siticoneLabel2.Location = new System.Drawing.Point(325, 169);
+            this.siticoneLabel2.Margin = new System.Windows.Forms.Padding(2);
+            this.siticoneLabel2.Name = "siticoneLabel2";
+            this.siticoneLabel2.Size = new System.Drawing.Size(71, 15);
+            this.siticoneLabel2.TabIndex = 55;
+            this.siticoneLabel2.Text = "Online Users:";
             // 
             // Main
             // 
@@ -408,11 +437,10 @@ namespace KeyAuth
             this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(42)))));
             this.ClientSize = new System.Drawing.Size(622, 543);
-
+            this.Controls.Add(this.siticoneLabel2);
+            this.Controls.Add(this.onlineUsersBox);
             this.Controls.Add(this.subscriptionDaysLabel);
-
             this.Controls.Add(this.siticoneLabel1);
-
             this.Controls.Add(this.customerPanelLink);
             this.Controls.Add(this.version);
             this.Controls.Add(this.numKeys);
@@ -485,6 +513,7 @@ namespace KeyAuth
         private Siticone.UI.WinForms.SiticoneLabel version;
         private Siticone.UI.WinForms.SiticoneLabel subscriptionDaysLabel;
         private Siticone.UI.WinForms.SiticoneLabel siticoneLabel1;
-
+        private Siticone.UI.WinForms.SiticoneComboBox onlineUsersBox;
+        private Siticone.UI.WinForms.SiticoneLabel siticoneLabel2;
     }
 }

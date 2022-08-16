@@ -1,5 +1,4 @@
 using System;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Net;
 using System.Threading;
@@ -16,8 +15,6 @@ namespace KeyAuth
          * 
          */
 
-
-
         public static api KeyAuthApp = new api(
             name: "",
             ownerid: "",
@@ -27,7 +24,6 @@ namespace KeyAuth
 
         static void Main(string[] args)
         {
-
             Console.Title = "Loader";
             Console.WriteLine("\n\n Connecting..");
             KeyAuthApp.init();
@@ -116,12 +112,22 @@ namespace KeyAuth
             {
                 Console.WriteLine(" Subscription name: " + KeyAuthApp.user_data.subscriptions[i].subscription + " - Expires at: " + UnixTimeToDateTime(long.Parse(KeyAuthApp.user_data.subscriptions[i].expiry)) + " - Time left in seconds: " + KeyAuthApp.user_data.subscriptions[i].timeleft);
             }
+			var onlineUsers = KeyAuthApp.fetchOnline();
+            if (onlineUsers != null)
+            {
+                Console.Write("\n Online users: ");
+                foreach (var user in onlineUsers)
+                {
+                    Console.Write(user.credential + ", ");
+                }
+                Console.WriteLine("\n");
+            }
 
             /*
-                  KeyAuthApp.web_login();
+                KeyAuthApp.web_login();
 
-                  Console.WriteLine("\n Waiting for button to be clicked");
-                  KeyAuthApp.button("close");
+                Console.WriteLine("\n Waiting for button to be clicked");
+                KeyAuthApp.button("close");
             */
             
             #region extras
@@ -151,7 +157,6 @@ namespace KeyAuth
             }
 
             */
-
 
             /*
             // display the user variable 'discord'
@@ -221,7 +226,7 @@ namespace KeyAuth
             // KeyAuthApp.ban(); // ban the current user, must be logged in
             #endregion extras
             KeyAuthApp.check();
-            Console.WriteLine($"Current Session Validation Status: {KeyAuthApp.response.message}"); // you can also just check the status but ill just print the message
+            Console.WriteLine($" Current Session Validation Status: {KeyAuthApp.response.message}"); // you can also just check the status but ill just print the message
             Console.WriteLine("\n Closing in ten seconds...");
             Thread.Sleep(10000);
             Environment.Exit(0);
@@ -238,7 +243,6 @@ namespace KeyAuth
             }
             return false;
         }
-
 
         public static DateTime UnixTimeToDateTime(long unixtime)
         {
