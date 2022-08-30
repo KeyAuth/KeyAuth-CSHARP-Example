@@ -36,11 +36,12 @@ namespace KeyAuth
             customerPanelLink.Text = "Customer panel: " + Login.KeyAuthApp.app_data.customerPanelLink;
 
             var onlineUsers = Login.KeyAuthApp.fetchOnline();
+            onlineUsersBox.Items.Clear();
             foreach (var user in onlineUsers)
             {
                 onlineUsersBox.Items.Add(user.credential);
             }
-
+            onlineUsersBox.SelectedIndex = 0;
         }
 
         public static bool SubExist(string name, int len)
@@ -79,7 +80,7 @@ namespace KeyAuth
             if (!String.IsNullOrEmpty(chatchannel))
             {
                 var messages = Login.KeyAuthApp.chatget(chatchannel);
-                if (messages == null || messages[0].message == "not_found")
+                if (messages == null)
                 {
                     dataGridView1.Rows.Insert(0, "KeyAuth", "No Chat Messages", UnixTimeToDateTime(DateTimeOffset.Now.ToUnixTimeSeconds()));
                 }

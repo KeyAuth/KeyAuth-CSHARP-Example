@@ -1,16 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Management;
 using System.Net;
-using System.Net.NetworkInformation;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace KeyAuth
@@ -98,7 +88,6 @@ MessageBox.Show(KeyAuthApp.var("123456")); // retrieve application variable
                     }
                 }
                 MessageBox.Show("Version of this program does not match the one online. Furthermore, the download link online isn't set. You will need to manually obtain the download link from the developer");
-                Thread.Sleep(2500);
                 Environment.Exit(0);
             }
             

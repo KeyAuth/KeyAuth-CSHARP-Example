@@ -680,14 +680,7 @@ namespace KeyAuth
             load_response_struct(json);
             if (json.success)
             {
-                if (json.messages[0].message == "not_found")
-                {
-                    return null;
-                }
-                else
-                {
                     return json.messages;
-                }
             }
             return null;
         }

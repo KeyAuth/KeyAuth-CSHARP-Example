@@ -18,12 +18,9 @@ namespace KeyAuth
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            Siticone.UI.AnimatorNS.Animation animation2 = new Siticone.UI.AnimatorNS.Animation();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             this.siticoneDragControl1 = new Siticone.UI.WinForms.SiticoneDragControl(this.components);
             this.siticoneControlBox1 = new Siticone.UI.WinForms.SiticoneControlBox();
             this.siticoneControlBox2 = new Siticone.UI.WinForms.SiticoneControlBox();
-            this.siticoneTransition1 = new Siticone.UI.WinForms.SiticoneTransition();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.LoginBtn = new Siticone.UI.WinForms.SiticoneRoundedButton();
@@ -34,8 +31,8 @@ namespace KeyAuth
             this.UpgradeBtn = new Siticone.UI.WinForms.SiticoneRoundedButton();
             this.LicBtn = new Siticone.UI.WinForms.SiticoneRoundedButton();
             this.status = new Siticone.UI.WinForms.SiticoneLabel();
-            this.siticoneShadowForm = new Siticone.UI.WinForms.SiticoneShadowForm(this.components);
             this.siticoneLabel1 = new Siticone.UI.WinForms.SiticoneLabel();
+            this.siticoneShadowForm = new Siticone.UI.WinForms.SiticoneShadowForm(this.components);
             this.SuspendLayout();
             // 
             // siticoneDragControl1
@@ -46,7 +43,6 @@ namespace KeyAuth
             // 
             this.siticoneControlBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.siticoneControlBox1.BorderRadius = 10;
-            this.siticoneTransition1.SetDecoration(this.siticoneControlBox1, Siticone.UI.AnimatorNS.DecorationType.None);
             this.siticoneControlBox1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(42)))));
             this.siticoneControlBox1.HoveredState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(17)))), ((int)(((byte)(35)))));
             this.siticoneControlBox1.HoveredState.IconColor = System.Drawing.Color.White;
@@ -64,7 +60,6 @@ namespace KeyAuth
             this.siticoneControlBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.siticoneControlBox2.BorderRadius = 10;
             this.siticoneControlBox2.ControlBoxType = Siticone.UI.WinForms.Enums.ControlBoxType.MinimizeBox;
-            this.siticoneTransition1.SetDecoration(this.siticoneControlBox2, Siticone.UI.AnimatorNS.DecorationType.None);
             this.siticoneControlBox2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(42)))));
             this.siticoneControlBox2.HoveredState.Parent = this.siticoneControlBox2;
             this.siticoneControlBox2.IconColor = System.Drawing.Color.White;
@@ -74,31 +69,9 @@ namespace KeyAuth
             this.siticoneControlBox2.Size = new System.Drawing.Size(45, 29);
             this.siticoneControlBox2.TabIndex = 2;
             // 
-            // siticoneTransition1
-            // 
-            this.siticoneTransition1.AnimationType = Siticone.UI.AnimatorNS.AnimationType.Rotate;
-            this.siticoneTransition1.Cursor = null;
-            animation2.AnimateOnlyDifferences = true;
-            animation2.BlindCoeff = ((System.Drawing.PointF)(resources.GetObject("animation2.BlindCoeff")));
-            animation2.LeafCoeff = 0F;
-            animation2.MaxTime = 1F;
-            animation2.MinTime = 0F;
-            animation2.MosaicCoeff = ((System.Drawing.PointF)(resources.GetObject("animation2.MosaicCoeff")));
-            animation2.MosaicShift = ((System.Drawing.PointF)(resources.GetObject("animation2.MosaicShift")));
-            animation2.MosaicSize = 0;
-            animation2.Padding = new System.Windows.Forms.Padding(50);
-            animation2.RotateCoeff = 1F;
-            animation2.RotateLimit = 0F;
-            animation2.ScaleCoeff = ((System.Drawing.PointF)(resources.GetObject("animation2.ScaleCoeff")));
-            animation2.SlideCoeff = ((System.Drawing.PointF)(resources.GetObject("animation2.SlideCoeff")));
-            animation2.TimeCoeff = 0F;
-            animation2.TransparencyCoeff = 1F;
-            this.siticoneTransition1.DefaultAnimation = animation2;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.siticoneTransition1.SetDecoration(this.label1, Siticone.UI.AnimatorNS.DecorationType.None);
             this.label1.Font = new System.Drawing.Font("Segoe UI Light", 10F);
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(-1, 136);
@@ -109,7 +82,6 @@ namespace KeyAuth
             // label2
             // 
             this.label2.AutoSize = true;
-            this.siticoneTransition1.SetDecoration(this.label2, Siticone.UI.AnimatorNS.DecorationType.None);
             this.label2.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.label2.Location = new System.Drawing.Point(10, 11);
@@ -125,7 +97,6 @@ namespace KeyAuth
             this.LoginBtn.BorderThickness = 1;
             this.LoginBtn.CheckedState.Parent = this.LoginBtn;
             this.LoginBtn.CustomImages.Parent = this.LoginBtn;
-            this.siticoneTransition1.SetDecoration(this.LoginBtn, Siticone.UI.AnimatorNS.DecorationType.None);
             this.LoginBtn.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(127)))), ((int)(((byte)(243)))));
             this.LoginBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LoginBtn.ForeColor = System.Drawing.Color.White;
@@ -144,7 +115,6 @@ namespace KeyAuth
             this.key.AllowDrop = true;
             this.key.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(127)))), ((int)(((byte)(243)))));
             this.key.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.siticoneTransition1.SetDecoration(this.key, Siticone.UI.AnimatorNS.DecorationType.None);
             this.key.DefaultText = "Key";
             this.key.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
             this.key.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
@@ -172,7 +142,6 @@ namespace KeyAuth
             this.username.AllowDrop = true;
             this.username.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(127)))), ((int)(((byte)(243)))));
             this.username.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.siticoneTransition1.SetDecoration(this.username, Siticone.UI.AnimatorNS.DecorationType.None);
             this.username.DefaultText = "Username";
             this.username.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
             this.username.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
@@ -200,7 +169,6 @@ namespace KeyAuth
             this.password.AllowDrop = true;
             this.password.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(127)))), ((int)(((byte)(243)))));
             this.password.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.siticoneTransition1.SetDecoration(this.password, Siticone.UI.AnimatorNS.DecorationType.None);
             this.password.DefaultText = "Password";
             this.password.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
             this.password.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
@@ -229,7 +197,6 @@ namespace KeyAuth
             this.RgstrBtn.BorderThickness = 1;
             this.RgstrBtn.CheckedState.Parent = this.RgstrBtn;
             this.RgstrBtn.CustomImages.Parent = this.RgstrBtn;
-            this.siticoneTransition1.SetDecoration(this.RgstrBtn, Siticone.UI.AnimatorNS.DecorationType.None);
             this.RgstrBtn.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(127)))), ((int)(((byte)(243)))));
             this.RgstrBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RgstrBtn.ForeColor = System.Drawing.Color.White;
@@ -249,7 +216,6 @@ namespace KeyAuth
             this.UpgradeBtn.BorderThickness = 1;
             this.UpgradeBtn.CheckedState.Parent = this.UpgradeBtn;
             this.UpgradeBtn.CustomImages.Parent = this.UpgradeBtn;
-            this.siticoneTransition1.SetDecoration(this.UpgradeBtn, Siticone.UI.AnimatorNS.DecorationType.None);
             this.UpgradeBtn.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(127)))), ((int)(((byte)(243)))));
             this.UpgradeBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UpgradeBtn.ForeColor = System.Drawing.Color.White;
@@ -269,7 +235,6 @@ namespace KeyAuth
             this.LicBtn.BorderThickness = 1;
             this.LicBtn.CheckedState.Parent = this.LicBtn;
             this.LicBtn.CustomImages.Parent = this.LicBtn;
-            this.siticoneTransition1.SetDecoration(this.LicBtn, Siticone.UI.AnimatorNS.DecorationType.None);
             this.LicBtn.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(127)))), ((int)(((byte)(243)))));
             this.LicBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LicBtn.ForeColor = System.Drawing.Color.White;
@@ -287,7 +252,6 @@ namespace KeyAuth
             // 
             this.status.AutoSize = false;
             this.status.BackColor = System.Drawing.Color.Transparent;
-            this.siticoneTransition1.SetDecoration(this.status, Siticone.UI.AnimatorNS.DecorationType.None);
             this.status.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.status.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.status.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
@@ -303,7 +267,6 @@ namespace KeyAuth
             // 
             this.siticoneLabel1.AutoSize = false;
             this.siticoneLabel1.BackColor = System.Drawing.Color.Transparent;
-            this.siticoneTransition1.SetDecoration(this.siticoneLabel1, Siticone.UI.AnimatorNS.DecorationType.None);
             this.siticoneLabel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.siticoneLabel1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.siticoneLabel1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
@@ -335,7 +298,6 @@ namespace KeyAuth
             this.Controls.Add(this.label1);
             this.Controls.Add(this.siticoneControlBox2);
             this.Controls.Add(this.siticoneControlBox1);
-            this.siticoneTransition1.SetDecoration(this, Siticone.UI.AnimatorNS.DecorationType.BottomMirror);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Login";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -358,9 +320,6 @@ namespace KeyAuth
 
         // Token: 0x04000005 RID: 5
         private global::Siticone.UI.WinForms.SiticoneControlBox siticoneControlBox2;
-
-        // Token: 0x04000009 RID: 9
-        private global::Siticone.UI.WinForms.SiticoneTransition siticoneTransition1;
 
         // Token: 0x0400000A RID: 10
         private global::System.Windows.Forms.Label label1;
