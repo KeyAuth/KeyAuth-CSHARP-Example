@@ -129,7 +129,7 @@ namespace KeyAuth
                 Console.WriteLine("\n Waiting for button to be clicked");
                 KeyAuthApp.button("close");
             */
-            
+
             #region extras
             /*
             // set user variable 'discord' to 'test#0001' (if the user variable with name 'discord' doesn't exist, it'll be created)
@@ -174,19 +174,19 @@ namespace KeyAuth
             // KeyAuthApp.log("user logged in"); // log text to website and discord webhook (if set)
 
             /*
-            // let's say you want to send request to https://keyauth.com/api/seller/?sellerkey=f43795eb89d6060b74cdfc56978155ef&type=black&ip=1.1.1.1&hwid=abc
+            // let's say you want to send request to https://keyauth.win/api/seller/?sellerkey=sellerkeyhere&type=black&ip=1.1.1.1&hwid=abc
             // but doing that from inside the loader is a bad idea as the link could get leaked.
-            // Instead, you should create a webhook with the https://keyauth.com/api/seller/?sellerkey=f43795eb89d6060b74cdfc56978155ef part as the URL
+            // Instead, you should create a webhook with the https://keyauth.win/api/seller/?sellerkey=sellerkeyhere&type=black part as the URL
             // then in your loader, put the rest of the link (the other paramaters) in your loader. And then it will send request from KeyAuth server and return response in string resp
 
             // example to send normal request with no POST data
-            string resp = KeyAuthApp.webhook("7kR0UedlVI", "&type=black&ip=1.1.1.1&hwid=abc");
+            string resp = KeyAuthApp.webhook("7kR0UedlVI", "&ip=1.1.1.1&hwid=abc");
 
             // example to send form data
             resp = KeyAuthApp.webhook("7kR0UedlVI", "", "type=init&name=test&ownerid=j9Gj0FTemM", "application/x-www-form-urlencoded");
 
             // example to send JSON
-            resp = KeyAuthApp.webhook("aM0MA1Ipqz", "", "{\"content\": \"webhook message here\",\"embeds\": null}", "application/json"); // if Discord webhook message successful, response will be empty
+            resp = KeyAuthApp.webhook("7kR0UedlVI", "", "{\"content\": \"webhook message here\",\"embeds\": null}", "application/json"); // if Discord webhook message successful, response will be empty
 
             if (!KeyAuthApp.response.success)
             {
