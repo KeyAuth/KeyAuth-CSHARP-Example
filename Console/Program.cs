@@ -146,12 +146,12 @@ namespace KeyAuth
 
             /*
             // See if Subscription exists with name
-            if (SubExist("default", KeyAuthApp.user_data.subscriptions.Count))
+            if (SubExist("default"))
             {
                 Console.WriteLine(" Default Subscription Exists");
             }
             // See if another sub exists with name 
-            if (SubExist("premium", KeyAuthApp.user_data.subscriptions.Count))
+            if (SubExist("premium"))
             {
                 Console.WriteLine(" Premium Subscription Exists");
             }
@@ -232,18 +232,12 @@ namespace KeyAuth
             Environment.Exit(0);
         }
 
-        public static bool SubExist(string name, int len)
+        public static bool SubExist(string name)
         {
-            for (var i = 0; i < len; i++)
-            {
-                if (KeyAuthApp.user_data.subscriptions[i].subscription == name)
-                {
-                    return true;
-                }
-            }
+            if(KeyAuthApp.user_data.subscriptions.Exists(x => x.subscription == name))
+                return true;
             return false;
         }
-
         public static DateTime UnixTimeToDateTime(long unixtime)
         {
             DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Local);
