@@ -45,7 +45,14 @@ namespace KeyAuth
         {
             Environment.Exit(0);
         }
-
+        
+        public static bool SubExist(string name)
+        {
+            if(KeyAuthApp.user_data.subscriptions.Exists(x => x.subscription == name))
+                return true;
+            return false;
+        }
+        
         private void Login_Load(object sender, EventArgs e)
         {
             KeyAuthApp.init();
@@ -103,6 +110,11 @@ namespace KeyAuth
             // else
             // {
             //     MessageBox.Show("user is not blacklisted");
+            // }
+            // check if subscription exists
+            // if(SubExist("default"))
+            // {
+            //     MessageBox.Show("default subscription exists");
             // }
             KeyAuthApp.check();
             siticoneLabel1.Text = $"Current Session Validation Status: {KeyAuthApp.response.success}";
