@@ -1,17 +1,17 @@
 # KeyAuth-CSHARP-Example
 KeyAuth CSHARP Example For The https://keyauth.cc Authentication system.
 
-**What is KeyAuth?**
+##What is KeyAuth?
 
 KeyAuth is an Open source authentication system with cloud hosting plans as well. Client SDKs available for C++, C#, Python, Rust, PHP, JS, GO, Ruby and VB.NET. KeyAuth has several unique features such as memory streaming, webhook function where you can send requests to API without leaking the API, discord webhook notifications, ban the user securely through the application at your discretion. Feel free to join https://discord.gg/keyauth If you are experiencing account issues.
 
-**Customer connection issues?**
+##Customer connection issues?
 
 This is common amongst all authentication systems. Program obfuscation causes false positives in virus scanners, and with the scale of KeyAuth this is perceived as a malicious domain. So, `keyauth.com` and `keyauth.win` have been blocked by many internet providers. for dashbord, reseller panel, customer panel, use `keyauth.cc`
 
 For API, `keyauth.cc` will not work because I purposefully blocked it on there so `keyauth.cc` doesn't get blocked also. So, you should create your own domain and follow this tutorial video https://www.youtube.com/watch?v=a2SROFJ0eYc. The tutorial video shows you how to create a domain name for 100% free if you don't want to purchase one.
 
-**`KeyAuthApp` instance definition**
+##`KeyAuthApp` instance definition
 
 Visit and select your application, then click on the **C#** tab
 
@@ -26,7 +26,7 @@ public static api KeyAuthApp = new api(
 );
 ```
 
-**Initialize application**
+##Initialize application
 
 You must call this function prior to using any other KeyAuth function. Otherwise the other KeyAuth function won't work.
 
@@ -40,7 +40,7 @@ if (!KeyAuthApp.response.success)
 }
 ```
 
-**Display application information**
+##Display application information
 
 ```cs
 Console.WriteLine("\n App data:");
@@ -51,7 +51,7 @@ Console.WriteLine(" Application Version: " + KeyAuthApp.app_data.version);
 Console.WriteLine(" Customer panel link: " + KeyAuthApp.app_data.customerPanelLink);
 ```
 
-**Check session validation**
+##Check session validation
 
 Use this to see if the user is logged in or not.
 
@@ -60,7 +60,7 @@ KeyAuthApp.check();
 Console.WriteLine($" Current Session Validation Status: {KeyAuthApp.response.message}");
 ```
 
-**Check blacklist status**
+##Check blacklist status
 
 Check if HWID or IP Address is blacklisted. You can add this if you want, just to make sure nobody can open your program for less than a second if they're blacklisted. Though, if you don't mind a blacklisted user having the program for a few seconds until they try to login and register, and you care about having the quickest program for your users, you shouldn't use this function then. If a blacklisted user tries to login/register, the KeyAuth server will check if they're blacklisted and deny entry if so. So the check blacklist function is just auxiliary function that's optional.
 
@@ -70,7 +70,7 @@ if(KeyAuthApp.checkblack()) {
 }
 ```
 
-**Login with username/password**
+##Login with username/password
 
 ```cs
 string username;
@@ -88,7 +88,7 @@ if (!KeyAuthApp.response.success)
 }
 ```
 
-**Register with username/password/key**
+##Register with username/password/key
 
 ```cs
 string username;
@@ -109,7 +109,7 @@ if (!KeyAuthApp.response.success)
 }
 ```
 
-**Upgrade user username/key**
+##Upgrade user username/key
 
 Used so the user can add extra time to their account by claiming new key.
 
@@ -133,7 +133,7 @@ if (!KeyAuthApp.response.success)
 }
 ```
 
-**Login with just license key**
+##Login with just license key
 
 Users can use this function if their license key has never been used before, and if it has been used before. So if you plan to just allow users to use keys, you can remove the login and register functions from your code.
 
@@ -150,7 +150,7 @@ if (!KeyAuthApp.response.success)
 }
 ```
 
-**Login with web loader**
+##Login with web loader
 
 Have your users login through website. Tutorial video here https://www.youtube.com/watch?v=9-qgmsUUCK4 you can use your own domain for customer panel also, https://www.youtube.com/watch?v=iHQe4GLvgaE
 
@@ -161,7 +161,7 @@ Console.WriteLine("\n Waiting for button to be clicked");
 KeyAuthApp.button("close");
 ```
 
-**User Data**
+##User Data
 
 Show information for current logged-in user.
 
@@ -180,7 +180,7 @@ for (var i = 0; i < KeyAuthApp.user_data.subscriptions.Count; i++)
 }
 ```
 
-**Check subscription name of user**
+##Check subscription name of user
 
 If you want to wall off parts of your app to only certain users, you can have multiple subscriptions with different names. Then, when you create licenses that correspond to the level of that subscription, users who use those licenses will get a subscription with the name of the subscription that corresponds to the level of the license key they used. The `SubExist` function is in the `Program.cs` file
 
@@ -196,7 +196,7 @@ if (SubExist("premium", KeyAuthApp.user_data.subscriptions.Count))
 }
 ```
 
-**Show list of online users**
+##Show list of online users
 
 ```cs
 var onlineUsers = KeyAuthApp.fetchOnline();
@@ -211,7 +211,7 @@ if (onlineUsers != null)
 }
 ```
 
-**Application variables**
+##Application variables
 
 A string that is kept on the server-side of KeyAuth. On the dashboard you can choose for each variable to be authenticated (only logged in users can access), or not authenticated (any user can access before login). These are global and static for all users, unlike User Variables which will be dicussed below this section.
 
@@ -227,7 +227,7 @@ else
     Console.WriteLine("\n App variable data: " + appvar);
 ```
 
-**User Variables**
+##User Variables
 
 User variables are strings kept on the server-side of KeyAuth. They are specific to users. They can be set on Dashboard in the Users tab, via SellerAPI, or via your loader using the code below. `discord` is the user variable name you fetch the user variable by. `test#0001` is the variable data you get when fetching the user variable.
 
@@ -257,7 +257,7 @@ else
     Console.WriteLine("\n User variable value: " + uservar);
 ```
 
-**Application Logs**
+##Application Logs
 
 Can be used to log data. Good for anti-debug alerts and maybe error debugging. If you set Discord webhook in the app settings of the Dashboard, it will send log messages to your Discord webhook rather than store them on site. It's recommended that you set Discord webhook, as logs on site may be deleted after a couple months of their creation.
 
@@ -267,7 +267,7 @@ You can use the log function before login & after login.
 KeyAuthApp.log("hello I wanted to log this");
 ```
 
-**Ban the user**
+##Ban the user##
 
 Ban the user and blacklist their HWID and IP Address. Good function to call upon if you use anti-debug and have detected an intrusion attempt.
 
@@ -277,7 +277,7 @@ Function only works after login.
 KeyAuthApp.ban();
 ```
 
-**Server-sided webhooks**
+##Server-sided webhooks
 
 Tutorial video https://www.youtube.com/watch?v=ENRaNPPYJbc
 
@@ -309,7 +309,7 @@ else
     Console.WriteLine("\n Response received from webhook request: " + resp);
 ```
 
-**Download file**
+##Download file
 
 Keep files secure by providing KeyAuth your file download link on the KeyAuth dashboard. Make sure this is a direct download link (as soon as you go to the link, it starts downloading without you clicking anything). The KeyAuth download function provides the bytes, and then you get to decide what to do with those. This example shows how to write it to a file named `text.txt` in the same folder as the program, though you could execute with RunPE or whatever you want.
 
@@ -327,7 +327,7 @@ else
     File.WriteAllBytes(Directory.GetCurrentDirectory() + "\\test.txt", result);
 ```
 
-**Chat channels**
+##Chat channels
 
 Allow users to communicate amongst themselves in your program.
 
