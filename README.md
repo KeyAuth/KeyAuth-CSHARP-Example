@@ -267,7 +267,7 @@ You can use the log function before login & after login.
 KeyAuthApp.log("hello I wanted to log this");
 ```
 
-## Ban the user##
+## Ban the user
 
 Ban the user and blacklist their HWID and IP Address. Good function to call upon if you use anti-debug and have detected an intrusion attempt.
 
