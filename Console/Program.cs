@@ -241,7 +241,14 @@ namespace KeyAuth
         public static DateTime UnixTimeToDateTime(long unixtime)
         {
             DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Local);
-            dtDateTime = dtDateTime.AddSeconds(unixtime).ToLocalTime();
+            try
+            {
+                dtDateTime = dtDateTime.AddSeconds(unixtime).ToLocalTime();
+            }
+            catch
+            {
+                dtDateTime = DateTime.MaxValue;
+            }
             return dtDateTime;
         }
 
