@@ -224,6 +224,7 @@ namespace KeyAuth
             */
 
             // KeyAuthApp.ban(); // ban the current user, must be logged in
+			// KeyAuthApp.ban("Don't try to crack my loader, cunt."); // ban the current user (with a reason), must be logged in
             #endregion extras
             KeyAuthApp.check();
             Console.WriteLine($" Current Session Validation Status: {KeyAuthApp.response.message}"); // you can also just check the status but ill just print the message

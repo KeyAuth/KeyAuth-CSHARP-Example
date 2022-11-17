@@ -553,7 +553,7 @@ namespace KeyAuth
         /// <summary>
         /// Bans the current logged in user
         /// </summary>
-        public void ban()
+        public void ban(string reason = null)
         {
             if (!initzalized)
             {
@@ -566,6 +566,7 @@ namespace KeyAuth
             var values_to_upload = new NameValueCollection
             {
                 ["type"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes("ban")),
+				["reason"] = reason,
                 ["sessionid"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(sessionid)),
                 ["name"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(name)),
                 ["ownerid"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(ownerid)),
