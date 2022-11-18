@@ -17,18 +17,17 @@ namespace KeyAuth
     {
         public string name, ownerid, secret, version;
         /// <summary>
-        /// Set up your application credentials in order to use keyauth
+        /// Set up your application credentials to use keyauth
         /// </summary>
         /// <param name="name">Application Name</param>
         /// <param name="ownerid">Your OwnerID, can be found in your account settings.</param>
         /// <param name="secret">Application Secret</param>
-        /// <param name="version">Application Version, if version doesnt match it will open the download link you set up in your application settings and close the app, if empty the app will close</param>
+        /// <param name="version">Application Version, if the version doesn't match it will open the download link you set up in your application settings and close the app, if empty the app will close</param>
         public api(string name, string ownerid, string secret, string version)
         {
-
             if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(ownerid) || string.IsNullOrWhiteSpace(secret) || string.IsNullOrWhiteSpace(version))
             {
-                error("Application not setup correctly. Please watch video link found in Program.cs");
+                error("Application not setup correctly. Please watch video link found in Program.cs \n Make sure you've added your application name, secret, ownerID, and version in correctly, and that you have KeyAuthApp.init(); on load.");
                 Environment.Exit(0);
             }
 
@@ -124,9 +123,9 @@ namespace KeyAuth
         }
         #endregion
         private string sessionid, enckey;
-        bool initzalized;
+        bool initialized;
         /// <summary>
-        /// Initializes the connection with keyauth in order to use any of the functions
+        /// Initializes the connection with keyauth to use any of the functions
         /// </summary>
         public void init()
         {
@@ -147,7 +146,7 @@ namespace KeyAuth
 
             if (response == "KeyAuth_Invalid")
             {
-                error("Application not found");
+                error("Application not found. Please check your application name, secret, ownerID, and version.");
                 Environment.Exit(0);
             }
 
@@ -160,7 +159,7 @@ namespace KeyAuth
             {
                 load_app_data(json.appinfo);
                 sessionid = json.sessionid;
-                initzalized = true;
+                initialized = true;
             }
             else if (json.message == "invalidver")
             {
@@ -176,9 +175,9 @@ namespace KeyAuth
         /// <param name="key">License</param>
         public void register(string username, string pass, string key)
         {
-            if (!initzalized)
+            if (!initialized)
             {
-                error("Please initzalize first");
+                error("Please initialize first. Add KeyAuthApp.init(); on load.");
                 Environment.Exit(0);
             }
 
@@ -214,9 +213,9 @@ namespace KeyAuth
         /// <param name="pass">Password</param>
         public void login(string username, string pass)
         {
-            if (!initzalized)
+            if (!initialized)
             {
-                error("Please initzalize first");
+                error("Please initialize first. Add KeyAuthApp.init(); on load.");
                 Environment.Exit(0);
             }
 
@@ -247,9 +246,9 @@ namespace KeyAuth
 
         public void web_login()
         {
-            if (!initzalized)
+            if (!initialized)
             {
-                error("Please initzalize first");
+                error("Please initialize first. Add KeyAuthApp.init(); on load.");
                 Environment.Exit(0);
             }
 
@@ -272,9 +271,9 @@ namespace KeyAuth
 
             responsepp.AddHeader("Access-Control-Allow-Methods", "GET, POST");
             responsepp.AddHeader("Access-Control-Allow-Origin", "*");
-            responsepp.AddHeader("Via", "hugzho's big brain");
-            responsepp.AddHeader("Location", "your kernel ;)");
-            responsepp.AddHeader("Retry-After", "never lmao");
+            responsepp.AddHeader("Via", "Via");
+            responsepp.AddHeader("Location", "Location");
+            responsepp.AddHeader("Retry-After", "Retry");
             responsepp.Headers.Add("Server", "\r\n\r\n");
 
             listener.AuthenticationSchemes = AuthenticationSchemes.Negotiate;
@@ -346,9 +345,9 @@ namespace KeyAuth
 
         public void button(string button)
         {
-            if (!initzalized)
+            if (!initialized)
             {
-                error("Please initzalize first");
+                error("Please initialize first");
                 Environment.Exit(0);
             }
 
@@ -369,9 +368,9 @@ namespace KeyAuth
 
             responsepp.AddHeader("Access-Control-Allow-Methods", "GET, POST");
             responsepp.AddHeader("Access-Control-Allow-Origin", "*");
-            responsepp.AddHeader("Via", "hugzho's big brain");
-            responsepp.AddHeader("Location", "your kernel ;)");
-            responsepp.AddHeader("Retry-After", "never lmao");
+            responsepp.AddHeader("Via", "Via");
+            responsepp.AddHeader("Location", "Location");
+            responsepp.AddHeader("Retry-After", "Rety");
             responsepp.Headers.Add("Server", "\r\n\r\n");
 
             responsepp.StatusCode = 420;
@@ -387,13 +386,13 @@ namespace KeyAuth
         /// <summary>
         /// Gives the user a subscription that has the same level as the key
         /// </summary>
-        /// <param name="username">Username of the user thats going to get upgraded</param>
+        /// <param name="username">Username of the user that's going to get upgraded</param>
         /// <param name="key">License with the same level as the subscription you want to give the user</param>
         public void upgrade(string username, string key)
         {
-            if (!initzalized)
+            if (!initialized)
             {
-                error("Please initzalize first");
+                error("Please initialize first. Add KeyAuthApp.init(); on load.");
                 Environment.Exit(0);
             }
 
@@ -426,9 +425,9 @@ namespace KeyAuth
         /// <param name="key">Licence used to login with</param>
         public void license(string key)
         {
-            if (!initzalized)
+            if (!initialized)
             {
-                error("Please initzalize first");
+                error("Please initialize first. Add KeyAuthApp.init(); on load.");
                 Environment.Exit(0);
             }
 
@@ -461,9 +460,9 @@ namespace KeyAuth
         /// </summary>
         public void check()
         {
-            if (!initzalized)
+            if (!initialized)
             {
-                error("Please initzalize first");
+                error("Please initialize first. Add KeyAuthApp.init(); on load.");
                 Environment.Exit(0);
             }
             var init_iv = encryption.sha256(encryption.iv_key());
@@ -490,9 +489,9 @@ namespace KeyAuth
         /// <param name="data">The content of the variable</param>
         public void setvar(string var, string data)
         {
-            if (!initzalized)
+            if (!initialized)
             {
-                error("Please initzalize first");
+                error("Please initialize first. Add KeyAuthApp.init(); on load.");
                 Environment.Exit(0);
             }
 
@@ -516,16 +515,16 @@ namespace KeyAuth
             load_response_struct(json);
         }
         /// <summary>
-        /// Gets the an existing user variable
+        /// Gets the existing user variable
         /// </summary>
         /// <param name="var">User Variable Name</param>
         /// <returns>The content of the user variable</returns>
         public string getvar(string var)
         {
 
-            if (!initzalized)
+            if (!initialized)
             {
-                error("Please initzalize first");
+                error("Please initialize first. Add KeyAuthApp.init(); on load.");
                 Environment.Exit(0);
             }
 
@@ -555,9 +554,9 @@ namespace KeyAuth
         /// </summary>
         public void ban(string reason = null)
         {
-            if (!initzalized)
+            if (!initialized)
             {
-                error("Please initzalize first");
+                error("Please initialize first. Add KeyAuthApp.init(); on load.");
                 Environment.Exit(0);
             }
 
@@ -566,7 +565,7 @@ namespace KeyAuth
             var values_to_upload = new NameValueCollection
             {
                 ["type"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes("ban")),
-				["reason"] = reason,
+                ["reason"] = reason,
                 ["sessionid"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(sessionid)),
                 ["name"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(name)),
                 ["ownerid"] = encryption.byte_arr_to_str(Encoding.Default.GetBytes(ownerid)),
@@ -586,9 +585,9 @@ namespace KeyAuth
         /// <returns>The content of the variable</returns>
         public string var(string varid)
         {
-            if (!initzalized)
+            if (!initialized)
             {
-                error("Please initzalize first");
+                error("Please initialize first. Add KeyAuthApp.init(); on load.");
                 Environment.Exit(0);
             }
 
@@ -621,9 +620,9 @@ namespace KeyAuth
         /// <returns>ArrayList of usernames</returns>
         public List<users> fetchOnline()
         {
-            if (!initzalized)
+            if (!initialized)
             {
-                error("Please initzalize first");
+                error("Please initialize first. Add KeyAuthApp.init(); on load.");
                 Environment.Exit(0);
             }
 
@@ -655,9 +654,9 @@ namespace KeyAuth
         /// <returns>the last 20 sent messages of that channel</returns>
         public List<msg> chatget(string channelname)
         {
-            if (!initzalized)
+            if (!initialized)
             {
-                error("Please initzalize first");
+                error("Please initialize first. Add KeyAuthApp.init(); on load.");
                 Environment.Exit(0);
             }
 
@@ -693,9 +692,9 @@ namespace KeyAuth
         /// <returns>If the message was sent successfully, it returns true if not false</returns>
         public bool chatsend(string msg, string channelname)
         {
-            if (!initzalized)
+            if (!initialized)
             {
-                error("Please initzalize first");
+                error("Please initialize first. Add KeyAuthApp.init(); on load.");
                 Environment.Exit(0);
             }
 
@@ -727,9 +726,9 @@ namespace KeyAuth
         /// <returns>If found blacklisted returns true if not false</returns>
         public bool checkblack()
         {
-            if (!initzalized)
+            if (!initialized)
             {
-                error("Please initzalize first");
+                error("Please initialize first. Add KeyAuthApp.init(); on load.");
                 Environment.Exit(0);
             }
             string hwid = WindowsIdentity.GetCurrent().User.Value;
@@ -756,7 +755,7 @@ namespace KeyAuth
             return false;
         }
         /// <summary>
-        /// Sends a request to a webhook that you've added in the dashboard in a safe way without it being showed for example a http debugger
+        /// Sends a request to a webhook that you've safely added in the dashboard without it being shown for example an HTTP debugger
         /// </summary>
         /// <param name="webid">Webhook ID</param>
         /// <param name="param">Parameters</param>
@@ -765,9 +764,9 @@ namespace KeyAuth
         /// <returns>the webhook's response</returns>
         public string webhook(string webid, string param, string body = "", string conttype = "")
         {
-            if (!initzalized)
+            if (!initialized)
             {
-                error("Please initzalize first");
+                error("Please initialize first. Add KeyAuthApp.init(); on load.");
                 Environment.Exit(0);
                 return null;
             }
@@ -798,15 +797,15 @@ namespace KeyAuth
             return null;
         }
         /// <summary>
-        /// KeyAuth acts as proxy and downlods the file in a secure way
+        /// KeyAuth acts as a proxy and downloads the file in a secure way
         /// </summary>
         /// <param name="fileid">File ID</param>
         /// <returns>The bytes of the download file</returns>
         public byte[] download(string fileid)
         {
-            if (!initzalized)
+            if (!initialized)
             {
-                error("Please initzalize first. File is empty since no request could be made.");
+                error("Please initialize first. Add KeyAuthApp.init(); on load. File is empty since no request could be made.");
                 Environment.Exit(0);
             }
 
@@ -839,9 +838,9 @@ namespace KeyAuth
         /// <param name="message">Message</param>
         public void log(string message)
         {
-            if (!initzalized)
+            if (!initialized)
             {
-                error("Please initzalize first");
+                error("Please initialize first. Add KeyAuthApp.init(); on load.");
                 Environment.Exit(0);
             }
 
@@ -994,13 +993,12 @@ namespace KeyAuth
         }
         #endregion
 
-
         // Expiry Days Left
         public string expirydaysleft()
         {
-            if (!initzalized)
+            if (!initialized)
             {
-                error("Please initzalize first");
+                error("Please initialize first. Add KeyAuthApp.init(); on load.");
                 Environment.Exit(0);
             }
 
@@ -1052,7 +1050,7 @@ namespace KeyAuth
             }
             catch
             {
-                Console.WriteLine("\n\n  The session has ended, open program again.");
+                Console.WriteLine("\n\n  The session has ended, open the program again.");
                 Thread.Sleep(3500);
                 Environment.Exit(0);
                 return null;
