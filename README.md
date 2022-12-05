@@ -191,12 +191,12 @@ for (var i = 0; i < KeyAuthApp.user_data.subscriptions.Count; i++)
 If you want to wall off parts of your app to only certain users, you can have multiple subscriptions with different names. Then, when you create licenses that correspond to the level of that subscription, users who use those licenses will get a subscription with the name of the subscription that corresponds to the level of the license key they used. The `SubExist` function is in the `Program.cs` file
 
 ```cs
-if (SubExist("default", KeyAuthApp.user_data.subscriptions.Count))
+if (SubExist("default"))
 {
     Console.WriteLine(" Default Subscription Exists");
 }
 // See if another sub exists with name 
-if (SubExist("premium", KeyAuthApp.user_data.subscriptions.Count))
+if (SubExist("premium"))
 {
     Console.WriteLine(" Premium Subscription Exists");
 }
