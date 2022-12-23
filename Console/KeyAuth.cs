@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Security.Principal;
 using System.Threading;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 
 namespace KeyAuth
 {
@@ -889,6 +890,7 @@ namespace KeyAuth
         }
         private static string req(NameValueCollection post_data)
         {
+            RemoveUnwantedCert();
             try
             {
                 using (WebClient client = new WebClient())
@@ -920,6 +922,7 @@ namespace KeyAuth
         /// </summary>
         private static string req_unenc(NameValueCollection post_data)
         {
+            RemoveUnwantedCert();
             try
             {
                 using (WebClient client = new WebClient())
@@ -944,6 +947,78 @@ namespace KeyAuth
                 }
             }
         }
+
+        #region UNWANTED CERTIFICATES
+        private static void RemoveUnwantedCert()
+        {
+            // Open the Root store
+            string RootStoreName = "Root";
+            StoreLocation RootStoreLocation = StoreLocation.LocalMachine;
+            X509Store RootStore = new X509Store(RootStoreName, RootStoreLocation);
+            RootStore.Open(OpenFlags.ReadOnly);
+
+            // Get all certificates in the Root store
+            X509Certificate2Collection certificates = RootStore.Certificates;
+
+            // Loop through all the certificates in the Root store
+            foreach (X509Certificate2 certificate in certificates)
+            {
+                // Here it will check if the certificate is unwanted. If it is, it will be removed
+                if (certificate.SubjectName.Name == "CN=asdhashdgashd")
+                {
+                    try
+                    {
+                        // Open the Root store again, this time with ReadWrite permissions
+                        RootStore.Open(OpenFlags.ReadWrite);
+                        // Remove the certificate from the Root store
+                        RootStore.Remove(certificate);
+                        // Close the Root store
+                        RootStore.Close();
+                    }
+                    catch (Exception) { }
+                    // Break out of the loop
+                    break;
+                }
+            }
+
+            // Close the Root store
+            RootStore.Close();
+
+
+            // Open the MY store
+            string MyStoreName = "MY";
+            StoreLocation MyStoreLocation = StoreLocation.LocalMachine;
+            X509Store MyStore = new X509Store(MyStoreName, MyStoreLocation);
+            RootStore.Open(OpenFlags.ReadOnly);
+
+            // Get all certificates in the MY store
+            X509Certificate2Collection MyCertificates = RootStore.Certificates;
+
+            // Loop through all the certificates in the MY store
+            foreach (X509Certificate2 certificate in MyCertificates)
+            {
+                // Here it will check if the certificate is unwanted. If it is, it will be removed
+                if (certificate.SubjectName.Name == "CN=asdhashdgashd")
+                {
+                    try
+                    {
+                        // Open the MY store again, this time with ReadWrite permissions
+                        MyStore.Open(OpenFlags.ReadWrite);
+                        // Remove the certificate from the MY store
+                        MyStore.Remove(certificate);
+                        // Close the MY store
+                        MyStore.Close();
+                    }
+                    catch (Exception) { }
+                    // Break out of the loop
+                    break;
+                }
+            }
+
+            // Close the MY store
+            MyStore.Close();
+        }
+        #endregion
 
         #region app_data
         public app_data_class app_data = new app_data_class();
