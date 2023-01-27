@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using System.Net.Security;
 using System.Windows;
+using System.Threading;
 
 namespace KeyAuth
 {
@@ -246,6 +247,8 @@ namespace KeyAuth
 
             string datastore, datastore2, outputten;
 
+            start:
+
             HttpListener listener = new HttpListener();
 
             outputten = "handshake";
@@ -265,6 +268,14 @@ namespace KeyAuth
             responsepp.AddHeader("Location", "your kernel ;)");
             responsepp.AddHeader("Retry-After", "never lmao");
             responsepp.Headers.Add("Server", "\r\n\r\n");
+
+            if(request.HttpMethod == "OPTIONS")
+            {
+                responsepp.StatusCode = (int)HttpStatusCode.OK;
+                Thread.Sleep(1); // without this, the response doesn't return to the website, and the web buttons can't be shown
+                listener.Stop();
+                goto start;
+            }
 
             listener.AuthenticationSchemes = AuthenticationSchemes.Negotiate;
             listener.UnsafeConnectionNtlmAuthentication = true;
@@ -316,9 +327,9 @@ namespace KeyAuth
             byte[] buffer = Encoding.UTF8.GetBytes("Whats up?");
 
             responsepp.ContentLength64 = buffer.Length;
-            System.IO.Stream output = responsepp.OutputStream;
+            Stream output = responsepp.OutputStream;
             output.Write(buffer, 0, buffer.Length);
-
+            Thread.Sleep(1); // without this, the response doesn't return to the website, and the web buttons can't be shown
             listener.Stop();
 
             if (!success)
