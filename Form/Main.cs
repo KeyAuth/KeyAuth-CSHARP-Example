@@ -15,7 +15,7 @@ namespace KeyAuth
             Environment.Exit(0);
         }
 
-        string chatchannel = "testing"; // chat channel name
+        string chatchannel = ""; // chat channel name
 
         private void Main_Load(object sender, EventArgs e)
         {
@@ -28,7 +28,7 @@ namespace KeyAuth
             hwid.Text = "HWID: " + Login.KeyAuthApp.user_data.hwid;
             createDate.Text = "Creation date: " + UnixTimeToDateTime(long.Parse(Login.KeyAuthApp.user_data.createdate));
             lastLogin.Text = "Last login: " + UnixTimeToDateTime(long.Parse(Login.KeyAuthApp.user_data.lastlogin));
-            subscriptionDaysLabel.Text = "Expiry in Days: "+ Login.KeyAuthApp.expirydaysleft();
+            subscriptionDaysLabel.Text = "Expiry in Days: "+ expirydaysleft();
             numUsers.Text = "Number of users: " + Login.KeyAuthApp.app_data.numUsers;
             numOnlineUsers.Text = "Number of online users: " + Login.KeyAuthApp.app_data.numOnlineUsers;
             numKeys.Text = "Number of licenses: " + Login.KeyAuthApp.app_data.numKeys;
@@ -54,6 +54,13 @@ namespace KeyAuth
                 }
             }
             return false;
+        }
+        public string expirydaysleft()
+        {
+            System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Local);
+            dtDateTime = dtDateTime.AddSeconds(long.Parse(Login.KeyAuthApp.user_data.subscriptions[0].expiry)).ToLocalTime();
+            TimeSpan difference = dtDateTime - DateTime.Now;
+            return Convert.ToString(difference.Days + " Days " + difference.Hours + " Hours Left");
         }
 
         public DateTime UnixTimeToDateTime(long unixtime)
@@ -101,6 +108,7 @@ namespace KeyAuth
             }
             else
             {
+                timer1.Stop();
                 dataGridView1.Rows.Insert(0, "KeyAuth", "No Chat Messages", UnixTimeToDateTime(DateTimeOffset.Now.ToUnixTimeSeconds()));
             }
         }

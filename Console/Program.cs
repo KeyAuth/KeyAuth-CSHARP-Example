@@ -112,6 +112,7 @@ namespace KeyAuth
             {
                 Console.WriteLine(" Subscription name: " + KeyAuthApp.user_data.subscriptions[i].subscription + " - Expires at: " + UnixTimeToDateTime(long.Parse(KeyAuthApp.user_data.subscriptions[i].expiry)) + " - Time left in seconds: " + KeyAuthApp.user_data.subscriptions[i].timeleft);
             }
+            /*
 			var onlineUsers = KeyAuthApp.fetchOnline();
             if (onlineUsers != null)
             {
@@ -122,6 +123,7 @@ namespace KeyAuth
                 }
                 Console.WriteLine("\n");
             }
+            */
 
             /*
                 KeyAuthApp.web_login();
@@ -131,8 +133,8 @@ namespace KeyAuth
             */
 
             #region extras
-            /*
             // set user variable 'discord' to 'test#0001' (if the user variable with name 'discord' doesn't exist, it'll be created)
+            /*
             KeyAuthApp.setvar("discord", "test#0001");
             if (!KeyAuthApp.response.success)
             {
@@ -173,13 +175,14 @@ namespace KeyAuth
 
             // KeyAuthApp.log("user logged in"); // log text to website and discord webhook (if set)
 
-            /*
+
             // let's say you want to send request to https://keyauth.win/api/seller/?sellerkey=sellerkeyhere&type=black&ip=1.1.1.1&hwid=abc
             // but doing that from inside the loader is a bad idea as the link could get leaked.
             // Instead, you should create a webhook with the https://keyauth.win/api/seller/?sellerkey=sellerkeyhere&type=black part as the URL
             // then in your loader, put the rest of the link (the other paramaters) in your loader. And then it will send request from KeyAuth server and return response in string resp
 
             // example to send normal request with no POST data
+            /*
             string resp = KeyAuthApp.webhook("7kR0UedlVI", "&ip=1.1.1.1&hwid=abc");
 
             // example to send form data
@@ -224,7 +227,7 @@ namespace KeyAuth
             */
 
             // KeyAuthApp.ban(); // ban the current user, must be logged in
-			// KeyAuthApp.ban("Don't try to crack my loader, cunt."); // ban the current user (with a reason), must be logged in
+            // KeyAuthApp.ban("Don't try to crack my loader, cunt."); // ban the current user (with a reason), must be logged in
             #endregion extras
             KeyAuthApp.check();
             Console.WriteLine($" Current Session Validation Status: {KeyAuthApp.response.message}"); // you can also just check the status but ill just print the message
