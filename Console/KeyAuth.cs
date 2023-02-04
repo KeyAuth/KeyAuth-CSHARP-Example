@@ -13,6 +13,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Net.Security;
 using System.Windows;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace KeyAuth
 {
@@ -795,6 +796,33 @@ namespace KeyAuth
 
             req(values_to_upload);
         }
+        /// <summary>
+        /// Change the username of a user, *User must be logged in*
+        /// </summary>
+        /// <param username="username">New username.</param>
+        public void changeUsername(string username)
+        {
+            if (!initzalized)
+            {
+                error("You must run the function KeyAuthApp.init(); first");
+                Environment.Exit(0);
+            }
+
+            var values_to_upload = new NameValueCollection
+            {
+                ["type"] = "changeUsername",
+                ["newUsername"] = username,
+                ["sessionid"] = sessionid,
+                ["name"] = name,
+                ["ownerid"] = ownerid
+            };
+
+            var response = req(values_to_upload);
+
+            var json = response_decoder.string_to_generic<response_structure>(response);
+            load_response_struct(json);
+        }
+
         public static string checksum(string filename)
         {
             string result;
