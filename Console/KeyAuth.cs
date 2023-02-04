@@ -830,6 +830,8 @@ namespace KeyAuth
                     ServicePointManager.ServerCertificateValidationCallback += assertSSL;
 
                     var raw_response = client.UploadValues("https://keyauth.win/api/1.2/", post_data);
+					
+					ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
 
                     sigCheck(Encoding.Default.GetString(raw_response), client.ResponseHeaders["signature"], post_data.Get(0));
 
