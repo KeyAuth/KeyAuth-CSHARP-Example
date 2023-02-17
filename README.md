@@ -59,7 +59,7 @@ KeyAuthApp.init();
 if (!KeyAuthApp.response.success)
 {
     Console.WriteLine("\n Status: " + KeyAuthApp.response.message);
-    Thread.Sleep(1500);
+    Thread.Sleep(2500);
     Environment.Exit(0);
 }
 ```
@@ -107,7 +107,7 @@ KeyAuthApp.login(username, password);
 if (!KeyAuthApp.response.success)
 {
     Console.WriteLine("\n Status: " + KeyAuthApp.response.message);
-    Thread.Sleep(1500);
+    Thread.Sleep(2500);
     Environment.Exit(0);
 }
 ```
@@ -115,20 +115,20 @@ if (!KeyAuthApp.response.success)
 ## Register with username/password/key
 
 ```cs
-string username;
-string password;
-string key;
-Console.WriteLine("\n\n Enter username: ");
+string username, password, key, email;
+Console.Write("\n\n Enter username: ");
 username = Console.ReadLine();
-Console.WriteLine("\n\n Enter password: ");
+Console.Write("\n\n Enter password: ");
 password = Console.ReadLine();
-Console.WriteLine("\n\n Enter license: ");
+Console.Write("\n\n Enter license: ");
 key = Console.ReadLine();
-KeyAuthApp.register(username, password, key);
+Console.Write("\n\n Enter email (just press enter if none): ");
+email = Console.ReadLine();
+KeyAuthApp.register(username, password, key, email);
 if (!KeyAuthApp.response.success)
 {
     Console.WriteLine("\n Status: " + KeyAuthApp.response.message);
-    Thread.Sleep(1500);
+    Thread.Sleep(2500);
     Environment.Exit(0);
 }
 ```
@@ -149,12 +149,10 @@ username = Console.ReadLine();
 Console.WriteLine("\n\n Enter license: ");
 key = Console.ReadLine();
 KeyAuthApp.upgrade(username, key);
-if (!KeyAuthApp.response.success)
-{
-    Console.WriteLine("\n Status: " + KeyAuthApp.response.message);
-    Thread.Sleep(1500);
-    Environment.Exit(0);
-}
+// don't proceed to app, user hasn't authenticated yet.
+Console.WriteLine("\n Status: " + KeyAuthApp.response.message);
+Thread.Sleep(2500);
+Environment.Exit(0);
 ```
 
 ## Login with just license key
@@ -169,7 +167,7 @@ KeyAuthApp.license(key);
 if (!KeyAuthApp.response.success)
 {
     Console.WriteLine("\n Status: " + KeyAuthApp.response.message);
-    Thread.Sleep(1500);
+    Thread.Sleep(2500);
     Environment.Exit(0);
 }
 ```
@@ -183,6 +181,23 @@ KeyAuthApp.web_login();
 
 Console.WriteLine("\n Waiting for button to be clicked");
 KeyAuthApp.button("close");
+```
+
+## Forgot password
+
+Allow users to enter their account information and recieve an email to reset their password.
+
+```cs
+string username, email;
+Console.Write("\n\n Enter username: ");
+username = Console.ReadLine();
+Console.Write("\n\n Enter email: ");
+email = Console.ReadLine();
+KeyAuthApp.forgot(username, email);
+// don't proceed to app, user hasn't authenticated yet.
+Console.WriteLine("\n Status: " + KeyAuthApp.response.message);
+Thread.Sleep(2500);
+Environment.Exit(0);
 ```
 
 ## User Data
@@ -244,7 +259,7 @@ string appvar = KeyAuthApp.var("variableNameHere");
 if (!KeyAuthApp.response.success)
 {
     Console.WriteLine("\n Status: " + KeyAuthApp.response.message);
-    Thread.Sleep(1500);
+    Thread.Sleep(2500);
     Environment.Exit(0);
 }
 else
@@ -260,7 +275,7 @@ KeyAuthApp.setvar("discord", "test#0001");
 if (!KeyAuthApp.response.success)
 {
     Console.WriteLine("\n Status: " + KeyAuthApp.response.message);
-    Thread.Sleep(1500);
+    Thread.Sleep(2500);
     Environment.Exit(0);
 }
 else
@@ -274,7 +289,7 @@ string uservar = KeyAuthApp.getvar("discord");
 if (!KeyAuthApp.response.success)
 {
     Console.WriteLine("\n Status: " + KeyAuthApp.response.message);
-    Thread.Sleep(1500);
+    Thread.Sleep(2500);
     Environment.Exit(0);
 }
 else
@@ -341,7 +356,7 @@ resp = KeyAuthApp.webhook("7kR0UedlVI", "", "{\"content\": \"webhook message her
 if (!KeyAuthApp.response.success)
 {
     Console.WriteLine("\n Status: " + KeyAuthApp.response.message);
-    Thread.Sleep(1500);
+    Thread.Sleep(2500);
     Environment.Exit(0);
 }
 else
@@ -362,7 +377,7 @@ byte[] result = KeyAuthApp.download("385624");
 if (!KeyAuthApp.response.success)
 {
     Console.WriteLine("\n Status: " + KeyAuthApp.response.message);
-    Thread.Sleep(1500);
+    Thread.Sleep(2500);
     Environment.Exit(0);
 }
 else

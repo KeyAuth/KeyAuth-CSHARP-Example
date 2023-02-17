@@ -33,6 +33,8 @@ namespace KeyAuth
             this.status = new Siticone.UI.WinForms.SiticoneLabel();
             this.siticoneLabel1 = new Siticone.UI.WinForms.SiticoneLabel();
             this.siticoneShadowForm = new Siticone.UI.WinForms.SiticoneShadowForm(this.components);
+            this.siticoneRoundedButton1 = new Siticone.UI.WinForms.SiticoneRoundedButton();
+            this.email = new Siticone.UI.WinForms.SiticoneRoundedTextBox();
             this.SuspendLayout();
             // 
             // siticoneDragControl1
@@ -102,7 +104,7 @@ namespace KeyAuth
             this.LoginBtn.ForeColor = System.Drawing.Color.White;
             this.LoginBtn.HoveredState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(218)))), ((int)(((byte)(223)))));
             this.LoginBtn.HoveredState.Parent = this.LoginBtn;
-            this.LoginBtn.Location = new System.Drawing.Point(12, 167);
+            this.LoginBtn.Location = new System.Drawing.Point(12, 210);
             this.LoginBtn.Name = "LoginBtn";
             this.LoginBtn.ShadowDecoration.Parent = this.LoginBtn;
             this.LoginBtn.Size = new System.Drawing.Size(151, 27);
@@ -134,7 +136,7 @@ namespace KeyAuth
             this.key.SelectedText = "";
             this.key.ShadowDecoration.Parent = this.key;
             this.key.Size = new System.Drawing.Size(236, 30);
-            this.key.TabIndex = 32;
+            this.key.TabIndex = 34;
             this.key.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // username
@@ -202,7 +204,7 @@ namespace KeyAuth
             this.RgstrBtn.ForeColor = System.Drawing.Color.White;
             this.RgstrBtn.HoveredState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(218)))), ((int)(((byte)(223)))));
             this.RgstrBtn.HoveredState.Parent = this.RgstrBtn;
-            this.RgstrBtn.Location = new System.Drawing.Point(169, 167);
+            this.RgstrBtn.Location = new System.Drawing.Point(169, 210);
             this.RgstrBtn.Name = "RgstrBtn";
             this.RgstrBtn.ShadowDecoration.Parent = this.RgstrBtn;
             this.RgstrBtn.Size = new System.Drawing.Size(153, 27);
@@ -221,7 +223,7 @@ namespace KeyAuth
             this.UpgradeBtn.ForeColor = System.Drawing.Color.White;
             this.UpgradeBtn.HoveredState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(218)))), ((int)(((byte)(223)))));
             this.UpgradeBtn.HoveredState.Parent = this.UpgradeBtn;
-            this.UpgradeBtn.Location = new System.Drawing.Point(12, 200);
+            this.UpgradeBtn.Location = new System.Drawing.Point(12, 243);
             this.UpgradeBtn.Name = "UpgradeBtn";
             this.UpgradeBtn.ShadowDecoration.Parent = this.UpgradeBtn;
             this.UpgradeBtn.Size = new System.Drawing.Size(151, 27);
@@ -240,7 +242,7 @@ namespace KeyAuth
             this.LicBtn.ForeColor = System.Drawing.Color.White;
             this.LicBtn.HoveredState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(218)))), ((int)(((byte)(223)))));
             this.LicBtn.HoveredState.Parent = this.LicBtn;
-            this.LicBtn.Location = new System.Drawing.Point(169, 200);
+            this.LicBtn.Location = new System.Drawing.Point(169, 243);
             this.LicBtn.Name = "LicBtn";
             this.LicBtn.ShadowDecoration.Parent = this.LicBtn;
             this.LicBtn.Size = new System.Drawing.Size(153, 27);
@@ -255,7 +257,7 @@ namespace KeyAuth
             this.status.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.status.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.status.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.status.Location = new System.Drawing.Point(0, 302);
+            this.status.Location = new System.Drawing.Point(0, 349);
             this.status.Margin = new System.Windows.Forms.Padding(2);
             this.status.Name = "status";
             this.status.Size = new System.Drawing.Size(332, 42);
@@ -270,7 +272,7 @@ namespace KeyAuth
             this.siticoneLabel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.siticoneLabel1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.siticoneLabel1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.siticoneLabel1.Location = new System.Drawing.Point(0, 260);
+            this.siticoneLabel1.Location = new System.Drawing.Point(0, 307);
             this.siticoneLabel1.Margin = new System.Windows.Forms.Padding(2);
             this.siticoneLabel1.Name = "siticoneLabel1";
             this.siticoneLabel1.Size = new System.Drawing.Size(332, 42);
@@ -278,13 +280,60 @@ namespace KeyAuth
             this.siticoneLabel1.Text = "Current Session Validation Status: \r\n";
             this.siticoneLabel1.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // siticoneRoundedButton1
+            // 
+            this.siticoneRoundedButton1.BorderColor = System.Drawing.Color.DodgerBlue;
+            this.siticoneRoundedButton1.BorderThickness = 1;
+            this.siticoneRoundedButton1.CheckedState.Parent = this.siticoneRoundedButton1;
+            this.siticoneRoundedButton1.CustomImages.Parent = this.siticoneRoundedButton1;
+            this.siticoneRoundedButton1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(127)))), ((int)(((byte)(243)))));
+            this.siticoneRoundedButton1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.siticoneRoundedButton1.ForeColor = System.Drawing.Color.White;
+            this.siticoneRoundedButton1.HoveredState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(218)))), ((int)(((byte)(223)))));
+            this.siticoneRoundedButton1.HoveredState.Parent = this.siticoneRoundedButton1;
+            this.siticoneRoundedButton1.Location = new System.Drawing.Point(88, 276);
+            this.siticoneRoundedButton1.Name = "siticoneRoundedButton1";
+            this.siticoneRoundedButton1.ShadowDecoration.Parent = this.siticoneRoundedButton1;
+            this.siticoneRoundedButton1.Size = new System.Drawing.Size(151, 31);
+            this.siticoneRoundedButton1.TabIndex = 40;
+            this.siticoneRoundedButton1.Text = "Forgot password";
+            // 
+            // email
+            // 
+            this.email.AllowDrop = true;
+            this.email.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(127)))), ((int)(((byte)(243)))));
+            this.email.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.email.DefaultText = "Email (leave blank if none)";
+            this.email.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.email.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.email.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.email.DisabledState.Parent = this.email;
+            this.email.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.email.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(42)))));
+            this.email.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.email.FocusedState.Parent = this.email;
+            this.email.HoveredState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.email.HoveredState.Parent = this.email;
+            this.email.Location = new System.Drawing.Point(48, 168);
+            this.email.Margin = new System.Windows.Forms.Padding(4);
+            this.email.Name = "email";
+            this.email.PasswordChar = '\0';
+            this.email.PlaceholderText = "";
+            this.email.SelectedText = "";
+            this.email.ShadowDecoration.Parent = this.email;
+            this.email.Size = new System.Drawing.Size(236, 30);
+            this.email.TabIndex = 35;
+            this.email.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(42)))));
-            this.ClientSize = new System.Drawing.Size(332, 344);
+            this.ClientSize = new System.Drawing.Size(332, 391);
+            this.Controls.Add(this.email);
+            this.Controls.Add(this.siticoneRoundedButton1);
             this.Controls.Add(this.siticoneLabel1);
             this.Controls.Add(this.status);
             this.Controls.Add(this.LicBtn);
@@ -334,5 +383,7 @@ namespace KeyAuth
         private Siticone.UI.WinForms.SiticoneRoundedButton RgstrBtn;
         private Siticone.UI.WinForms.SiticoneLabel status;
         private Siticone.UI.WinForms.SiticoneLabel siticoneLabel1;
+        private Siticone.UI.WinForms.SiticoneRoundedTextBox email;
+        private Siticone.UI.WinForms.SiticoneRoundedButton siticoneRoundedButton1;
     }
 }

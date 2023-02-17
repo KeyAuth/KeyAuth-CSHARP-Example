@@ -46,46 +46,61 @@ namespace KeyAuth
             KeyAuthApp.check();
             Console.WriteLine($" Current Session Validation Status: {KeyAuthApp.response.message}"); // you can also just check the status but ill just print the message
 
-            Console.WriteLine("\n [1] Login\n [2] Register\n [3] Upgrade\n [4] License key only\n\n Choose option: ");
+            Console.Write("\n [1] Login\n [2] Register\n [3] Upgrade\n [4] License key only\n [5] Forgot password\n\n Choose option: ");
 
-            string username;
-            string password;
-            string key;
+            string username, password, key, email;
 
             int option = int.Parse(Console.ReadLine());
             switch (option)
             {
                 case 1:
-                    Console.WriteLine("\n\n Enter username: ");
+                    Console.Write("\n\n Enter username: ");
                     username = Console.ReadLine();
-                    Console.WriteLine("\n\n Enter password: ");
+                    Console.Write("\n\n Enter password: ");
                     password = Console.ReadLine();
                     KeyAuthApp.login(username, password);
                     break;
                 case 2:
-                    Console.WriteLine("\n\n Enter username: ");
+                    Console.Write("\n\n Enter username: ");
                     username = Console.ReadLine();
-                    Console.WriteLine("\n\n Enter password: ");
+                    Console.Write("\n\n Enter password: ");
                     password = Console.ReadLine();
-                    Console.WriteLine("\n\n Enter license: ");
+                    Console.Write("\n\n Enter license: ");
                     key = Console.ReadLine();
-                    KeyAuthApp.register(username, password, key);
+                    Console.Write("\n\n Enter email (just press enter if none): ");
+                    email = Console.ReadLine();
+                    KeyAuthApp.register(username, password, key, email);
                     break;
                 case 3:
-                    Console.WriteLine("\n\n Enter username: ");
+                    Console.Write("\n\n Enter username: ");
                     username = Console.ReadLine();
-                    Console.WriteLine("\n\n Enter license: ");
+                    Console.Write("\n\n Enter license: ");
                     key = Console.ReadLine();
                     KeyAuthApp.upgrade(username, key);
+                    // don't proceed to app, user hasn't authenticated yet.
+                    Console.WriteLine("\n Status: " + KeyAuthApp.response.message);
+                    Thread.Sleep(2500);
+                    Environment.Exit(0);
                     break;
                 case 4:
-                    Console.WriteLine("\n\n Enter license: ");
+                    Console.Write("\n\n Enter license: ");
                     key = Console.ReadLine();
                     KeyAuthApp.license(key);
                     break;
+                case 5:
+                    Console.Write("\n\n Enter username: ");
+                    username = Console.ReadLine();
+                    Console.Write("\n\n Enter email: ");
+                    email = Console.ReadLine();
+                    KeyAuthApp.forgot(username, email);
+                    // don't proceed to app, user hasn't authenticated yet.
+                    Console.WriteLine("\n Status: " + KeyAuthApp.response.message);
+                    Thread.Sleep(2500);
+                    Environment.Exit(0);
+                    break;
                 default:
                     Console.WriteLine("\n\n Invalid Selection");
-                    Thread.Sleep(1500);
+                    Thread.Sleep(2500);
                     Environment.Exit(0);
                     break; // no point in this other than to not get error from IDE
             }
@@ -93,7 +108,7 @@ namespace KeyAuth
             if (!KeyAuthApp.response.success)
             {
                 Console.WriteLine("\n Status: " + KeyAuthApp.response.message);
-                Thread.Sleep(1500);
+                Thread.Sleep(2500);
                 Environment.Exit(0);
             }
 

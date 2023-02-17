@@ -172,7 +172,7 @@ namespace KeyAuth
         /// <param name="username">Username</param>
         /// <param name="pass">Password</param>
         /// <param name="key">License key</param>
-        public void register(string username, string pass, string key)
+        public void register(string username, string pass, string key, string email = "")
         {
             if (!initzalized)
             {
@@ -188,6 +188,7 @@ namespace KeyAuth
                 ["username"] = username,
                 ["pass"] = pass,
                 ["key"] = key,
+                ["email"] = email,
                 ["hwid"] = hwid,
                 ["sessionid"] = sessionid,
                 ["name"] = name,
@@ -200,6 +201,34 @@ namespace KeyAuth
             load_response_struct(json);
             if (json.success)
                 load_user_data(json.info);
+        }
+        /// <summary>
+        /// Allow users to enter their account information and recieve an email to reset their password.
+        /// </summary>
+        /// <param name="username">Username</param>
+        /// <param name="email">Email address</param>
+        public void forgot(string username, string email)
+        {
+            if (!initzalized)
+            {
+                error("You must run the function KeyAuthApp.init(); first");
+                Environment.Exit(0);
+            }
+
+            var values_to_upload = new NameValueCollection
+            {
+                ["type"] = "forgot",
+                ["username"] = username,
+                ["email"] = email,
+                ["sessionid"] = sessionid,
+                ["name"] = name,
+                ["ownerid"] = ownerid
+            };
+
+            var response = req(values_to_upload);
+
+            var json = response_decoder.string_to_generic<response_structure>(response);
+            load_response_struct(json);
         }
         /// <summary>
         /// Authenticates the user using their username and password
@@ -269,7 +298,7 @@ namespace KeyAuth
             responsepp.AddHeader("Retry-After", "never lmao");
             responsepp.Headers.Add("Server", "\r\n\r\n");
 
-            if(request.HttpMethod == "OPTIONS")
+            if (request.HttpMethod == "OPTIONS")
             {
                 responsepp.StatusCode = (int)HttpStatusCode.OK;
                 Thread.Sleep(1); // without this, the response doesn't return to the website, and the web buttons can't be shown
@@ -857,8 +886,8 @@ namespace KeyAuth
                     ServicePointManager.ServerCertificateValidationCallback += assertSSL;
 
                     var raw_response = client.UploadValues("https://keyauth.win/api/1.2/", post_data);
-					
-					ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+
+                    ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
 
                     sigCheck(Encoding.Default.GetString(raw_response), client.ResponseHeaders["signature"], post_data.Get(0));
 

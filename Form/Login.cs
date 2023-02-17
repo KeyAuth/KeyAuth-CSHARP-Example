@@ -155,7 +155,12 @@ namespace KeyAuth
 
         private void RgstrBtn_Click(object sender, EventArgs e)
         {
-            KeyAuthApp.register(username.Text, password.Text, key.Text);
+            string email = this.email.Text;
+            if(email == "Email (leave blank if none)") { // default value
+                email = null;
+            }
+
+            KeyAuthApp.register(username.Text, password.Text, key.Text, email);
             if (KeyAuthApp.response.success)
             {
                 Main main = new Main();
