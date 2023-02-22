@@ -923,6 +923,11 @@ namespace KeyAuth
 
         private static void sigCheck(string resp, string signature, string type)
         {
+			if(type == "log") // log doesn't return a response.
+            {
+                return;
+            }
+			
             try
             {
                 string clientComputed = encryption.HashHMAC((type == "init") ? enckey.Substring(17, 64) : enckey, resp);
