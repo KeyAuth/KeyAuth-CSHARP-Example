@@ -928,13 +928,13 @@ namespace KeyAuth
                 string clientComputed = encryption.HashHMAC((type == "init") ? enckey.Substring(17, 64) : enckey, resp);
                 if (clientComputed != signature)
                 {
-                    error("Signaure check fail. Try to run the program again, your session may have expired.");
+                    error("Signature check fail. Try to run the program again, your session may have expired.");
                     Environment.Exit(0);
                 }
             }
             catch
             {
-                error("Signaure check fail. Try to run the program again, your session may have expired.");
+                error("Signature check fail. Try to run the program again, your session may have expired.");
                 Environment.Exit(0);
             }
         }
