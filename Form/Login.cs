@@ -183,5 +183,11 @@ namespace KeyAuth
             else
                 status.Text = "Status: " + KeyAuthApp.response.message;
         }
+
+        private void siticoneRoundedButton1_Click(object sender, EventArgs e)
+        {
+            KeyAuthApp.forgot(username.Text, email.Text);
+            status.Text = "Status: " + KeyAuthApp.response.message;
+        }
     }
 }

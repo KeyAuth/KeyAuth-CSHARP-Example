@@ -297,6 +297,7 @@ namespace KeyAuth
             this.siticoneRoundedButton1.Size = new System.Drawing.Size(151, 31);
             this.siticoneRoundedButton1.TabIndex = 40;
             this.siticoneRoundedButton1.Text = "Forgot password";
+            this.siticoneRoundedButton1.Click += new System.EventHandler(this.siticoneRoundedButton1_Click);
             // 
             // email
             // 
