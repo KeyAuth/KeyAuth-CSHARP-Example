@@ -21,6 +21,13 @@ namespace KeyAuth
             secret: "",
             version: "1.0"
         );
+	    
+	//This will display how long it took to make a request in ms. The param "type" is for "login", "register", "init", etc... but that is optional, as well as this function. Ideally you can just put Console.WriteLine($"Request took {api.responseTime}"), but either works. 
+        // if you would like to use this method, simply put it in any function and pass the param ... ShowResponse("TypeHere");
+        private void ShowResponse(string type)
+        {
+            Console.WriteLine($"It took {api.responseTime} ms to {type}");
+        }
 
         static void Main(string[] args)
         {
