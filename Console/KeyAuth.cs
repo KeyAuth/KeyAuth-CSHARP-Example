@@ -19,6 +19,7 @@ namespace KeyAuth
     public class api
     {
         public string name, ownerid, secret, version;
+	public static long responseTime;
         /// <summary>
         /// Set up your application credentials in order to use keyauth
         /// </summary>
@@ -875,6 +876,7 @@ namespace KeyAuth
             });
             Environment.Exit(0);
         }
+	    
         private static string req(NameValueCollection post_data)
         {
             try
@@ -885,7 +887,13 @@ namespace KeyAuth
 
                     ServicePointManager.ServerCertificateValidationCallback += assertSSL;
 
+                    Stopwatch stopwatch = new Stopwatch();
+                    stopwatch.Start();
+
                     var raw_response = client.UploadValues("https://keyauth.win/api/1.2/", post_data);
+
+                    stopwatch.Stop();
+                    responseTime = stopwatch.ElapsedMilliseconds;
 
                     ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
 
