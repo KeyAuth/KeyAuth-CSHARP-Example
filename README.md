@@ -1,6 +1,8 @@
 # KeyAuth-CSHARP-Example
 KeyAuth C# example for the https://keyauth.cc authentication system.
 
+Test
+
 ## **Bugs**
 
 If the default example not added to your software isn't functioning how it should, please join the Discord server https://discord.gg/keyauth and submit the issue in the `#bugs` channel.
