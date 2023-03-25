@@ -191,11 +191,11 @@ namespace KeyAuth
             System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Local);
             dtDateTime = dtDateTime.AddSeconds(long.Parse(user_data.subscriptions[subscription].expiry)).ToLocalTime();
             TimeSpan difference = dtDateTime - DateTime.Now;
-            switch (Type)
+            switch (Type.ToLower())
             {
                 case "Months":
                     return Convert.ToString(difference.Days / 30);
-                case "Date":
+                case "Days":
                     return Convert.ToString(difference.Days);
                 case "Hours":
                     return Convert.ToString(difference.Hours);
