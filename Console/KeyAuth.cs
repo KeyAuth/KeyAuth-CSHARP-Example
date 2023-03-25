@@ -178,8 +178,32 @@ namespace KeyAuth
                 Environment.Exit(0);
             }
         }
-        
-        
+
+        /// <summary>
+        /// Converts Unix time to Days,Months,Hours
+        ///</summary>
+        /// <param name="subscription">Subscription Number</param>
+        /// <param name="Type">You can choose between Days,Hours,Months </param>
+        public string expirydaysleft(string Type,int subscription)
+        {
+            CheckInit();
+
+            System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Local);
+            dtDateTime = dtDateTime.AddSeconds(long.Parse(user_data.subscriptions[subscription].expiry)).ToLocalTime();
+            TimeSpan difference = dtDateTime - DateTime.Now;
+            switch (Type)
+            {
+                case "Months":
+                    return Convert.ToString(difference.Days / 30);
+                case "Date":
+                    return Convert.ToString(difference.Days);
+                case "Hours":
+                    return Convert.ToString(difference.Hours);
+            }
+            return null;
+
+        }
+
         /// <summary>
         /// Registers the user using a license and gives the user a subscription that matches their license level
         /// </summary>
