@@ -193,11 +193,11 @@ namespace KeyAuth
             TimeSpan difference = dtDateTime - DateTime.Now;
             switch (Type.ToLower())
             {
-                case "Months":
+                case "months":
                     return Convert.ToString(difference.Days / 30);
-                case "Days":
+                case "days":
                     return Convert.ToString(difference.Days);
-                case "Hours":
+                case "hours":
                     return Convert.ToString(difference.Hours);
             }
             return null;
