@@ -168,6 +168,19 @@ namespace KeyAuth
 
         }
         /// <summary>
+        /// Checks if Keyauth is been Initalized
+        /// </summary>
+        public void CheckInit()
+        {
+            if (!initialized)
+            {
+                error("You must run the function KeyAuthApp.init(); first");
+                Environment.Exit(0);
+            }
+        }
+        
+        
+        /// <summary>
         /// Registers the user using a license and gives the user a subscription that matches their license level
         /// </summary>
         /// <param name="username">Username</param>
@@ -175,11 +188,7 @@ namespace KeyAuth
         /// <param name="key">License key</param>
         public void register(string username, string pass, string key, string email = "")
         {
-            if (!initialized)
-            {
-                error("You must run the function KeyAuthApp.init(); first");
-                Environment.Exit(0);
-            }
+            CheckInit();
 
             string hwid = WindowsIdentity.GetCurrent().User.Value;
 
@@ -210,11 +219,7 @@ namespace KeyAuth
         /// <param name="email">Email address</param>
         public void forgot(string username, string email)
         {
-            if (!initialized)
-            {
-                error("You must run the function KeyAuthApp.init(); first");
-                Environment.Exit(0);
-            }
+            CheckInit();
 
             var values_to_upload = new NameValueCollection
             {
@@ -238,11 +243,7 @@ namespace KeyAuth
         /// <param name="pass">Password</param>
         public void login(string username, string pass)
         {
-            if (!initialized)
-            {
-                error("You must run the function KeyAuthApp.init(); first");
-                Environment.Exit(0);
-            }
+            CheckInit();
 
             string hwid = WindowsIdentity.GetCurrent().User.Value;
 
@@ -267,11 +268,7 @@ namespace KeyAuth
 
         public void web_login()
         {
-            if (!initialized)
-            {
-                error("You must run the function KeyAuthApp.init(); first");
-                Environment.Exit(0);
-            }
+            CheckInit();
 
             string hwid = WindowsIdentity.GetCurrent().User.Value;
 
@@ -374,11 +371,7 @@ namespace KeyAuth
 
         public void button(string button)
         {
-            if (!initialized)
-            {
-                error("You must run the function KeyAuthApp.init(); first");
-                Environment.Exit(0);
-            }
+            CheckInit();
 
             HttpListener listener = new HttpListener();
 
@@ -419,11 +412,7 @@ namespace KeyAuth
         /// <param name="key">License with the same level as the subscription you want to give the user</param>
         public void upgrade(string username, string key)
         {
-            if (!initialized)
-            {
-                error("You must run the function KeyAuthApp.init(); first");
-                Environment.Exit(0);
-            }
+            CheckInit();
 
             var values_to_upload = new NameValueCollection
             {
@@ -448,11 +437,7 @@ namespace KeyAuth
         /// <param name="key">Licence used to login with</param>
         public void license(string key)
         {
-            if (!initialized)
-            {
-                error("You must run the function KeyAuthApp.init(); first");
-                Environment.Exit(0);
-            }
+            CheckInit();
 
             string hwid = WindowsIdentity.GetCurrent().User.Value;
 
@@ -478,11 +463,7 @@ namespace KeyAuth
         /// </summary>
         public void check()
         {
-            if (!initialized)
-            {
-                error("You must run the function KeyAuthApp.init(); first");
-                Environment.Exit(0);
-            }
+            CheckInit();
 
             var values_to_upload = new NameValueCollection
             {
@@ -504,11 +485,7 @@ namespace KeyAuth
         /// <param name="data">The content of the variable</param>
         public void setvar(string var, string data)
         {
-            if (!initialized)
-            {
-                error("You must run the function KeyAuthApp.init(); first");
-                Environment.Exit(0);
-            }
+            CheckInit();
 
             var values_to_upload = new NameValueCollection
             {
@@ -532,11 +509,7 @@ namespace KeyAuth
         /// <returns>The content of the user variable</returns>
         public string getvar(string var)
         {
-            if (!initialized)
-            {
-                error("You must run the function KeyAuthApp.init(); first");
-                Environment.Exit(0);
-            }
+            CheckInit();
 
             var values_to_upload = new NameValueCollection
             {
@@ -560,11 +533,7 @@ namespace KeyAuth
         /// </summary>
         public void ban(string reason = null)
         {
-            if (!initialized)
-            {
-                error("You must run the function KeyAuthApp.init(); first");
-                Environment.Exit(0);
-            }
+            CheckInit();
 
             var values_to_upload = new NameValueCollection
             {
@@ -587,11 +556,7 @@ namespace KeyAuth
         /// <returns>The content of the variable</returns>
         public string var(string varid)
         {
-            if (!initialized)
-            {
-                error("You must run the function KeyAuthApp.init(); first");
-                Environment.Exit(0);
-            }
+            CheckInit();
 
             var values_to_upload = new NameValueCollection
             {
@@ -616,11 +581,7 @@ namespace KeyAuth
         /// <returns>ArrayList of usernames</returns>
         public List<users> fetchOnline()
         {
-            if (!initialized)
-            {
-                error("You must run the function KeyAuthApp.init(); first");
-                Environment.Exit(0);
-            }
+            CheckInit();
 
             var values_to_upload = new NameValueCollection
             {
@@ -646,11 +607,7 @@ namespace KeyAuth
         /// <returns>the last 50 sent messages of that channel</returns>
         public List<msg> chatget(string channelname)
         {
-            if (!initialized)
-            {
-                error("You must run the function KeyAuthApp.init(); first");
-                Environment.Exit(0);
-            }
+            CheckInit();
 
             var values_to_upload = new NameValueCollection
             {
@@ -679,11 +636,7 @@ namespace KeyAuth
         /// <returns>If the message was sent successfully, it returns true if not false</returns>
         public bool chatsend(string msg, string channelname)
         {
-            if (!initialized)
-            {
-                error("You must run the function KeyAuthApp.init(); first");
-                Environment.Exit(0);
-            }
+            CheckInit();
 
             var values_to_upload = new NameValueCollection
             {
@@ -709,11 +662,7 @@ namespace KeyAuth
         /// <returns>If found blacklisted returns true if not false</returns>
         public bool checkblack()
         {
-            if (!initialized)
-            {
-                error("You must run the function KeyAuthApp.init(); first");
-                Environment.Exit(0);
-            }
+            CheckInit();
             string hwid = WindowsIdentity.GetCurrent().User.Value;
 
             var values_to_upload = new NameValueCollection
@@ -743,12 +692,7 @@ namespace KeyAuth
         /// <returns>the webhook's response</returns>
         public string webhook(string webid, string param, string body = "", string conttype = "")
         {
-            if (!initialized)
-            {
-                error("You must run the function KeyAuthApp.init(); first");
-                Environment.Exit(0);
-                return null;
-            }
+            CheckInit();
 
             var values_to_upload = new NameValueCollection
             {
@@ -777,11 +721,7 @@ namespace KeyAuth
         /// <returns>The bytes of the download file</returns>
         public byte[] download(string fileid)
         {
-            if (!initialized)
-            {
-                error("You must run the function KeyAuthApp.init(); first. File is empty since no request could be made.");
-                Environment.Exit(0);
-            }
+            CheckInit();
 
             var values_to_upload = new NameValueCollection
             {
@@ -807,11 +747,7 @@ namespace KeyAuth
         /// <param name="message">Message</param>
         public void log(string message)
         {
-            if (!initialized)
-            {
-                error("You must run the function KeyAuthApp.init(); first");
-                Environment.Exit(0);
-            }
+            CheckInit();
 
             var values_to_upload = new NameValueCollection
             {
@@ -831,11 +767,7 @@ namespace KeyAuth
         /// <param username="username">New username.</param>
         public void changeUsername(string username)
         {
-            if (!initialized)
-            {
-                error("You must run the function KeyAuthApp.init(); first");
-                Environment.Exit(0);
-            }
+            CheckInit();
 
             var values_to_upload = new NameValueCollection
             {
