@@ -876,8 +876,8 @@ namespace KeyAuth
         }
 
         private static bool assertSSL(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
-        {
-            if (!certificate.Issuer.Contains("Cloudflare Inc") || sslPolicyErrors != SslPolicyErrors.None)
+        { 
+            if ((!certificate.Issuer.Contains("Cloudflare Inc") && !certificate.Issuer.Contains("Google Trust Services") && !certificate.Issuer.Contains("Let's Encrypt")) || sslPolicyErrors != SslPolicyErrors.None)
             {
                 error("SSL assertion fail, make sure you're not debugging Network. Disable internet firewall on router if possible. & echo: & echo If not, ask the developer of the program to use custom domains to fix this.");
                 return false;
@@ -897,13 +897,13 @@ namespace KeyAuth
                 string clientComputed = encryption.HashHMAC((type == "init") ? enckey.Substring(17, 64) : enckey, resp);
                 if (clientComputed != signature)
                 {
-                    error("Signature check fail. Try to run the program again, your session may have expired.");
+                    error("Signature checksum failed. Request was tampered with or session ended most likely. & echo: & echo Response: " + resp);
                     Environment.Exit(0);
                 }
             }
             catch
             {
-                error("Signature check fail. Try to run the program again, your session may have expired.");
+                error("Signature checksum failed. Request was tampered with or session ended most likely. & echo: & echo Response: " + resp);
                 Environment.Exit(0);
             }
         }
