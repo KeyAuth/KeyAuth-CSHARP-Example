@@ -40,7 +40,7 @@ namespace KeyAuth
         // if you would like to use this method, simply put it in any function and pass the param ... ShowResponse("TypeHere");
         private void ShowResponse(string type)
         {
-            responseTimeLbl.Text = $"It took {api.responseTime} ms to {type}";
+            MessageBox.Show($"It took {api.responseTime} msg to {type}");
         }
 
         public Login()
