@@ -19,7 +19,7 @@ namespace KeyAuth
     public class api
     {
         public string name, ownerid, secret, version;
-	public static long responseTime;
+		public static long responseTime;
         /// <summary>
         /// Set up your application credentials in order to use keyauth
         /// </summary>
@@ -31,7 +31,10 @@ namespace KeyAuth
         {
             if (ownerid.Length != 10 || secret.Length != 64)
             {
-                error("Application not setup correctly. Please watch video link found in Program.cs");
+                Process.Start("https://youtube.com/watch?v=RfDTdiBq4_o");
+                Process.Start("https://keyauth.cc/app/");
+                Thread.Sleep(2000);
+                error("Application not setup correctly. Please watch the YouTube video for setup.");
                 Environment.Exit(0);
             }
 
@@ -895,7 +898,7 @@ namespace KeyAuth
             try
             {
                 string clientComputed = encryption.HashHMAC((type == "init") ? enckey.Substring(17, 64) : enckey, resp);
-                if (clientComputed != signature)
+                if (!encryption.CheckStringsFixedTime(clientComputed, signature))
                 {
                     error("Signature checksum failed. Request was tampered with or session ended most likely. & echo: & echo Response: " + resp);
                     Environment.Exit(0);
@@ -1014,6 +1017,21 @@ namespace KeyAuth
                 Environment.Exit(0);
                 return null;
             }
+        }
+		
+		[MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
+        public static bool CheckStringsFixedTime(string str1, string str2)
+        {
+            if (str1.Length != str2.Length)
+            {
+                return false;
+            }
+            var result = 0;
+            for (var i = 0; i < str1.Length; i++)
+            {
+                result |= str1[i] ^ str2[i];
+            }
+            return result == 0;
         }
 
         public static string iv_key() =>

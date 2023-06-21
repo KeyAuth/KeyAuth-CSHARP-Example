@@ -12,22 +12,9 @@ namespace KeyAuth
         * 
         * WATCH THIS VIDEO TO SETUP APPLICATION: https://youtube.com/watch?v=RfDTdiBq4_o
         * 
+		 * READ HERE TO LEARN ABOUT KEYAUTH FUNCTIONS https://github.com/KeyAuth/KeyAuth-CSHARP-Example#keyauthapp-instance-definition
+		 *
         */
-
-        /*
-        Optional Functions:
-        
-        KeyAuthApp.webhook("7kR0UedlVI", "&ip=1.1.1.1&hwid=abc");
-        // send secure request to webhook which is impossible to crack into. the base link set on the website is https://keyauth.win/api/seller/?sellerkey=sellerkeyhere&type=black, which nobody except you can see, so the final request is https://keyauth.win/api/seller/?sellerkey=sellerkeyhere&type=black&ip=1.1.1.1&hwid=abc
-        
-        // byte[] result = KeyAuthApp.download("902901"); // downloads application file
-        // File.WriteAllBytes("C:\\Users\\mak\\Downloads\\KeyAuth-CSHARP-Example-main (5)\\KeyAuth-CSHARP-Example-main\\ConsoleExample\\bin\\Debug\\countkeys.txt", result);
-        
-        MessageBox.Show(KeyAuthApp.var("123456")); // retrieve application variable
-        */
-
-        // KeyAuthApp.register("username", "password", "key");
-        //KeyAuthApp.login("username", "password"); 
 
         public static api KeyAuthApp = new api(
             name: "",
@@ -111,21 +98,6 @@ namespace KeyAuth
                 MessageBox.Show(KeyAuthApp.response.message);
                 Environment.Exit(0);
             }
-            // if(KeyAuthApp.checkblack())
-            // {
-            //     MessageBox.Show("user is blacklisted");
-            // }
-            // else
-            // {
-            //     MessageBox.Show("user is not blacklisted");
-            // }
-            // check if subscription exists
-            // if(SubExist("default"))
-            // {
-            //     MessageBox.Show("default subscription exists");
-            // }
-            KeyAuthApp.check();
-            siticoneLabel1.Text = $"Current Session Validation Status: {KeyAuthApp.response.success}";
         }
 
         static string random_string()

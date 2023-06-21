@@ -31,7 +31,6 @@ namespace KeyAuth
             this.UpgradeBtn = new Siticone.UI.WinForms.SiticoneRoundedButton();
             this.LicBtn = new Siticone.UI.WinForms.SiticoneRoundedButton();
             this.status = new Siticone.UI.WinForms.SiticoneLabel();
-            this.siticoneLabel1 = new Siticone.UI.WinForms.SiticoneLabel();
             this.siticoneShadowForm = new Siticone.UI.WinForms.SiticoneShadowForm(this.components);
             this.siticoneRoundedButton1 = new Siticone.UI.WinForms.SiticoneRoundedButton();
             this.email = new Siticone.UI.WinForms.SiticoneRoundedTextBox();
@@ -257,28 +256,13 @@ namespace KeyAuth
             this.status.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.status.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.status.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.status.Location = new System.Drawing.Point(0, 349);
+            this.status.Location = new System.Drawing.Point(0, 308);
             this.status.Margin = new System.Windows.Forms.Padding(2);
             this.status.Name = "status";
             this.status.Size = new System.Drawing.Size(332, 42);
             this.status.TabIndex = 38;
             this.status.Text = "Status: Awaiting login";
             this.status.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // siticoneLabel1
-            // 
-            this.siticoneLabel1.AutoSize = false;
-            this.siticoneLabel1.BackColor = System.Drawing.Color.Transparent;
-            this.siticoneLabel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.siticoneLabel1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.siticoneLabel1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.siticoneLabel1.Location = new System.Drawing.Point(0, 307);
-            this.siticoneLabel1.Margin = new System.Windows.Forms.Padding(2);
-            this.siticoneLabel1.Name = "siticoneLabel1";
-            this.siticoneLabel1.Size = new System.Drawing.Size(332, 42);
-            this.siticoneLabel1.TabIndex = 39;
-            this.siticoneLabel1.Text = "Current Session Validation Status: \r\n";
-            this.siticoneLabel1.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // siticoneRoundedButton1
             // 
@@ -332,10 +316,9 @@ namespace KeyAuth
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(42)))));
-            this.ClientSize = new System.Drawing.Size(332, 391);
+            this.ClientSize = new System.Drawing.Size(332, 350);
             this.Controls.Add(this.email);
             this.Controls.Add(this.siticoneRoundedButton1);
-            this.Controls.Add(this.siticoneLabel1);
             this.Controls.Add(this.status);
             this.Controls.Add(this.LicBtn);
             this.Controls.Add(this.UpgradeBtn);
@@ -383,7 +366,6 @@ namespace KeyAuth
         private Siticone.UI.WinForms.SiticoneRoundedButton UpgradeBtn;
         private Siticone.UI.WinForms.SiticoneRoundedButton RgstrBtn;
         private Siticone.UI.WinForms.SiticoneLabel status;
-        private Siticone.UI.WinForms.SiticoneLabel siticoneLabel1;
         private Siticone.UI.WinForms.SiticoneRoundedTextBox email;
         private Siticone.UI.WinForms.SiticoneRoundedButton siticoneRoundedButton1;
     }

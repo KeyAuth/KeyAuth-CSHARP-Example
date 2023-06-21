@@ -5,6 +5,13 @@ namespace KeyAuth
 {
     public partial class Main : Form
     {
+		/*
+        * 
+        * WATCH THIS VIDEO TO SETUP APPLICATION: https://www.youtube.com/watch?v=RfDTdiBq4_o
+        * 
+	     * READ HERE TO LEARN ABOUT KEYAUTH FUNCTIONS https://github.com/KeyAuth/KeyAuth-CSHARP-Example#keyauthapp-instance-definition
+		 *
+        */
         public Main()
         {
             InitializeComponent();
@@ -19,8 +26,6 @@ namespace KeyAuth
 
         private void Main_Load(object sender, EventArgs e)
         {
-            Login.KeyAuthApp.check();
-            siticoneLabel1.Text = $"Current Session Validation Status: {Login.KeyAuthApp.response.success}";
             key.Text = "Username: " + Login.KeyAuthApp.user_data.username;
             expiry.Text = "Expiry: " + UnixTimeToDateTime(long.Parse(Login.KeyAuthApp.user_data.subscriptions[0].expiry));
             subscription.Text = "Subscription: " + Login.KeyAuthApp.user_data.subscriptions[0].subscription;

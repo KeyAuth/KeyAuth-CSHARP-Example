@@ -10,10 +10,12 @@ namespace KeyAuth
     {
 
         /*
-         * 
-         * WATCH THIS VIDEO TO SETUP APPLICATION: https://youtube.com/watch?v=UXRkNEvgxJU
-         * 
-         */
+        * 
+        * WATCH THIS VIDEO TO SETUP APPLICATION: https://youtube.com/watch?v=RfDTdiBq4_o
+        * 
+		 * READ HERE TO LEARN ABOUT KEYAUTH FUNCTIONS https://github.com/KeyAuth/KeyAuth-CSHARP-Example#keyauthapp-instance-definition
+		 *
+        */
 
         public static api KeyAuthApp = new api(
             name: "",
@@ -22,7 +24,7 @@ namespace KeyAuth
             version: "1.0"
         );
 	    
-	//This will display how long it took to make a request in ms. The param "type" is for "login", "register", "init", etc... but that is optional, as well as this function. Ideally you can just put Console.WriteLine($"Request took {api.responseTime}"), but either works. 
+		// This will display how long it took to make a request in ms. The param "type" is for "login", "register", "init", etc... but that is optional, as well as this function. Ideally you can just put Console.WriteLine($"Request took {api.responseTime}"), but either works. 
         // if you would like to use this method, simply put it in any function and pass the param ... ShowResponse("TypeHere");
         private void ShowResponse(string type)
         {
@@ -50,8 +52,6 @@ namespace KeyAuth
             Console.WriteLine(" Number of keys: " + KeyAuthApp.app_data.numKeys);
             Console.WriteLine(" Application Version: " + KeyAuthApp.app_data.version);
             Console.WriteLine(" Customer panel link: " + KeyAuthApp.app_data.customerPanelLink);
-            KeyAuthApp.check();
-            Console.WriteLine($" Current Session Validation Status: {KeyAuthApp.response.message}"); // you can also just check the status but ill just print the message
 
             Console.Write("\n [1] Login\n [2] Register\n [3] Upgrade\n [4] License key only\n [5] Forgot password\n\n Choose option: ");
 
@@ -134,127 +134,9 @@ namespace KeyAuth
             {
                 Console.WriteLine(" Subscription name: " + KeyAuthApp.user_data.subscriptions[i].subscription + " - Expires at: " + UnixTimeToDateTime(long.Parse(KeyAuthApp.user_data.subscriptions[i].expiry)) + " - Time left in seconds: " + KeyAuthApp.user_data.subscriptions[i].timeleft);
             }
-            /*
-			var onlineUsers = KeyAuthApp.fetchOnline();
-            if (onlineUsers != null)
-            {
-                Console.Write("\n Online users: ");
-                foreach (var user in onlineUsers)
-                {
-                    Console.Write(user.credential + ", ");
-                }
-                Console.WriteLine("\n");
-            }
-            */
 
-            /*
-                KeyAuthApp.web_login();
-
-                Console.WriteLine("\n Waiting for button to be clicked");
-                KeyAuthApp.button("close");
-            */
-
-            #region extras
-            // set user variable 'discord' to 'test#0001' (if the user variable with name 'discord' doesn't exist, it'll be created)
-            /*
-            KeyAuthApp.setvar("discord", "test#0001");
-            if (!KeyAuthApp.response.success)
-            {
-                Console.WriteLine("\n Status: " + KeyAuthApp.response.message);
-                Thread.Sleep(1500);
-                Environment.Exit(0);
-            }
-            else
-                Console.WriteLine("\n Successfully set user variable");
-            */
-
-            /*
-            // See if Subscription exists with name
-            if (SubExist("default"))
-            {
-                Console.WriteLine(" Default Subscription Exists");
-            }
-            // See if another sub exists with name 
-            if (SubExist("premium"))
-            {
-                Console.WriteLine(" Premium Subscription Exists");
-            }
-
-            */
-
-            /*
-            // display the user variable 'discord'
-            string uservar = KeyAuthApp.getvar("discord");
-            if (!KeyAuthApp.response.success)
-            {
-                Console.WriteLine("\n Status: " + KeyAuthApp.response.message);
-                Thread.Sleep(1500);
-                Environment.Exit(0);
-            }
-            else
-                Console.WriteLine("\n User variable value: " + uservar);
-            */
-
-            // KeyAuthApp.log("user logged in"); // log text to website and discord webhook (if set)
-
-
-            // let's say you want to send request to https://keyauth.win/api/seller/?sellerkey=sellerkeyhere&type=black&ip=1.1.1.1&hwid=abc
-            // but doing that from inside the loader is a bad idea as the link could get leaked.
-            // Instead, you should create a webhook with the https://keyauth.win/api/seller/?sellerkey=sellerkeyhere&type=black part as the URL
-            // then in your loader, put the rest of the link (the other paramaters) in your loader. And then it will send request from KeyAuth server and return response in string resp
-
-            // example to send normal request with no POST data
-            /*
-            string resp = KeyAuthApp.webhook("7kR0UedlVI", "&ip=1.1.1.1&hwid=abc");
-
-            // example to send form data
-            resp = KeyAuthApp.webhook("7kR0UedlVI", "", "type=init&name=test&ownerid=j9Gj0FTemM", "application/x-www-form-urlencoded");
-
-            // example to send JSON
-            resp = KeyAuthApp.webhook("7kR0UedlVI", "", "{\"content\": \"webhook message here\",\"embeds\": null}", "application/json"); // if Discord webhook message successful, response will be empty
-
-            if (!KeyAuthApp.response.success)
-            {
-                Console.WriteLine("\n Status: " + KeyAuthApp.response.message);
-                Thread.Sleep(1500);
-                Environment.Exit(0);
-            }
-            else
-                Console.WriteLine("\n Response recieved from webhook request: " + resp);
-            */
-
-            /*
-            // downloads application file to current folder Loader is running, feel free to change to whatever.
-            byte[] result = KeyAuthApp.download("385624");
-            if (!KeyAuthApp.response.success)
-            {
-                Console.WriteLine("\n Status: " + KeyAuthApp.response.message);
-                Thread.Sleep(1500);
-                Environment.Exit(0);
-            }
-            else
-                File.WriteAllBytes(Directory.GetCurrentDirectory() + "\\test.txt", result);
-            */
-
-            /*
-            string appvar = KeyAuthApp.var("test");
-            if (!KeyAuthApp.response.success)
-            {
-                Console.WriteLine("\n Status: " + KeyAuthApp.response.message);
-                Thread.Sleep(1500);
-                Environment.Exit(0);
-            }
-            else
-                Console.WriteLine("\n App variable data: " + appvar);
-            */
-
-            // KeyAuthApp.ban(); // ban the current user, must be logged in
-            // KeyAuthApp.ban("Don't try to crack my loader, cunt."); // ban the current user (with a reason), must be logged in
-            #endregion extras
-            KeyAuthApp.check();
-            Console.WriteLine($" Current Session Validation Status: {KeyAuthApp.response.message}"); // you can also just check the status but ill just print the message
-            Console.WriteLine("\n Closing in ten seconds...");
-            Thread.Sleep(10000);
+            Console.WriteLine("\n Closing in five seconds...");
+            Thread.Sleep(5000);
             Environment.Exit(0);
         }
 
@@ -264,6 +146,7 @@ namespace KeyAuth
                 return true;
             return false;
         }
+		
         public static DateTime UnixTimeToDateTime(long unixtime)
         {
             DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Local);
