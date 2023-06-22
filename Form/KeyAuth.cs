@@ -890,7 +890,7 @@ namespace KeyAuth
 
         private static void sigCheck(string resp, string signature, string type)
         {
-		    if(type == "log" || type == "file") // log doesn't return a response.
+            if(type == "log" || type == "file") // log doesn't return a response.
             {
                 return;
             }
