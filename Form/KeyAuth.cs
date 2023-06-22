@@ -19,7 +19,7 @@ namespace KeyAuth
     public class api
     {
         public string name, ownerid, secret, version;
-		public static long responseTime;
+        public static long responseTime;
         /// <summary>
         /// Set up your application credentials in order to use keyauth
         /// </summary>
