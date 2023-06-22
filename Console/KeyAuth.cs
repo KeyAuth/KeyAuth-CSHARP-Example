@@ -1019,7 +1019,7 @@ namespace KeyAuth
             }
         }
 		
-		[MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
+        [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
         public static bool CheckStringsFixedTime(string str1, string str2)
         {
             if (str1.Length != str2.Length)
