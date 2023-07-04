@@ -13,6 +13,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Net.Security;
 using System.Windows;
 using System.Threading;
+using System.Runtime.CompilerServices;
 
 namespace KeyAuth
 {
@@ -160,7 +161,6 @@ namespace KeyAuth
             load_response_struct(json);
             if (json.success)
             {
-                load_app_data(json.appinfo);
                 sessionid = json.sessionid;
                 initialized = true;
             }
@@ -626,6 +626,29 @@ namespace KeyAuth
             if (json.success)
                 return json.users;
             return null;
+        }
+        /// <summary>
+        /// Fetch app statistic counts
+        /// </summary>
+        public void fetchStats()
+        {
+            CheckInit();
+
+            var values_to_upload = new NameValueCollection
+            {
+                ["type"] = "fetchStats",
+                ["sessionid"] = sessionid,
+                ["name"] = name,
+                ["ownerid"] = ownerid
+            };
+
+            var response = req(values_to_upload);
+
+            var json = response_decoder.string_to_generic<response_structure>(response);
+            load_response_struct(json);
+
+            if (json.success)
+                load_app_data(json.appinfo);
         }
         /// <summary>
         /// Gets the last 50 sent messages of that channel

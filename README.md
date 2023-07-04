@@ -67,12 +67,12 @@ if (!KeyAuthApp.response.success)
 ## Display application information
 
 ```cs
-Console.WriteLine("\n App data:");
+KeyAuthApp.fetchStats();
+Console.WriteLine("\n Application Version: " + KeyAuthApp.app_data.version);
+Console.WriteLine(" Customer panel link: " + KeyAuthApp.app_data.customerPanelLink);
 Console.WriteLine(" Number of users: " + KeyAuthApp.app_data.numUsers);
 Console.WriteLine(" Number of online users: " + KeyAuthApp.app_data.numOnlineUsers);
 Console.WriteLine(" Number of keys: " + KeyAuthApp.app_data.numKeys);
-Console.WriteLine(" Application Version: " + KeyAuthApp.app_data.version);
-Console.WriteLine(" Customer panel link: " + KeyAuthApp.app_data.customerPanelLink);
 ```
 
 ## Check session validation

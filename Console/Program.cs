@@ -13,8 +13,8 @@ namespace KeyAuth
         * 
         * WATCH THIS VIDEO TO SETUP APPLICATION: https://youtube.com/watch?v=RfDTdiBq4_o
         * 
-		 * READ HERE TO LEARN ABOUT KEYAUTH FUNCTIONS https://github.com/KeyAuth/KeyAuth-CSHARP-Example#keyauthapp-instance-definition
-		 *
+        * READ HERE TO LEARN ABOUT KEYAUTH FUNCTIONS https://github.com/KeyAuth/KeyAuth-CSHARP-Example#keyauthapp-instance-definition
+        *
         */
 
         public static api KeyAuthApp = new api(
@@ -23,8 +23,8 @@ namespace KeyAuth
             secret: "",
             version: "1.0"
         );
-	    
-		// This will display how long it took to make a request in ms. The param "type" is for "login", "register", "init", etc... but that is optional, as well as this function. Ideally you can just put Console.WriteLine($"Request took {api.responseTime}"), but either works. 
+
+        // This will display how long it took to make a request in ms. The param "type" is for "login", "register", "init", etc... but that is optional, as well as this function. Ideally you can just put Console.WriteLine($"Request took {api.responseTime}"), but either works. 
         // if you would like to use this method, simply put it in any function and pass the param ... ShowResponse("TypeHere");
         private void ShowResponse(string type)
         {
@@ -45,13 +45,6 @@ namespace KeyAuth
                 Thread.Sleep(1500);
                 Environment.Exit(0);
             }
-            // app data
-            Console.WriteLine("\n App data:");
-            Console.WriteLine(" Number of users: " + KeyAuthApp.app_data.numUsers);
-            Console.WriteLine(" Number of online users: " + KeyAuthApp.app_data.numOnlineUsers);
-            Console.WriteLine(" Number of keys: " + KeyAuthApp.app_data.numKeys);
-            Console.WriteLine(" Application Version: " + KeyAuthApp.app_data.version);
-            Console.WriteLine(" Customer panel link: " + KeyAuthApp.app_data.customerPanelLink);
 
             Console.Write("\n [1] Login\n [2] Register\n [3] Upgrade\n [4] License key only\n [5] Forgot password\n\n Choose option: ");
 
