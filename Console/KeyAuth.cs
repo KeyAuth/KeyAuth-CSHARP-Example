@@ -56,6 +56,9 @@ namespace KeyAuth
             public bool success { get; set; }
 
             [DataMember]
+            public bool newSession { get; set; }
+
+            [DataMember]
             public string sessionid { get; set; }
 
             [DataMember]
@@ -161,6 +164,10 @@ namespace KeyAuth
             load_response_struct(json);
             if (json.success)
             {
+                if(json.newSession)
+                {
+                    Thread.Sleep(100);
+                }
                 sessionid = json.sessionid;
                 initialized = true;
             }

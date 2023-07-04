@@ -32,14 +32,7 @@ namespace KeyAuth
             this.hwid = new Siticone.UI.WinForms.SiticoneLabel();
             this.createDate = new Siticone.UI.WinForms.SiticoneLabel();
             this.lastLogin = new Siticone.UI.WinForms.SiticoneLabel();
-            this.numUsers = new Siticone.UI.WinForms.SiticoneLabel();
-            this.numOnlineUsers = new Siticone.UI.WinForms.SiticoneLabel();
-            this.numKeys = new Siticone.UI.WinForms.SiticoneLabel();
-            this.version = new Siticone.UI.WinForms.SiticoneLabel();
-            this.customerPanelLink = new Siticone.UI.WinForms.SiticoneLabel();
             this.subscriptionDaysLabel = new Siticone.UI.WinForms.SiticoneLabel();
-            this.onlineUsersBox = new Siticone.UI.WinForms.SiticoneComboBox();
-            this.siticoneLabel2 = new Siticone.UI.WinForms.SiticoneLabel();
             this.siticoneShadowForm = new Siticone.UI.WinForms.SiticoneShadowForm(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -58,7 +51,7 @@ namespace KeyAuth
             this.siticoneControlBox1.HoveredState.IconColor = System.Drawing.Color.White;
             this.siticoneControlBox1.HoveredState.Parent = this.siticoneControlBox1;
             this.siticoneControlBox1.IconColor = System.Drawing.Color.White;
-            this.siticoneControlBox1.Location = new System.Drawing.Point(573, 4);
+            this.siticoneControlBox1.Location = new System.Drawing.Point(489, 4);
             this.siticoneControlBox1.Name = "siticoneControlBox1";
             this.siticoneControlBox1.ShadowDecoration.Parent = this.siticoneControlBox1;
             this.siticoneControlBox1.Size = new System.Drawing.Size(45, 29);
@@ -73,7 +66,7 @@ namespace KeyAuth
             this.siticoneControlBox2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(42)))));
             this.siticoneControlBox2.HoveredState.Parent = this.siticoneControlBox2;
             this.siticoneControlBox2.IconColor = System.Drawing.Color.White;
-            this.siticoneControlBox2.Location = new System.Drawing.Point(528, 4);
+            this.siticoneControlBox2.Location = new System.Drawing.Point(444, 4);
             this.siticoneControlBox2.Name = "siticoneControlBox2";
             this.siticoneControlBox2.ShadowDecoration.Parent = this.siticoneControlBox2;
             this.siticoneControlBox2.Size = new System.Drawing.Size(45, 29);
@@ -264,66 +257,6 @@ namespace KeyAuth
             this.lastLogin.TabIndex = 47;
             this.lastLogin.Text = "lastLoginLabel";
             // 
-            // numUsers
-            // 
-            this.numUsers.BackColor = System.Drawing.Color.Transparent;
-            this.numUsers.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numUsers.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.numUsers.Location = new System.Drawing.Point(325, 60);
-            this.numUsers.Margin = new System.Windows.Forms.Padding(2);
-            this.numUsers.Name = "numUsers";
-            this.numUsers.Size = new System.Drawing.Size(72, 14);
-            this.numUsers.TabIndex = 48;
-            this.numUsers.Text = "numUsersLabel";
-            // 
-            // numOnlineUsers
-            // 
-            this.numOnlineUsers.BackColor = System.Drawing.Color.Transparent;
-            this.numOnlineUsers.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numOnlineUsers.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.numOnlineUsers.Location = new System.Drawing.Point(325, 80);
-            this.numOnlineUsers.Margin = new System.Windows.Forms.Padding(2);
-            this.numOnlineUsers.Name = "numOnlineUsers";
-            this.numOnlineUsers.Size = new System.Drawing.Size(103, 14);
-            this.numOnlineUsers.TabIndex = 49;
-            this.numOnlineUsers.Text = "numOnlineUsersLabel";
-            // 
-            // numKeys
-            // 
-            this.numKeys.BackColor = System.Drawing.Color.Transparent;
-            this.numKeys.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numKeys.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.numKeys.Location = new System.Drawing.Point(325, 101);
-            this.numKeys.Margin = new System.Windows.Forms.Padding(2);
-            this.numKeys.Name = "numKeys";
-            this.numKeys.Size = new System.Drawing.Size(68, 14);
-            this.numKeys.TabIndex = 50;
-            this.numKeys.Text = "numKeysLabel";
-            // 
-            // version
-            // 
-            this.version.BackColor = System.Drawing.Color.Transparent;
-            this.version.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.version.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.version.Location = new System.Drawing.Point(325, 119);
-            this.version.Margin = new System.Windows.Forms.Padding(2);
-            this.version.Name = "version";
-            this.version.Size = new System.Drawing.Size(60, 14);
-            this.version.TabIndex = 51;
-            this.version.Text = "versionLabel";
-            // 
-            // customerPanelLink
-            // 
-            this.customerPanelLink.BackColor = System.Drawing.Color.Transparent;
-            this.customerPanelLink.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.customerPanelLink.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.customerPanelLink.Location = new System.Drawing.Point(325, 137);
-            this.customerPanelLink.Margin = new System.Windows.Forms.Padding(2);
-            this.customerPanelLink.Name = "customerPanelLink";
-            this.customerPanelLink.Size = new System.Drawing.Size(115, 14);
-            this.customerPanelLink.TabIndex = 52;
-            this.customerPanelLink.Text = "customerPanelLinkLabel";
-            // 
             // subscriptionDaysLabel
             // 
             this.subscriptionDaysLabel.BackColor = System.Drawing.Color.Transparent;
@@ -335,37 +268,6 @@ namespace KeyAuth
             this.subscriptionDaysLabel.Size = new System.Drawing.Size(105, 14);
             this.subscriptionDaysLabel.TabIndex = 53;
             this.subscriptionDaysLabel.Text = "subscriptionDaysLabel";
-            // 
-            // onlineUsersBox
-            // 
-            this.onlineUsersBox.BackColor = System.Drawing.Color.Transparent;
-            this.onlineUsersBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.onlineUsersBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.onlineUsersBox.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.onlineUsersBox.ForeColor = System.Drawing.Color.Black;
-            this.onlineUsersBox.FormattingEnabled = true;
-            this.onlineUsersBox.HoveredState.Parent = this.onlineUsersBox;
-            this.onlineUsersBox.ItemHeight = 30;
-            this.onlineUsersBox.Items.AddRange(new object[] {
-            ""});
-            this.onlineUsersBox.ItemsAppearance.Parent = this.onlineUsersBox;
-            this.onlineUsersBox.Location = new System.Drawing.Point(325, 189);
-            this.onlineUsersBox.Name = "onlineUsersBox";
-            this.onlineUsersBox.ShadowDecoration.Parent = this.onlineUsersBox;
-            this.onlineUsersBox.Size = new System.Drawing.Size(269, 36);
-            this.onlineUsersBox.TabIndex = 54;
-            // 
-            // siticoneLabel2
-            // 
-            this.siticoneLabel2.BackColor = System.Drawing.Color.Transparent;
-            this.siticoneLabel2.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.siticoneLabel2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.siticoneLabel2.Location = new System.Drawing.Point(325, 169);
-            this.siticoneLabel2.Margin = new System.Windows.Forms.Padding(2);
-            this.siticoneLabel2.Name = "siticoneLabel2";
-            this.siticoneLabel2.Size = new System.Drawing.Size(64, 14);
-            this.siticoneLabel2.TabIndex = 55;
-            this.siticoneLabel2.Text = "Online Users:";
             // 
             // timer1
             // 
@@ -379,15 +281,8 @@ namespace KeyAuth
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(42)))));
-            this.ClientSize = new System.Drawing.Size(622, 543);
-            this.Controls.Add(this.siticoneLabel2);
-            this.Controls.Add(this.onlineUsersBox);
+            this.ClientSize = new System.Drawing.Size(538, 543);
             this.Controls.Add(this.subscriptionDaysLabel);
-            this.Controls.Add(this.customerPanelLink);
-            this.Controls.Add(this.version);
-            this.Controls.Add(this.numKeys);
-            this.Controls.Add(this.numOnlineUsers);
-            this.Controls.Add(this.numUsers);
             this.Controls.Add(this.lastLogin);
             this.Controls.Add(this.createDate);
             this.Controls.Add(this.hwid);
@@ -444,13 +339,6 @@ namespace KeyAuth
         private Siticone.UI.WinForms.SiticoneLabel hwid;
         private Siticone.UI.WinForms.SiticoneLabel createDate;
         private Siticone.UI.WinForms.SiticoneLabel lastLogin;
-        private Siticone.UI.WinForms.SiticoneLabel numUsers;
-        private Siticone.UI.WinForms.SiticoneLabel numOnlineUsers;
-        private Siticone.UI.WinForms.SiticoneLabel numKeys;
-        private Siticone.UI.WinForms.SiticoneLabel customerPanelLink;
-        private Siticone.UI.WinForms.SiticoneLabel version;
         private Siticone.UI.WinForms.SiticoneLabel subscriptionDaysLabel;
-        private Siticone.UI.WinForms.SiticoneComboBox onlineUsersBox;
-        private Siticone.UI.WinForms.SiticoneLabel siticoneLabel2;
     }
 }

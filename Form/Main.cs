@@ -34,19 +34,6 @@ namespace KeyAuth
             createDate.Text = "Creation date: " + UnixTimeToDateTime(long.Parse(Login.KeyAuthApp.user_data.createdate));
             lastLogin.Text = "Last login: " + UnixTimeToDateTime(long.Parse(Login.KeyAuthApp.user_data.lastlogin));
             subscriptionDaysLabel.Text = "Expiry in Days: "+ expirydaysleft();
-            numUsers.Text = "Number of users: " + Login.KeyAuthApp.app_data.numUsers;
-            numOnlineUsers.Text = "Number of online users: " + Login.KeyAuthApp.app_data.numOnlineUsers;
-            numKeys.Text = "Number of licenses: " + Login.KeyAuthApp.app_data.numKeys;
-            version.Text = "Current version: " + Login.KeyAuthApp.app_data.version;
-            customerPanelLink.Text = "Customer panel: " + Login.KeyAuthApp.app_data.customerPanelLink;
-
-            var onlineUsers = Login.KeyAuthApp.fetchOnline();
-            onlineUsersBox.Items.Clear();
-            foreach (var user in onlineUsers)
-            {
-                onlineUsersBox.Items.Add(user.credential);
-            }
-            onlineUsersBox.SelectedIndex = 0;
         }
 
         public static bool SubExist(string name, int len)

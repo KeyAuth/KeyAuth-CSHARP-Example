@@ -13,6 +13,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Net.Security;
 using System.Windows;
 using System.Threading;
+using System.Runtime.CompilerServices;
 
 namespace KeyAuth
 {
@@ -53,6 +54,9 @@ namespace KeyAuth
         {
             [DataMember]
             public bool success { get; set; }
+
+            [DataMember]
+            public bool newSession { get; set; }
 
             [DataMember]
             public string sessionid { get; set; }
@@ -160,7 +164,10 @@ namespace KeyAuth
             load_response_struct(json);
             if (json.success)
             {
-                load_app_data(json.appinfo);
+                if (json.newSession)
+                {
+                    Thread.Sleep(100);
+                }
                 sessionid = json.sessionid;
                 initialized = true;
             }
@@ -187,7 +194,7 @@ namespace KeyAuth
         ///</summary>
         /// <param name="subscription">Subscription Number</param>
         /// <param name="Type">You can choose between Days,Hours,Months </param>
-        public string expirydaysleft(string Type,int subscription)
+        public string expirydaysleft(string Type, int subscription)
         {
             CheckInit();
 
@@ -301,7 +308,7 @@ namespace KeyAuth
 
             string datastore, datastore2, outputten;
 
-            start:
+        start:
 
             HttpListener listener = new HttpListener();
 
@@ -628,6 +635,29 @@ namespace KeyAuth
             return null;
         }
         /// <summary>
+        /// Fetch app statistic counts
+        /// </summary>
+        public void fetchStats()
+        {
+            CheckInit();
+
+            var values_to_upload = new NameValueCollection
+            {
+                ["type"] = "fetchStats",
+                ["sessionid"] = sessionid,
+                ["name"] = name,
+                ["ownerid"] = ownerid
+            };
+
+            var response = req(values_to_upload);
+
+            var json = response_decoder.string_to_generic<response_structure>(response);
+            load_response_struct(json);
+
+            if (json.success)
+                load_app_data(json.appinfo);
+        }
+        /// <summary>
         /// Gets the last 50 sent messages of that channel
         /// </summary>
         /// <param name="channelname">The channel name</param>
@@ -835,7 +865,7 @@ namespace KeyAuth
             });
             Environment.Exit(0);
         }
-	    
+
         private static string req(NameValueCollection post_data)
         {
             try
@@ -879,7 +909,7 @@ namespace KeyAuth
         }
 
         private static bool assertSSL(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
-        { 
+        {
             if ((!certificate.Issuer.Contains("Cloudflare Inc") && !certificate.Issuer.Contains("Google Trust Services") && !certificate.Issuer.Contains("Let's Encrypt")) || sslPolicyErrors != SslPolicyErrors.None)
             {
                 error("SSL assertion fail, make sure you're not debugging Network. Disable internet firewall on router if possible. & echo: & echo If not, ask the developer of the program to use custom domains to fix this.");
@@ -890,11 +920,11 @@ namespace KeyAuth
 
         private static void sigCheck(string resp, string signature, string type)
         {
-            if(type == "log" || type == "file") // log doesn't return a response.
+            if (type == "log" || type == "file") // log doesn't return a response.
             {
                 return;
             }
-			
+
             try
             {
                 string clientComputed = encryption.HashHMAC((type == "init") ? enckey.Substring(17, 64) : enckey, resp);
@@ -1018,7 +1048,7 @@ namespace KeyAuth
                 return null;
             }
         }
-		
+
         [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
         public static bool CheckStringsFixedTime(string str1, string str2)
         {
