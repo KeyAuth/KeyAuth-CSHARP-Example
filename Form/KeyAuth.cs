@@ -300,6 +300,24 @@ namespace KeyAuth
                 load_user_data(json.info);
         }
 
+        public void logout()
+        {                                       
+            CheckInit();
+
+            var values_to_upload = new NameValueCollection
+            {
+                ["type"] = "logout",
+                ["sessionid"] = sessionid,
+                ["name"] = name,
+                ["ownerid"] = ownerid
+            };
+
+            var response = req(values_to_upload);
+
+            var json = response_decoder.string_to_generic<response_structure>(response);
+            load_response_struct(json);
+        }
+
         public void web_login()
         {
             CheckInit();
