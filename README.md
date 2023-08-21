@@ -415,3 +415,5 @@ if (Login.KeyAuthApp.chatsend(chatmsg.Text, chatchannel))
 else
     chatmsg.Text = "Status: " + Login.KeyAuthApp.response.message;
 ```
+
+Looking for a Discord bot made by the KeyAuth & RestoreCord founder that you can use to backup your Discord members, server settings, and messages? Go to https://vaultcord.com
