@@ -874,6 +874,23 @@ namespace KeyAuth
         }
         public static void error(string message)
         {
+            string folder = @"Logs", file = Path.Combine(folder, "ErrorLogs.txt");
+
+            if (!Directory.Exists(folder))
+            {
+                Directory.CreateDirectory(folder);
+            }
+
+            if (!File.Exists(file))
+            {
+                using (FileStream stream = File.Create(file))
+                {
+                    File.AppendAllText(file, DateTime.Now + " > This is the start of your error logs file");
+                }
+            }
+
+            File.AppendAllText(file, DateTime.Now + $" > {message}" + Environment.NewLine);
+            
             Process.Start(new ProcessStartInfo("cmd.exe", $"/c start cmd /C \"color b && title Error && echo {message} && timeout /t 5\"")
             {
                 CreateNoWindow = true,
