@@ -19,7 +19,7 @@ namespace KeyAuth
 {
     public class api
     {
-        public string name, ownerid, secret, version;
+        public string name, ownerid, secret, version, path;
         public static long responseTime;
         /// <summary>
         /// Set up your application credentials in order to use keyauth
@@ -28,7 +28,7 @@ namespace KeyAuth
         /// <param name="ownerid">Your OwnerID, found in your account settings.</param>
         /// <param name="secret">Application Secret</param>
         /// <param name="version">Application Version, if version doesnt match it will open the download link you set up in your application settings and close the app, if empty the app will close</param>
-        public api(string name, string ownerid, string secret, string version)
+        public api(string name, string ownerid, string secret, string version, string path = null)
         {
             if (ownerid.Length != 10 || secret.Length != 64)
             {
@@ -46,6 +46,8 @@ namespace KeyAuth
             this.secret = secret;
 
             this.version = version;
+
+	    this.path = path;
         }
 
         #region structures
@@ -152,6 +154,12 @@ namespace KeyAuth
                 ["ownerid"] = ownerid
             };
 
+	   if (!string.IsNullOrEmpty(path))
+ 	   {
+                values_to_upload.Add("token", File.ReadAllText(path));
+                values_to_upload.Add("thash", TokenHash(path));
+           }
+
             var response = req(values_to_upload);
 
             if (response == "KeyAuth_Invalid")
@@ -177,6 +185,18 @@ namespace KeyAuth
             }
 
         }
+
+	public static string TokenHash(string tokenPath)
+        {
+             using (var sha256 = SHA256.Create())
+             {
+                using (var s = File.OpenRead(tokenPath))
+                {
+                     byte[] bytes = sha256.ComputeHash(s);
+                     return BitConverter.ToString(bytes).Replace("-", string.Empty);
+                }
+            }
+        } 
         /// <summary>
         /// Checks if Keyauth is been Initalized
         /// </summary>
