@@ -20,7 +20,8 @@ namespace KeyAuth
             name: "",
             ownerid: "",
             secret: "",
-            version: "1.0"
+            version: "1.0"/*,
+	    path: @"PathToCheckToken" NOTE: THE "@" IS IF THE TOKEN.TXT FILE IS IN THE SAME DIRECTORY AS THE .EXE*/
         );
         
         //This will display how long it took to make a request in ms. The param "type" is for "login", "register", "init", etc... but that is optional, as well as this function. Ideally you can just put a label or MessageBox.Show($"Request took {api.responseTime}"), but either works. 
