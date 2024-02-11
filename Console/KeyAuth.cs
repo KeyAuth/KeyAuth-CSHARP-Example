@@ -941,7 +941,7 @@ namespace KeyAuth
 
                     ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
 
-                    sigCheck(Encoding.Default.GetString(raw_response), client.ResponseHeaders["signature"], post_data.Get(0));
+                    sigCheck(Encoding.UTF8.GetString(raw_response), client.ResponseHeaders["signature"], post_data.Get(0));
 
                     return Encoding.Default.GetString(raw_response);
                 }
@@ -1072,8 +1072,8 @@ namespace KeyAuth
     {
         public static string HashHMAC(string enckey, string resp)
         {
-            byte[] key = Encoding.ASCII.GetBytes(enckey);
-            byte[] message = Encoding.ASCII.GetBytes(resp);
+            byte[] key = Encoding.UTF8.GetBytes(enckey);
+            byte[] message = Encoding.UTF8.GetBytes(resp);
             var hash = new HMACSHA256(key);
             return byte_arr_to_str(hash.ComputeHash(message));
         }
