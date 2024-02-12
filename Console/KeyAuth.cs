@@ -892,6 +892,33 @@ namespace KeyAuth
             }
             return result;
         }
+
+        public static void LogEvent(string content)
+        {
+            string exeName = Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetEntryAssembly().Location);
+
+            string logDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "KeyAuth", "debug", exeName);
+            if (!Directory.Exists(logDirectory))
+            {
+                Directory.CreateDirectory(logDirectory);
+            }
+
+            string logFileName = $"{DateTime.Now:MMM_dd_yyyy}_logs.txt";
+            string logFilePath = Path.Combine(logDirectory, logFileName);
+
+            try
+            {
+                using (StreamWriter writer = File.AppendText(logFilePath))
+                {
+                    writer.WriteLine($"[{DateTime.Now}] [{AppDomain.CurrentDomain.FriendlyName}] {content}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error logging data: {ex.Message}");
+            }
+        }
+
         public static void error(string message)
         {
             string folder = @"Logs", file = Path.Combine(folder, "ErrorLogs.txt");
@@ -943,6 +970,8 @@ namespace KeyAuth
 
                     sigCheck(Encoding.UTF8.GetString(raw_response), client.ResponseHeaders["signature"], post_data.Get(0));
 
+                    LogEvent(Encoding.Default.GetString(raw_response) + "\n");
+
                     return Encoding.Default.GetString(raw_response);
                 }
             }
@@ -953,10 +982,12 @@ namespace KeyAuth
                 {
                     case (HttpStatusCode)429: // client hit our rate limit
                         error("You're connecting too fast to loader, slow down.");
+                        LogEvent("You're connecting too fast to loader, slow down.");
                         Environment.Exit(0);
                         return "";
                     default: // site won't resolve. you should use keyauth.uk domain since it's not blocked by any ISPs
                         error("Connection failure. Please try again, or contact us for help.");
+                        LogEvent("Connection failure. Please try again, or contact us for help.");
                         Environment.Exit(0);
                         return "";
                 }
@@ -968,6 +999,7 @@ namespace KeyAuth
             if ((!certificate.Issuer.Contains("Cloudflare Inc") && !certificate.Issuer.Contains("Google Trust Services") && !certificate.Issuer.Contains("Let's Encrypt")) || sslPolicyErrors != SslPolicyErrors.None)
             {
                 error("SSL assertion fail, make sure you're not debugging Network. Disable internet firewall on router if possible. & echo: & echo If not, ask the developer of the program to use custom domains to fix this.");
+                LogEvent("SSL assertion fail, make sure you're not debugging Network. Disable internet firewall on router if possible. If not, ask the developer of the program to use custom domains to fix this.");
                 return false;
             }
             return true;
@@ -986,12 +1018,14 @@ namespace KeyAuth
                 if (!encryption.CheckStringsFixedTime(clientComputed, signature))
                 {
                     error("Signature checksum failed. Request was tampered with or session ended most likely. & echo: & echo Response: " + resp);
+                    LogEvent(resp + "\n");
                     Environment.Exit(0);
                 }
             }
             catch
             {
                 error("Signature checksum failed. Request was tampered with or session ended most likely. & echo: & echo Response: " + resp);
+                LogEvent(resp + "\n");
                 Environment.Exit(0);
             }
         }
