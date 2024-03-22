@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Loader")]
 [assembly: AssemblyDescription("KeyAuth Loader Winform Example")]
 [assembly: AssemblyConfiguration("retail")]
-[assembly: AssemblyCompany("Nelson Cybersecurity LLC")]
+[assembly: AssemblyCompany("KeyAuth LLC")]
 [assembly: AssemblyProduct("Loader")]
 [assembly: AssemblyCopyright("Copyright © KeyAuth.cc")]
 [assembly: AssemblyTrademark("")]
