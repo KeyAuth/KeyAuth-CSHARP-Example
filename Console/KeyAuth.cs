@@ -908,14 +908,36 @@ namespace KeyAuth
 
             try
             {
+                JObject jsonObject = JsonConvert.DeserializeObject<JObject>(content);
+
+                // Redact sensitive fields - Add more if you would like. 
+                RedactField(jsonObject, "sessionid");
+                RedactField(jsonObject, "ownerid");
+                RedactField(jsonObject, "app");
+                RedactField(jsonObject, "secret");
+                RedactField(jsonObject, "version");
+                RedactField(jsonObject, "fileid");
+                RedactField(jsonObject, "webhooks");
+                RedactField(jsonObject, "nonce");
+                string redactedContent = jsonObject.ToString(Newtonsoft.Json.Formatting.None);
+
                 using (StreamWriter writer = File.AppendText(logFilePath))
                 {
-                    writer.WriteLine($"[{DateTime.Now}] [{AppDomain.CurrentDomain.FriendlyName}] {content}");
+                    writer.WriteLine($"[{DateTime.Now}] [{AppDomain.CurrentDomain.FriendlyName}] {redactedContent}");
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error logging data: {ex.Message}");
+            }
+        }
+
+        private static void RedactField(JObject jsonObject, string fieldName)
+        {
+            JToken token;
+            if (jsonObject.TryGetValue(fieldName, out token))
+            {
+                jsonObject[fieldName] = "REDACTED";
             }
         }
 
