@@ -17,12 +17,12 @@ namespace KeyAuth
         */
 
         public static api KeyAuthApp = new api(
-    name: "Test-What", // Application Name
-    ownerid: "7AvflSMyig", // Owner ID
-    secret: "2d092ef5d0b5129357ce06a7eda4b05d785f77cac8ed98f26623a07cb8d4d6fb", // Application Secret
-    version: "1.1" // Application Version /*
-                   //path: @"Your_Path_Here" // (OPTIONAL) see tutorial here https://www.youtube.com/watch?v=I9rxt821gMk&t=1s
-);
+            name: "", // Application Name
+            ownerid: "", // Owner ID
+            secret: "", // Application Secret
+            version: "" // Application Version /*
+                           //path: @"Your_Path_Here" // (OPTIONAL) see tutorial here https://www.youtube.com/watch?v=I9rxt821gMk&t=1s
+        );
 
         //This will display how long it took to make a request in ms. The param "type" is for "login", "register", "init", etc... but that is optional, as well as this function. Ideally you can just put a label or MessageBox.Show($"Request took {api.responseTime}"), but either works. 
         // if you would like to use this method, simply put it in any function and pass the param ... ShowResponse("TypeHere");
