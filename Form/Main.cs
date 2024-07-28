@@ -1,4 +1,3 @@
-using Guna.UI2.WinForms;
 using System;
 using System.Windows.Forms;
 
@@ -6,24 +5,21 @@ namespace KeyAuth
 {
     public partial class Main : Form
     {
-		/*
+        /*
         * 
         * WATCH THIS VIDEO TO SETUP APPLICATION: https://www.youtube.com/watch?v=RfDTdiBq4_o
         * 
 	     * READ HERE TO LEARN ABOUT KEYAUTH FUNCTIONS https://github.com/KeyAuth/KeyAuth-CSHARP-Example#keyauthapp-instance-definition
 		 *
         */
+
+        string chatchannel = "test"; // chat channel name, must be set in order to send/retrieve messages
+
+
         public Main()
         {
             InitializeComponent();
         }
-
-        private void siticoneControlBox1_Click(object sender, EventArgs e)
-        {
-            Environment.Exit(0);
-        }
-
-        string chatchannel = "test"; // chat channel name
 
         private void Main_Load(object sender, EventArgs e)
         {
@@ -83,81 +79,86 @@ namespace KeyAuth
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            guna2DataGridView1.Rows.Clear();
+            chatroomGrid.Rows.Clear();
             timer1.Interval = 15000; // get chat messages every 15 seconds
             if (!String.IsNullOrEmpty(chatchannel))
             {
                 var messages = Login.KeyAuthApp.chatget(chatchannel);
                 if (messages == null)
                 {
-                    guna2DataGridView1.Rows.Insert(0, "KeyAuth", "No Chat Messages", UnixTimeToDateTime(DateTimeOffset.Now.ToUnixTimeSeconds()));
+                    chatroomGrid.Rows.Insert(0, "KeyAuth", "No Chat Messages", UnixTimeToDateTime(DateTimeOffset.Now.ToUnixTimeSeconds()));
                 }
                 else
                 {
                     foreach (var message in messages)
                     {
-                        guna2DataGridView1.Rows.Insert(0, message.author, message.message, UnixTimeToDateTime(long.Parse(message.timestamp)));
+                        chatroomGrid.Rows.Insert(0, message.author, message.message, UnixTimeToDateTime(long.Parse(message.timestamp)));
                     }
                 }
             }
             else
             {
                 timer1.Stop();
-                guna2DataGridView1.Rows.Insert(0, "KeyAuth", "No Chat Messages", UnixTimeToDateTime(DateTimeOffset.Now.ToUnixTimeSeconds()));
+                chatroomGrid.Rows.Insert(0, "KeyAuth", "No Chat Messages", UnixTimeToDateTime(DateTimeOffset.Now.ToUnixTimeSeconds()));
             }
         }
 
-        private void sendMsgBtn_Click(object sender, EventArgs e)
+        private void sendWebhookBtn_Click_1(object sender, EventArgs e)
         {
-            if (Login.KeyAuthApp.chatsend(chatMsg.Text, chatchannel))
+            Login.KeyAuthApp.webhook(webhookID.Text, webhookBaseURL.Text);
+            MessageBox.Show(Login.KeyAuthApp.response.message);
+        }
+
+        private void setUserVarBtn_Click_1(object sender, EventArgs e)
+        {
+            Login.KeyAuthApp.setvar(varField.Text, varDataField.Text);
+            MessageBox.Show(Login.KeyAuthApp.response.message);
+        }
+
+        private void fetchUserVarBtn_Click_1(object sender, EventArgs e)
+        {
+            Login.KeyAuthApp.getvar(varField.Text);
+            MessageBox.Show(Login.KeyAuthApp.response.message);
+        }
+
+        private void sendLogDataBtn_Click(object sender, EventArgs e)
+        {
+            Login.KeyAuthApp.log(logDataField.Text);
+            MessageBox.Show(Login.KeyAuthApp.response.message);
+        }
+
+        private void checkSessionBtn_Click_1(object sender, EventArgs e)
+        {
+            Login.KeyAuthApp.check();
+            MessageBox.Show(Login.KeyAuthApp.response.message);
+        }
+
+        private void fetchGlobalVariableBtn_Click_1(object sender, EventArgs e)
+        {
+            MessageBox.Show(Login.KeyAuthApp.var(varField.Text) + "\n" + Login.KeyAuthApp.response.message);
+        }
+
+        private void sendMsgBtn_Click_1(object sender, EventArgs e)
+        {
+            if (Login.KeyAuthApp.chatsend(chatMsgField.Text, chatchannel))
             {
-                guna2DataGridView1.Rows.Insert(0, Login.KeyAuthApp.user_data.username, chatMsg.Text, UnixTimeToDateTime(DateTimeOffset.Now.ToUnixTimeSeconds()));
+                chatroomGrid.Rows.Insert(0, Login.KeyAuthApp.user_data.username, chatMsgField.Text, UnixTimeToDateTime(DateTimeOffset.Now.ToUnixTimeSeconds()));
             }
             else
             {
-                guna2MessageDialog1.Icon = Guna.UI2.WinForms.MessageDialogIcon.Error;
-                guna2MessageDialog1.Show(Login.KeyAuthApp.response.message);
+                MessageBox.Show(Login.KeyAuthApp.response.message);
             }
         }
 
-        private void hwid_Click(object sender, EventArgs e)
+        private void closeBtn_Click(object sender, EventArgs e)
         {
-
+            Login.KeyAuthApp.logout(); // ends the sessions once the application closes
+            Environment.Exit(0);
         }
 
-        private void setUserVarBtn_Click(object sender, EventArgs e)
+        private void minBtn_Click(object sender, EventArgs e)
         {
-            Login.KeyAuthApp.setvar(varField.Text, varDataField.Text);
-            guna2MessageDialog1.Show(Login.KeyAuthApp.response.message);
-        }
-
-        private void fetchUserVarBtn_Click(object sender, EventArgs e)
-        {
-            Login.KeyAuthApp.getvar(varField.Text);
-            guna2MessageDialog1.Show(Login.KeyAuthApp.response.message);
-        }
-
-        private void fetchGlobalVariableBtn_Click(object sender, EventArgs e)
-        {
-            guna2MessageDialog1.Show(Login.KeyAuthApp.var(varField.Text) + "\n" + Login.KeyAuthApp.response.message);
-        }
-
-        private void checkSessionBtn_Click(object sender, EventArgs e)
-        {
-            Login.KeyAuthApp.check();
-            guna2MessageDialog1.Show(Login.KeyAuthApp.response.message);
-        }
-
-        private void sendWebhookBtn_Click(object sender, EventArgs e)
-        {
-            Login.KeyAuthApp.webhook(webhookID.Text, webhookBaseURL.Text);
-            guna2MessageDialog1.Show(Login.KeyAuthApp.response.message);
-        }
-
-        private void guna2GradientButton1_Click(object sender, EventArgs e)
-        {
-            Login.KeyAuthApp.log(logDataField.Text);
-            guna2MessageDialog1.Show(Login.KeyAuthApp.response.message);
+            this.WindowState = FormWindowState.Maximized;
         }
     }
 }

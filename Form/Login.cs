@@ -2,7 +2,6 @@ using System;
 using System.Diagnostics;
 using System.Net;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace KeyAuth
 {
@@ -18,12 +17,12 @@ namespace KeyAuth
         */
 
         public static api KeyAuthApp = new api(
-            name: "", // Application Name
-            ownerid: "", // Owner ID
-            secret: "", // Application Secret
-            version: "" // Application Version /*
-                           //path: @"Your_Path_Here" // (OPTIONAL) see tutorial here https://www.youtube.com/watch?v=I9rxt821gMk&t=1s
-        );
+    name: "Test-What", // Application Name
+    ownerid: "7AvflSMyig", // Owner ID
+    secret: "2d092ef5d0b5129357ce06a7eda4b05d785f77cac8ed98f26623a07cb8d4d6fb", // Application Secret
+    version: "1.1" // Application Version /*
+                   //path: @"Your_Path_Here" // (OPTIONAL) see tutorial here https://www.youtube.com/watch?v=I9rxt821gMk&t=1s
+);
 
         //This will display how long it took to make a request in ms. The param "type" is for "login", "register", "init", etc... but that is optional, as well as this function. Ideally you can just put a label or MessageBox.Show($"Request took {api.responseTime}"), but either works. 
         // if you would like to use this method, simply put it in any function and pass the param ... ShowResponse("TypeHere");
@@ -36,11 +35,6 @@ namespace KeyAuth
         public Login()
         {
             InitializeComponent();
-        }
-
-        private void siticoneControlBox1_Click(object sender, EventArgs e)
-        {
-            Environment.Exit(0);
         }
 
         #region Misc References
@@ -122,17 +116,17 @@ namespace KeyAuth
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             KeyAuthApp.forgot(usernameField.Text, emailField.Text);
-            status.Text = "Status: " + KeyAuthApp.response.message;
+            MessageBox.Show("Status: " + KeyAuthApp.response.message);
         }
 
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             KeyAuthApp.upgrade(usernameField.Text, keyField.Text); // success is set to false so people can't press upgrade then press login and skip logging in. it doesn't matter, since you shouldn't take any action on succesfull upgrade anyways. the only thing that needs to be done is the user needs to see the message from upgrade function
-            status.Text = "Status: " + KeyAuthApp.response.message;
+            MessageBox.Show("Status: " + KeyAuthApp.response.message);
             // don't login, because they haven't authenticated. this is just to extend expiry of user with new key.
         }
 
-        private void loginBtn_Click(object sender, EventArgs e)
+        private void loginBtn_Click_1(object sender, EventArgs e)
         {
             KeyAuthApp.login(usernameField.Text, passwordField.Text);
             if (KeyAuthApp.response.success)
@@ -142,10 +136,10 @@ namespace KeyAuth
                 this.Hide();
             }
             else
-                status.Text = "Status: " + KeyAuthApp.response.message;
+                MessageBox.Show("Status: " + KeyAuthApp.response.message);
         }
 
-        private void guna2GradientButton2_Click(object sender, EventArgs e)
+        private void registerBtn_Click(object sender, EventArgs e)
         {
             string email = this.emailField.Text;
             if (email == "Email (leave blank if none)")
@@ -161,10 +155,10 @@ namespace KeyAuth
                 this.Hide();
             }
             else
-                status.Text = "Status: " + KeyAuthApp.response.message;
+                MessageBox.Show("Status: " + KeyAuthApp.response.message);
         }
 
-        private void guna2GradientButton3_Click(object sender, EventArgs e)
+        private void licenseBtn_Click(object sender, EventArgs e)
         {
             KeyAuthApp.license(keyField.Text);
             if (KeyAuthApp.response.success)
@@ -174,7 +168,17 @@ namespace KeyAuth
                 this.Hide();
             }
             else
-                status.Text = "Status: " + KeyAuthApp.response.message;
+               MessageBox.Show("Status: " + KeyAuthApp.response.message);
+        }
+
+        private void closeBtn_Click(object sender, EventArgs e)
+        {
+            Environment.Exit(0);
+        }
+
+        private void minBtn_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
         }
     }
 }

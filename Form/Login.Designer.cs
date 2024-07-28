@@ -17,59 +17,25 @@ namespace KeyAuth
         // Token: 0x06000012 RID: 18 RVA: 0x00002194 File Offset: 0x00000394
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.siticoneDragControl1 = new Siticone.UI.WinForms.SiticoneDragControl(this.components);
-            this.siticoneControlBox1 = new Siticone.UI.WinForms.SiticoneControlBox();
-            this.siticoneControlBox2 = new Siticone.UI.WinForms.SiticoneControlBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.status = new Siticone.UI.WinForms.SiticoneLabel();
-            this.siticoneShadowForm = new Siticone.UI.WinForms.SiticoneShadowForm(this.components);
             this.label3 = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.usernameField = new Guna.UI2.WinForms.Guna2TextBox();
-            this.passwordField = new Guna.UI2.WinForms.Guna2TextBox();
-            this.keyField = new Guna.UI2.WinForms.Guna2TextBox();
-            this.emailField = new Guna.UI2.WinForms.Guna2TextBox();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
-            this.loginBtn = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.guna2GradientButton2 = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.guna2GradientButton3 = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.usernameField = new System.Windows.Forms.TextBox();
+            this.passwordField = new System.Windows.Forms.TextBox();
+            this.keyField = new System.Windows.Forms.TextBox();
+            this.emailField = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.loginBtn = new System.Windows.Forms.Button();
+            this.registerBtn = new System.Windows.Forms.Button();
+            this.licenseBtn = new System.Windows.Forms.Button();
+            this.minBtn = new System.Windows.Forms.Button();
+            this.closeBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // siticoneDragControl1
-            // 
-            this.siticoneDragControl1.TargetControl = this;
-            // 
-            // siticoneControlBox1
-            // 
-            this.siticoneControlBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.siticoneControlBox1.BorderRadius = 10;
-            this.siticoneControlBox1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(9)))), ((int)(((byte)(13)))));
-            this.siticoneControlBox1.HoveredState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(17)))), ((int)(((byte)(35)))));
-            this.siticoneControlBox1.HoveredState.IconColor = System.Drawing.Color.White;
-            this.siticoneControlBox1.HoveredState.Parent = this.siticoneControlBox1;
-            this.siticoneControlBox1.IconColor = System.Drawing.Color.White;
-            this.siticoneControlBox1.Location = new System.Drawing.Point(771, 4);
-            this.siticoneControlBox1.Name = "siticoneControlBox1";
-            this.siticoneControlBox1.ShadowDecoration.Parent = this.siticoneControlBox1;
-            this.siticoneControlBox1.Size = new System.Drawing.Size(45, 29);
-            this.siticoneControlBox1.TabIndex = 1;
-            this.siticoneControlBox1.Click += new System.EventHandler(this.siticoneControlBox1_Click);
-            // 
-            // siticoneControlBox2
-            // 
-            this.siticoneControlBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.siticoneControlBox2.BorderRadius = 10;
-            this.siticoneControlBox2.ControlBoxType = Siticone.UI.WinForms.Enums.ControlBoxType.MinimizeBox;
-            this.siticoneControlBox2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(9)))), ((int)(((byte)(13)))));
-            this.siticoneControlBox2.HoveredState.Parent = this.siticoneControlBox2;
-            this.siticoneControlBox2.IconColor = System.Drawing.Color.White;
-            this.siticoneControlBox2.Location = new System.Drawing.Point(725, 4);
-            this.siticoneControlBox2.Name = "siticoneControlBox2";
-            this.siticoneControlBox2.ShadowDecoration.Parent = this.siticoneControlBox2;
-            this.siticoneControlBox2.Size = new System.Drawing.Size(45, 29);
-            this.siticoneControlBox2.TabIndex = 2;
             // 
             // label1
             // 
@@ -92,21 +58,6 @@ namespace KeyAuth
             this.label2.Size = new System.Drawing.Size(155, 47);
             this.label2.TabIndex = 27;
             this.label2.Text = "KeyAuth";
-            // 
-            // status
-            // 
-            this.status.AutoSize = false;
-            this.status.BackColor = System.Drawing.Color.Transparent;
-            this.status.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.status.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.status.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.status.Location = new System.Drawing.Point(0, 421);
-            this.status.Margin = new System.Windows.Forms.Padding(2);
-            this.status.Name = "status";
-            this.status.Size = new System.Drawing.Size(820, 42);
-            this.status.TabIndex = 38;
-            this.status.Text = "Status: Awaiting login";
-            this.status.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label3
             // 
@@ -132,98 +83,6 @@ namespace KeyAuth
             this.linkLabel1.Text = "Forgot Password?";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
-            // usernameField
-            // 
-            this.usernameField.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
-            this.usernameField.BorderRadius = 8;
-            this.usernameField.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.usernameField.DefaultText = "";
-            this.usernameField.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.usernameField.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.usernameField.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.usernameField.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.usernameField.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(9)))), ((int)(((byte)(13)))));
-            this.usernameField.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.usernameField.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.usernameField.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.usernameField.Location = new System.Drawing.Point(484, 98);
-            this.usernameField.Name = "usernameField";
-            this.usernameField.PasswordChar = '\0';
-            this.usernameField.PlaceholderText = "Username";
-            this.usernameField.SelectedText = "";
-            this.usernameField.Size = new System.Drawing.Size(286, 36);
-            this.usernameField.TabIndex = 43;
-            this.usernameField.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // passwordField
-            // 
-            this.passwordField.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
-            this.passwordField.BorderRadius = 8;
-            this.passwordField.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.passwordField.DefaultText = "";
-            this.passwordField.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.passwordField.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.passwordField.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.passwordField.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.passwordField.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(9)))), ((int)(((byte)(13)))));
-            this.passwordField.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.passwordField.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.passwordField.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.passwordField.Location = new System.Drawing.Point(484, 140);
-            this.passwordField.Name = "passwordField";
-            this.passwordField.PasswordChar = '\0';
-            this.passwordField.PlaceholderText = "Password";
-            this.passwordField.SelectedText = "";
-            this.passwordField.Size = new System.Drawing.Size(286, 36);
-            this.passwordField.TabIndex = 44;
-            this.passwordField.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // keyField
-            // 
-            this.keyField.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
-            this.keyField.BorderRadius = 8;
-            this.keyField.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.keyField.DefaultText = "";
-            this.keyField.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.keyField.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.keyField.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.keyField.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.keyField.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(9)))), ((int)(((byte)(13)))));
-            this.keyField.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.keyField.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.keyField.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.keyField.Location = new System.Drawing.Point(484, 180);
-            this.keyField.Name = "keyField";
-            this.keyField.PasswordChar = '\0';
-            this.keyField.PlaceholderText = "Key";
-            this.keyField.SelectedText = "";
-            this.keyField.Size = new System.Drawing.Size(286, 36);
-            this.keyField.TabIndex = 45;
-            this.keyField.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // emailField
-            // 
-            this.emailField.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
-            this.emailField.BorderRadius = 8;
-            this.emailField.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.emailField.DefaultText = "";
-            this.emailField.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.emailField.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.emailField.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.emailField.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.emailField.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(9)))), ((int)(((byte)(13)))));
-            this.emailField.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.emailField.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.emailField.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.emailField.Location = new System.Drawing.Point(484, 222);
-            this.emailField.Name = "emailField";
-            this.emailField.PasswordChar = '\0';
-            this.emailField.PlaceholderText = "Email";
-            this.emailField.SelectedText = "";
-            this.emailField.Size = new System.Drawing.Size(286, 36);
-            this.emailField.TabIndex = 46;
-            this.emailField.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // linkLabel2
             // 
             this.linkLabel2.AutoSize = true;
@@ -236,68 +95,144 @@ namespace KeyAuth
             this.linkLabel2.Text = "Upgrade?";
             this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
             // 
+            // usernameField
+            // 
+            this.usernameField.Location = new System.Drawing.Point(484, 114);
+            this.usernameField.Name = "usernameField";
+            this.usernameField.Size = new System.Drawing.Size(286, 20);
+            this.usernameField.TabIndex = 54;
+            // 
+            // passwordField
+            // 
+            this.passwordField.Location = new System.Drawing.Point(484, 159);
+            this.passwordField.Name = "passwordField";
+            this.passwordField.Size = new System.Drawing.Size(286, 20);
+            this.passwordField.TabIndex = 55;
+            // 
+            // keyField
+            // 
+            this.keyField.Location = new System.Drawing.Point(481, 204);
+            this.keyField.Name = "keyField";
+            this.keyField.Size = new System.Drawing.Size(286, 20);
+            this.keyField.TabIndex = 56;
+            // 
+            // emailField
+            // 
+            this.emailField.Location = new System.Drawing.Point(481, 249);
+            this.emailField.Name = "emailField";
+            this.emailField.Size = new System.Drawing.Size(286, 20);
+            this.emailField.TabIndex = 57;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label4.Location = new System.Drawing.Point(481, 96);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(65, 15);
+            this.label4.TabIndex = 58;
+            this.label4.Text = "Username:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label5.Location = new System.Drawing.Point(481, 141);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(62, 15);
+            this.label5.TabIndex = 59;
+            this.label5.Text = "Password:";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label6.Location = new System.Drawing.Point(481, 186);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(48, 15);
+            this.label6.TabIndex = 60;
+            this.label6.Text = "License:";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label7.Location = new System.Drawing.Point(478, 231);
+            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(40, 15);
+            this.label7.TabIndex = 61;
+            this.label7.Text = "Email:";
+            // 
             // loginBtn
             // 
-            this.loginBtn.BorderColor = System.Drawing.Color.Gray;
-            this.loginBtn.BorderRadius = 8;
-            this.loginBtn.BorderThickness = 1;
-            this.loginBtn.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.loginBtn.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.loginBtn.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.loginBtn.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.loginBtn.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.loginBtn.FillColor = System.Drawing.Color.DodgerBlue;
-            this.loginBtn.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(23)))));
-            this.loginBtn.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.loginBtn.BackColor = System.Drawing.Color.DodgerBlue;
+            this.loginBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.loginBtn.ForeColor = System.Drawing.Color.White;
-            this.loginBtn.Location = new System.Drawing.Point(484, 277);
+            this.loginBtn.Location = new System.Drawing.Point(481, 292);
             this.loginBtn.Name = "loginBtn";
-            this.loginBtn.Size = new System.Drawing.Size(286, 30);
-            this.loginBtn.TabIndex = 51;
+            this.loginBtn.Size = new System.Drawing.Size(286, 23);
+            this.loginBtn.TabIndex = 62;
             this.loginBtn.Text = "Log In";
-            this.loginBtn.Click += new System.EventHandler(this.loginBtn_Click);
+            this.loginBtn.UseVisualStyleBackColor = false;
+            this.loginBtn.Click += new System.EventHandler(this.loginBtn_Click_1);
             // 
-            // guna2GradientButton2
+            // registerBtn
             // 
-            this.guna2GradientButton2.BorderColor = System.Drawing.Color.Gray;
-            this.guna2GradientButton2.BorderRadius = 8;
-            this.guna2GradientButton2.BorderThickness = 1;
-            this.guna2GradientButton2.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2GradientButton2.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2GradientButton2.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2GradientButton2.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2GradientButton2.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2GradientButton2.FillColor = System.Drawing.Color.DodgerBlue;
-            this.guna2GradientButton2.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(23)))));
-            this.guna2GradientButton2.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2GradientButton2.ForeColor = System.Drawing.Color.White;
-            this.guna2GradientButton2.Location = new System.Drawing.Point(484, 313);
-            this.guna2GradientButton2.Name = "guna2GradientButton2";
-            this.guna2GradientButton2.Size = new System.Drawing.Size(286, 30);
-            this.guna2GradientButton2.TabIndex = 52;
-            this.guna2GradientButton2.Text = "Register";
-            this.guna2GradientButton2.Click += new System.EventHandler(this.guna2GradientButton2_Click);
+            this.registerBtn.BackColor = System.Drawing.Color.DodgerBlue;
+            this.registerBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.registerBtn.ForeColor = System.Drawing.Color.White;
+            this.registerBtn.Location = new System.Drawing.Point(481, 321);
+            this.registerBtn.Name = "registerBtn";
+            this.registerBtn.Size = new System.Drawing.Size(286, 23);
+            this.registerBtn.TabIndex = 63;
+            this.registerBtn.Text = "Register";
+            this.registerBtn.UseVisualStyleBackColor = false;
+            this.registerBtn.Click += new System.EventHandler(this.registerBtn_Click);
             // 
-            // guna2GradientButton3
+            // licenseBtn
             // 
-            this.guna2GradientButton3.BorderColor = System.Drawing.Color.Gray;
-            this.guna2GradientButton3.BorderRadius = 8;
-            this.guna2GradientButton3.BorderThickness = 1;
-            this.guna2GradientButton3.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2GradientButton3.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2GradientButton3.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2GradientButton3.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2GradientButton3.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2GradientButton3.FillColor = System.Drawing.Color.DodgerBlue;
-            this.guna2GradientButton3.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(23)))));
-            this.guna2GradientButton3.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2GradientButton3.ForeColor = System.Drawing.Color.White;
-            this.guna2GradientButton3.Location = new System.Drawing.Point(484, 349);
-            this.guna2GradientButton3.Name = "guna2GradientButton3";
-            this.guna2GradientButton3.Size = new System.Drawing.Size(286, 30);
-            this.guna2GradientButton3.TabIndex = 53;
-            this.guna2GradientButton3.Text = "License Only";
-            this.guna2GradientButton3.Click += new System.EventHandler(this.guna2GradientButton3_Click);
+            this.licenseBtn.BackColor = System.Drawing.Color.DodgerBlue;
+            this.licenseBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.licenseBtn.ForeColor = System.Drawing.Color.White;
+            this.licenseBtn.Location = new System.Drawing.Point(481, 350);
+            this.licenseBtn.Name = "licenseBtn";
+            this.licenseBtn.Size = new System.Drawing.Size(286, 23);
+            this.licenseBtn.TabIndex = 64;
+            this.licenseBtn.Text = "License Log In/Register";
+            this.licenseBtn.UseVisualStyleBackColor = false;
+            this.licenseBtn.Click += new System.EventHandler(this.licenseBtn_Click);
+            // 
+            // minBtn
+            // 
+            this.minBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.minBtn.ForeColor = System.Drawing.Color.White;
+            this.minBtn.Location = new System.Drawing.Point(716, 12);
+            this.minBtn.Name = "minBtn";
+            this.minBtn.Size = new System.Drawing.Size(43, 23);
+            this.minBtn.TabIndex = 94;
+            this.minBtn.Text = "-";
+            this.minBtn.UseVisualStyleBackColor = true;
+            this.minBtn.Click += new System.EventHandler(this.minBtn_Click);
+            // 
+            // closeBtn
+            // 
+            this.closeBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.closeBtn.ForeColor = System.Drawing.Color.White;
+            this.closeBtn.Location = new System.Drawing.Point(765, 12);
+            this.closeBtn.Name = "closeBtn";
+            this.closeBtn.Size = new System.Drawing.Size(43, 23);
+            this.closeBtn.TabIndex = 93;
+            this.closeBtn.Text = "X";
+            this.closeBtn.UseVisualStyleBackColor = true;
+            this.closeBtn.Click += new System.EventHandler(this.closeBtn_Click);
             // 
             // Login
             // 
@@ -306,21 +241,24 @@ namespace KeyAuth
             this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(9)))), ((int)(((byte)(13)))));
             this.ClientSize = new System.Drawing.Size(820, 463);
-            this.Controls.Add(this.guna2GradientButton3);
-            this.Controls.Add(this.guna2GradientButton2);
+            this.Controls.Add(this.minBtn);
+            this.Controls.Add(this.closeBtn);
+            this.Controls.Add(this.licenseBtn);
+            this.Controls.Add(this.registerBtn);
             this.Controls.Add(this.loginBtn);
-            this.Controls.Add(this.linkLabel2);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.emailField);
             this.Controls.Add(this.keyField);
             this.Controls.Add(this.passwordField);
             this.Controls.Add(this.usernameField);
+            this.Controls.Add(this.linkLabel2);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.status);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.siticoneControlBox2);
-            this.Controls.Add(this.siticoneControlBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Login";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -335,29 +273,24 @@ namespace KeyAuth
         // Token: 0x04000001 RID: 1
         private global::System.ComponentModel.IContainer components = null;
 
-        // Token: 0x04000002 RID: 2
-        private global::Siticone.UI.WinForms.SiticoneDragControl siticoneDragControl1;
-
-        // Token: 0x04000004 RID: 4
-        private global::Siticone.UI.WinForms.SiticoneControlBox siticoneControlBox1;
-
-        // Token: 0x04000005 RID: 5
-        private global::Siticone.UI.WinForms.SiticoneControlBox siticoneControlBox2;
-
         // Token: 0x0400000A RID: 10
         private global::System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private Siticone.UI.WinForms.SiticoneShadowForm siticoneShadowForm;
-        private Siticone.UI.WinForms.SiticoneLabel status;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.Label label3;
-        private Guna.UI2.WinForms.Guna2TextBox emailField;
-        private Guna.UI2.WinForms.Guna2TextBox keyField;
-        private Guna.UI2.WinForms.Guna2TextBox passwordField;
-        private Guna.UI2.WinForms.Guna2TextBox usernameField;
         private System.Windows.Forms.LinkLabel linkLabel2;
-        private Guna.UI2.WinForms.Guna2GradientButton loginBtn;
-        private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton3;
-        private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton2;
+        private System.Windows.Forms.TextBox usernameField;
+        private System.Windows.Forms.TextBox passwordField;
+        private System.Windows.Forms.TextBox keyField;
+        private System.Windows.Forms.TextBox emailField;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button loginBtn;
+        private System.Windows.Forms.Button registerBtn;
+        private System.Windows.Forms.Button licenseBtn;
+        private System.Windows.Forms.Button minBtn;
+        private System.Windows.Forms.Button closeBtn;
     }
 }
