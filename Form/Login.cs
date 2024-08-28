@@ -63,12 +63,6 @@ namespace KeyAuth
         {
             KeyAuthApp.init();
 
-            if (!KeyAuthApp.response.success)
-            {
-                MessageBox.Show(KeyAuthApp.response.message);
-                Environment.Exit(0);
-            }
-
             #region Auto Update
             if (KeyAuthApp.response.message == "invalidver")
             {
@@ -111,6 +105,12 @@ namespace KeyAuth
                 Environment.Exit(0);
             }
             #endregion
+
+	     if (!KeyAuthApp.response.success)
+	     {
+	        MessageBox.Show(KeyAuthApp.response.message);
+	        Environment.Exit(0);
+	     }
         }
         
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
