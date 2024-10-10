@@ -11,10 +11,8 @@ using System.Security.Principal;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using System.Net.Security;
-using Newtonsoft.Json;
 using System.Threading;
 using System.Runtime.CompilerServices;
-using Newtonsoft.Json.Linq;
 
 namespace KeyAuth
 {
@@ -909,22 +907,19 @@ namespace KeyAuth
 
             try
             {
-                JObject jsonObject = JsonConvert.DeserializeObject<JObject>(content);
-
                 // Redact sensitive fields - Add more if you would like. 
-                RedactField(jsonObject, "sessionid");
-                RedactField(jsonObject, "ownerid");
-                RedactField(jsonObject, "app");
-                RedactField(jsonObject, "secret");
-                RedactField(jsonObject, "version");
-                RedactField(jsonObject, "fileid");
-                RedactField(jsonObject, "webhooks");
-                RedactField(jsonObject, "nonce");
-                string redactedContent = jsonObject.ToString(Newtonsoft.Json.Formatting.None);
+                content = RedactField(content, "sessionid");
+                content = RedactField(content, "ownerid");
+                content = RedactField(content, "app");
+                content = RedactField(content, "secret");
+                content = RedactField(content, "version");
+                content = RedactField(content, "fileid");
+                content = RedactField(content, "webhooks");
+                content = RedactField(content, "nonce");
 
                 using (StreamWriter writer = File.AppendText(logFilePath))
                 {
-                    writer.WriteLine($"[{DateTime.Now}] [{AppDomain.CurrentDomain.FriendlyName}] {redactedContent}");
+                    writer.WriteLine($"[{DateTime.Now}] [{AppDomain.CurrentDomain.FriendlyName}] {content}");
                 }
             }
             catch (Exception ex)
@@ -933,13 +928,13 @@ namespace KeyAuth
             }
         }
 
-        private static void RedactField(JObject jsonObject, string fieldName)
+        private static string RedactField(string content, string fieldName)
         {
-            JToken token;
-            if (jsonObject.TryGetValue(fieldName, out token))
-            {
-                jsonObject[fieldName] = "REDACTED";
-            }
+            // Basic pattern matching to replace values of sensitive fields
+            string pattern = $"\"{fieldName}\":\"[^\"]*\"";
+            string replacement = $"\"{fieldName}\":\"REDACTED\"";
+
+            return System.Text.RegularExpressions.Regex.Replace(content, pattern, replacement);
         }
 
         public static void error(string message)
