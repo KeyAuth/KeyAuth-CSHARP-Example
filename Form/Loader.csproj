@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Drag.cs" />
     <Compile Include="KeyAuth.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>

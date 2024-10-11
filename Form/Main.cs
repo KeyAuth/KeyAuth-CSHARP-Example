@@ -1,3 +1,4 @@
+using Loader;
 using System;
 using System.Windows.Forms;
 
@@ -19,6 +20,7 @@ namespace KeyAuth
         public Main()
         {
             InitializeComponent();
+            Drag.MakeDraggable(this);
         }
 
         private void Main_Load(object sender, EventArgs e)

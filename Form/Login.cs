@@ -1,3 +1,4 @@
+using Loader;
 using System;
 using System.Diagnostics;
 using System.Net;
@@ -35,6 +36,7 @@ namespace KeyAuth
         public Login()
         {
             InitializeComponent();
+            Drag.MakeDraggable(this);
         }
 
         #region Misc References
