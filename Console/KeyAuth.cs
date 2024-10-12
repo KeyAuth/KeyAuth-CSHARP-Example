@@ -12,41 +12,51 @@ using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using System.Net.Security;
 using System.Threading;
-using System.Runtime.CompilerServices;
+using Cryptographic;
+using System.Runtime.InteropServices;
 
 namespace KeyAuth
 {
     public class api
     {
-        public string name, ownerid, secret, version, path;
-        public static long responseTime;
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private static extern bool TerminateProcess(IntPtr hProcess, uint uExitCode);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private static extern IntPtr GetCurrentProcess();
+
+        // Import the required Atom Table functions from kernel32.dll
+        [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+        private static extern ushort GlobalAddAtom(string lpString);
+
+        [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+        private static extern ushort GlobalFindAtom(string lpString);
+
+        public string name, ownerid, version, path, seed;
         /// <summary>
         /// Set up your application credentials in order to use keyauth
         /// </summary>
         /// <param name="name">Application Name</param>
         /// <param name="ownerid">Your OwnerID, found in your account settings.</param>
-        /// <param name="secret">Application Secret</param>
         /// <param name="version">Application Version, if version doesnt match it will open the download link you set up in your application settings and close the app, if empty the app will close</param>
-        public api(string name, string ownerid, string secret, string version, string path = null)
+        public api(string name, string ownerid, string version, string path = null)
         {
-            if (ownerid.Length != 10 || secret.Length != 64)
+            if (ownerid.Length != 10)
             {
                 Process.Start("https://youtube.com/watch?v=RfDTdiBq4_o");
                 Process.Start("https://keyauth.cc/app/");
                 Thread.Sleep(2000);
                 error("Application not setup correctly. Please watch the YouTube video for setup.");
-                Environment.Exit(0);
+                TerminateProcess(GetCurrentProcess(), 1);
             }
 
             this.name = name;
 
             this.ownerid = ownerid;
 
-            this.secret = secret;
-
             this.version = version;
 
-	    this.path = path;
+	        this.path = path;
         }
 
         #region structures
@@ -70,6 +80,9 @@ namespace KeyAuth
 
             [DataMember]
             public string message { get; set; }
+
+            [DataMember]
+            public string ownerid { get; set; }
 
             [DataMember]
             public string download { get; set; }
@@ -141,20 +154,35 @@ namespace KeyAuth
         /// </summary>
         public void init()
         {
-            string sentKey = encryption.iv_key();
-            enckey = sentKey + "-" + secret;
+            Random random = new Random();
+
+            // Generate a random length for the string (let's assume between 5 and 50 characters)
+            int length = random.Next(5, 51); // Min length: 5, Max length: 50
+
+            StringBuilder sb = new StringBuilder(length);
+
+            // Define the range of printable ASCII characters (32-126)
+            for (int i = 0; i < length; i++)
+            {
+                // Generate a random printable ASCII character
+                char randomChar = (char)random.Next(32, 127); // ASCII 32 to 126
+                sb.Append(randomChar);
+            }
+
+            seed = sb.ToString();
+            checkAtom();
+
             var values_to_upload = new NameValueCollection
             {
                 ["type"] = "init",
                 ["ver"] = version,
                 ["hash"] = checksum(Process.GetCurrentProcess().MainModule.FileName),
-                ["enckey"] = sentKey,
                 ["name"] = name,
                 ["ownerid"] = ownerid
             };
 
-	   if (!string.IsNullOrEmpty(path))
- 	   {
+	       if (!string.IsNullOrEmpty(path))
+ 	       {
                 values_to_upload.Add("token", File.ReadAllText(path));
                 values_to_upload.Add("thash", TokenHash(path));
            }
@@ -164,28 +192,50 @@ namespace KeyAuth
             if (response == "KeyAuth_Invalid")
             {
                 error("Application not found");
-                Environment.Exit(0);
+                TerminateProcess(GetCurrentProcess(), 1);
             }
 
             var json = response_decoder.string_to_generic<response_structure>(response);
-            load_response_struct(json);
-            if (json.success)
+            if (json.ownerid == ownerid)
             {
-                if(json.newSession)
+                load_response_struct(json);
+                if (json.success)
                 {
-                    Thread.Sleep(100);
+                    sessionid = json.sessionid;
+                    initialized = true;
                 }
-                sessionid = json.sessionid;
-                initialized = true;
+                else if (json.message == "invalidver")
+                {
+                    app_data.downloadLink = json.download;
+                }
             }
-            else if (json.message == "invalidver")
+            else
             {
-                app_data.downloadLink = json.download;
+                TerminateProcess(GetCurrentProcess(), 1);
             }
-
         }
 
-	public static string TokenHash(string tokenPath)
+        void checkAtom()
+        {
+            Thread atomCheckThread = new Thread(() =>
+            {
+                while (true)
+                {
+                    Thread.Sleep(60000); // give people 1 minute to login
+
+                    ushort foundAtom = GlobalFindAtom(seed);
+                    if (foundAtom == 0)
+                    {
+                        TerminateProcess(GetCurrentProcess(), 1);
+                    }
+                }
+            });
+
+            atomCheckThread.IsBackground = true; // Ensure the thread does not block program exit
+            atomCheckThread.Start();
+        }
+
+        public static string TokenHash(string tokenPath)
         {
              using (var sha256 = SHA256.Create())
              {
@@ -204,7 +254,7 @@ namespace KeyAuth
             if (!initialized)
             {
                 error("You must run the function KeyAuthApp.init(); first");
-                Environment.Exit(0);
+                TerminateProcess(GetCurrentProcess(), 1);
             }
         }
 
@@ -261,9 +311,19 @@ namespace KeyAuth
             var response = req(values_to_upload);
 
             var json = response_decoder.string_to_generic<response_structure>(response);
-            load_response_struct(json);
-            if (json.success)
-                load_user_data(json.info);
+            if (json.ownerid == ownerid)
+            {
+                GlobalAddAtom(seed);
+                GlobalAddAtom(ownerid);
+
+                load_response_struct(json);
+                if (json.success)
+                    load_user_data(json.info);
+            }
+            else
+            {
+                TerminateProcess(GetCurrentProcess(), 1);
+            }
         }
         /// <summary>
         /// Allow users to enter their account information and recieve an email to reset their password.
@@ -314,9 +374,19 @@ namespace KeyAuth
             var response = req(values_to_upload);
 
             var json = response_decoder.string_to_generic<response_structure>(response);
-            load_response_struct(json);
-            if (json.success)
-                load_user_data(json.info);
+            if (json.ownerid == ownerid)
+            {
+                GlobalAddAtom(seed);
+                GlobalAddAtom(ownerid);
+
+                load_response_struct(json);
+                if (json.success)
+                    load_user_data(json.info);
+            }
+            else
+            {
+                TerminateProcess(GetCurrentProcess(), 1);
+            }
         }
 
 	public void logout()
@@ -334,7 +404,14 @@ namespace KeyAuth
             var response = req(values_to_upload);
 
             var json = response_decoder.string_to_generic<response_structure>(response);
-            load_response_struct(json);
+            if (json.ownerid == ownerid)
+            {
+                load_response_struct(json);
+            }
+            else
+            {
+                TerminateProcess(GetCurrentProcess(), 1);
+            }
         }
 
         public void web_login()
@@ -403,26 +480,35 @@ namespace KeyAuth
             var response = req(values_to_upload);
 
             var json = response_decoder.string_to_generic<response_structure>(response);
-            load_response_struct(json);
-
             bool success = true;
-
-            if (json.success)
+            if (json.ownerid == ownerid)
             {
-                load_user_data(json.info);
+                GlobalAddAtom(seed);
+                GlobalAddAtom(ownerid);
 
-                responsepp.StatusCode = 420;
-                responsepp.StatusDescription = "SHEESH";
+                load_response_struct(json);
+
+                if (json.success)
+                {
+                    load_user_data(json.info);
+
+                    responsepp.StatusCode = 420;
+                    responsepp.StatusDescription = "SHEESH";
+                }
+                else
+                {
+                    Console.WriteLine(json.message);
+                    responsepp.StatusCode = (int)HttpStatusCode.OK;
+                    responsepp.StatusDescription = json.message;
+                    success = false;
+                }
             }
             else
             {
-                Console.WriteLine(json.message);
-                responsepp.StatusCode = (int)HttpStatusCode.OK;
-                responsepp.StatusDescription = json.message;
-                success = false;
+                TerminateProcess(GetCurrentProcess(), 1);
             }
 
-            byte[] buffer = Encoding.UTF8.GetBytes("Whats up?");
+            byte[] buffer = Encoding.UTF8.GetBytes("Complete");
 
             responsepp.ContentLength64 = buffer.Length;
             Stream output = responsepp.OutputStream;
@@ -431,7 +517,7 @@ namespace KeyAuth
             listener.Stop();
 
             if (!success)
-                Environment.Exit(0);
+                TerminateProcess(GetCurrentProcess(), 1);
 
         }
 
@@ -498,8 +584,15 @@ namespace KeyAuth
             var response = req(values_to_upload);
 
             var json = response_decoder.string_to_generic<response_structure>(response);
-            json.success = false;
-            load_response_struct(json);
+            if (json.ownerid == ownerid)
+            {
+                json.success = false;
+                load_response_struct(json);
+            }
+            else
+            {
+                TerminateProcess(GetCurrentProcess(), 1);
+            }
         }
 
         /// <summary>
@@ -525,9 +618,20 @@ namespace KeyAuth
             var response = req(values_to_upload);
 
             var json = response_decoder.string_to_generic<response_structure>(response);
-            load_response_struct(json);
-            if (json.success)
-                load_user_data(json.info);
+
+            if (json.ownerid == ownerid)
+            {
+                GlobalAddAtom(seed);
+                GlobalAddAtom(ownerid);
+
+                load_response_struct(json);
+                if (json.success)
+                    load_user_data(json.info);
+            }
+            else
+            {
+                TerminateProcess(GetCurrentProcess(), 1);
+            }
         }
         /// <summary>
         /// Checks if the current session is validated or not
@@ -547,7 +651,14 @@ namespace KeyAuth
             var response = req(values_to_upload);
 
             var json = response_decoder.string_to_generic<response_structure>(response);
-            load_response_struct(json);
+            if (json.ownerid == ownerid)
+            {
+                load_response_struct(json);
+            }
+            else
+            {
+                TerminateProcess(GetCurrentProcess(), 1);
+            }
         }
         /// <summary>
         /// Change the data of an existing user variable, *User must be logged in*
@@ -571,7 +682,14 @@ namespace KeyAuth
             var response = req(values_to_upload);
 
             var json = response_decoder.string_to_generic<response_structure>(response);
-            load_response_struct(json);
+            if (json.ownerid == ownerid)
+            {
+                load_response_struct(json);
+            }
+            else
+            {
+                TerminateProcess(GetCurrentProcess(), 1);
+            }
         }
         /// <summary>
         /// Gets the an existing user variable
@@ -594,9 +712,16 @@ namespace KeyAuth
             var response = req(values_to_upload);
 
             var json = response_decoder.string_to_generic<response_structure>(response);
-            load_response_struct(json);
-            if (json.success)
-                return json.response;
+            if (json.ownerid == ownerid)
+            {
+                load_response_struct(json);
+                if (json.success)
+                    return json.response;
+            }
+            else
+            {
+                TerminateProcess(GetCurrentProcess(), 1);
+            }
             return null;
         }
         /// <summary>
@@ -618,7 +743,14 @@ namespace KeyAuth
             var response = req(values_to_upload);
 
             var json = response_decoder.string_to_generic<response_structure>(response);
-            load_response_struct(json);
+            if (json.ownerid == ownerid)
+            {
+                load_response_struct(json);
+            }
+            else
+            {
+                TerminateProcess(GetCurrentProcess(), 1);
+            }
         }
         /// <summary>
         /// Gets an existing global variable
@@ -641,9 +773,16 @@ namespace KeyAuth
             var response = req(values_to_upload);
 
             var json = response_decoder.string_to_generic<response_structure>(response);
-            load_response_struct(json);
-            if (json.success)
-                return json.message;
+            if (json.ownerid == ownerid)
+            {
+                load_response_struct(json);
+                if (json.success)
+                    return json.message;
+            }
+            else
+            {
+                TerminateProcess(GetCurrentProcess(), 1);
+            }
             return null;
         }
         /// <summary>
@@ -771,10 +910,19 @@ namespace KeyAuth
             var response = req(values_to_upload);
 
             var json = response_decoder.string_to_generic<response_structure>(response);
-            load_response_struct(json);
-            if (json.success)
-                return true;
-            return false;
+            if (json.ownerid == ownerid)
+            {
+                load_response_struct(json);
+                if (json.success)
+                    return true;
+                else
+                    return false;
+            }
+            else
+            {
+                TerminateProcess(GetCurrentProcess(), 1);
+            }
+            return true; // return yes blacklisted if the OwnerID is spoofed
         }
         /// <summary>
         /// Sends a request to a webhook that you've added in the dashboard in a safe way without it being showed for example a http debugger
@@ -803,9 +951,16 @@ namespace KeyAuth
             var response = req(values_to_upload);
 
             var json = response_decoder.string_to_generic<response_structure>(response);
-            load_response_struct(json);
-            if (json.success)
-                return json.response;
+            if (json.ownerid == ownerid)
+            {
+                load_response_struct(json);
+                if (json.success)
+                    return json.response;
+            }
+            else
+            {
+                TerminateProcess(GetCurrentProcess(), 1);
+            }
             return null;
         }
         /// <summary>
@@ -911,7 +1066,6 @@ namespace KeyAuth
                 content = RedactField(content, "sessionid");
                 content = RedactField(content, "ownerid");
                 content = RedactField(content, "app");
-                content = RedactField(content, "secret");
                 content = RedactField(content, "version");
                 content = RedactField(content, "fileid");
                 content = RedactField(content, "webhooks");
@@ -963,7 +1117,7 @@ namespace KeyAuth
                 RedirectStandardError = true,
                 UseShellExecute = false
             });
-            Environment.Exit(0);
+            TerminateProcess(GetCurrentProcess(), 1);
         }
 	    
         private static string req(NameValueCollection post_data)
@@ -976,17 +1130,11 @@ namespace KeyAuth
 
                     ServicePointManager.ServerCertificateValidationCallback += assertSSL;
 
-                    Stopwatch stopwatch = new Stopwatch();
-                    stopwatch.Start();
-
-                    var raw_response = client.UploadValues("https://keyauth.win/api/1.2/", post_data);
-
-                    stopwatch.Stop();
-                    responseTime = stopwatch.ElapsedMilliseconds;
+                    var raw_response = client.UploadValues("https://keyauth.win/api/1.3/", post_data);
 
                     ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
 
-                    sigCheck(Encoding.UTF8.GetString(raw_response), client.ResponseHeaders["signature"], post_data.Get(0));
+                    sigCheck(Encoding.UTF8.GetString(raw_response), client.ResponseHeaders, post_data.Get(0));
 
                     LogEvent(Encoding.Default.GetString(raw_response) + "\n");
 
@@ -1001,12 +1149,12 @@ namespace KeyAuth
                     case (HttpStatusCode)429: // client hit our rate limit
                         error("You're connecting too fast to loader, slow down.");
                         LogEvent("You're connecting too fast to loader, slow down.");
-                        Environment.Exit(0);
+                        TerminateProcess(GetCurrentProcess(), 1);
                         return "";
                     default: // site won't resolve. you should use keyauth.uk domain since it's not blocked by any ISPs
                         error("Connection failure. Please try again, or contact us for help.");
                         LogEvent("Connection failure. Please try again, or contact us for help.");
-                        Environment.Exit(0);
+                        TerminateProcess(GetCurrentProcess(), 1);
                         return "";
                 }
             }
@@ -1023,28 +1171,61 @@ namespace KeyAuth
             return true;
         }
 
-        private static void sigCheck(string resp, string signature, string type)
+        private static void sigCheck(string resp, WebHeaderCollection headers, string type)
         {
             if(type == "log" || type == "file") // log doesn't return a response.
             {
                 return;
             }
-			
+
             try
             {
-                string clientComputed = encryption.HashHMAC((type == "init") ? enckey.Substring(17, 64) : enckey, resp);
-                if (!encryption.CheckStringsFixedTime(clientComputed, signature))
+                string signature = headers["x-signature-ed25519"];
+                string timestamp = headers["x-signature-timestamp"];
+
+                // Try to parse the input string to a long Unix timestamp
+                if (!long.TryParse(timestamp, out long unixTimestamp))
+                {
+                    TerminateProcess(GetCurrentProcess(), 1);
+                }
+
+                // Convert the Unix timestamp to a DateTime object (in UTC)
+                DateTime timestampTime = DateTimeOffset.FromUnixTimeSeconds(unixTimestamp).UtcDateTime;
+
+                // Get the current UTC time
+                DateTime currentTime = DateTime.UtcNow;
+
+                // Calculate the difference between the current time and the timestamp
+                TimeSpan timeDifference = currentTime - timestampTime;
+
+                // Check if the timestamp is within 15 seconds of the current time
+                if (timeDifference.TotalSeconds > 15)
+                {
+                    TerminateProcess(GetCurrentProcess(), 1);
+                }
+
+                var byteSig = encryption.str_to_byte_arr(signature);
+                var byteKey = encryption.str_to_byte_arr("5586b4bc69c7a4b487e4563a4cd96afd39140f919bd31cea7d1c6a1e8439422b");
+                // ... read the body from the request ...
+                // ... add the timestamp and convert it to a byte[] ...
+                string body = timestamp + resp;
+                var byteBody = Encoding.Default.GetBytes(body);
+
+                Console.Write(" Authenticating"); // there's also ... dots being created inside the CheckValid() function BELOW
+
+                bool signatureValid = Ed25519.CheckValid(byteSig, byteBody, byteKey); // the ... dots in the console are from this function!
+                if (!signatureValid)
                 {
                     error("Signature checksum failed. Request was tampered with or session ended most likely. & echo: & echo Response: " + resp);
                     LogEvent(resp + "\n");
-                    Environment.Exit(0);
+                    TerminateProcess(GetCurrentProcess(), 1);
                 }
             }
             catch
             {
                 error("Signature checksum failed. Request was tampered with or session ended most likely. & echo: & echo Response: " + resp);
                 LogEvent(resp + "\n");
-                Environment.Exit(0);
+                TerminateProcess(GetCurrentProcess(), 1);
             }
         }
 
@@ -1122,6 +1303,12 @@ namespace KeyAuth
 
     public static class encryption
     {
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private static extern bool TerminateProcess(IntPtr hProcess, uint uExitCode);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private static extern IntPtr GetCurrentProcess();
+
         public static string HashHMAC(string enckey, string resp)
         {
             byte[] key = Encoding.UTF8.GetBytes(enckey);
@@ -1151,24 +1338,9 @@ namespace KeyAuth
             catch
             {
                 api.error("The session has ended, open program again.");
-                Environment.Exit(0);
+                TerminateProcess(GetCurrentProcess(), 1);
                 return null;
             }
-        }
-		
-        [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
-        public static bool CheckStringsFixedTime(string str1, string str2)
-        {
-            if (str1.Length != str2.Length)
-            {
-                return false;
-            }
-            var result = 0;
-            for (var i = 0; i < str1.Length; i++)
-            {
-                result |= str1[i] ^ str2[i];
-            }
-            return result == 0;
         }
 
         public static string iv_key() =>

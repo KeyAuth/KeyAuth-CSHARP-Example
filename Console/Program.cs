@@ -1,6 +1,11 @@
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Net;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -18,22 +23,26 @@ namespace KeyAuth
         */
 
         public static api KeyAuthApp = new api(
-            name: "",
-            ownerid: "",
-            secret: "",
-            version: "1.0"/*,
-	    path: @"PathToCheckToken" NOTE: THE "@" IS IF THE TOKEN.TXT FILE IS IN THE SAME DIRECTORY AS THE .EXE*/
+            name: "", // Application Name
+            ownerid: "", // Owner ID
+            version: "" // Application Version /*
+                           //path: @"Your_Path_Here" // (OPTIONAL) see tutorial here https://www.youtube.com/watch?v=I9rxt821gMk&t=1s
         );
 
-        // This will display how long it took to make a request in ms. The param "type" is for "login", "register", "init", etc... but that is optional, as well as this function. Ideally you can just put Console.WriteLine($"Request took {api.responseTime}"), but either works. 
-        // if you would like to use this method, simply put it in any function and pass the param ... ShowResponse("TypeHere");
-        private void ShowResponse(string type)
-        {
-            Console.WriteLine($"It took {api.responseTime} ms to {type}");
-        }
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private static extern bool TerminateProcess(IntPtr hProcess, uint uExitCode);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private static extern IntPtr GetCurrentProcess();
+
+        [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+        private static extern ushort GlobalFindAtom(string lpString);
 
         static void Main(string[] args)
         {
+
+            securityChecks();
+
             Console.Title = "Loader";
             Console.WriteLine("\n\n Connecting..");
             KeyAuthApp.init();
@@ -44,7 +53,7 @@ namespace KeyAuth
             {
                 Console.WriteLine("\n Status: " + KeyAuthApp.response.message);
                 Thread.Sleep(1500);
-                Environment.Exit(0);
+                TerminateProcess(GetCurrentProcess(), 1);
             }
 
             Console.Write("\n [1] Login\n [2] Register\n [3] Upgrade\n [4] License key only\n [5] Forgot password\n\n Choose option: ");
@@ -81,7 +90,7 @@ namespace KeyAuth
                     // don't proceed to app, user hasn't authenticated yet.
                     Console.WriteLine("\n Status: " + KeyAuthApp.response.message);
                     Thread.Sleep(2500);
-                    Environment.Exit(0);
+                    TerminateProcess(GetCurrentProcess(), 1);
                     break;
                 case 4:
                     Console.Write("\n\n Enter license: ");
@@ -97,12 +106,12 @@ namespace KeyAuth
                     // don't proceed to app, user hasn't authenticated yet.
                     Console.WriteLine("\n Status: " + KeyAuthApp.response.message);
                     Thread.Sleep(2500);
-                    Environment.Exit(0);
+                    TerminateProcess(GetCurrentProcess(), 1);
                     break;
                 default:
                     Console.WriteLine("\n\n Invalid Selection");
                     Thread.Sleep(2500);
-                    Environment.Exit(0);
+                    TerminateProcess(GetCurrentProcess(), 1);
                     break; // no point in this other than to not get error from IDE
             }
 
@@ -110,10 +119,12 @@ namespace KeyAuth
             {
                 Console.WriteLine("\n Status: " + KeyAuthApp.response.message);
                 Thread.Sleep(2500);
-                Environment.Exit(0);
+                TerminateProcess(GetCurrentProcess(), 1);
             }
 
             Console.WriteLine("\n Logged In!"); // at this point, the client has been authenticated. Put the code you want to run after here
+
+            if(string.IsNullOrEmpty(KeyAuthApp.response.message)) TerminateProcess(GetCurrentProcess(), 1);
 
             // user data
             Console.WriteLine("\n User data:");
@@ -121,7 +132,7 @@ namespace KeyAuth
             Console.WriteLine(" IP address: " + KeyAuthApp.user_data.ip);
             Console.WriteLine(" Hardware-Id: " + KeyAuthApp.user_data.hwid);
             Console.WriteLine(" Created at: " + UnixTimeToDateTime(long.Parse(KeyAuthApp.user_data.createdate)));
-            if (!String.IsNullOrEmpty(KeyAuthApp.user_data.lastlogin)) // don't show last login on register since there is no last login at that point
+            if (!string.IsNullOrEmpty(KeyAuthApp.user_data.lastlogin)) // don't show last login on register since there is no last login at that point
                 Console.WriteLine(" Last login at: " + UnixTimeToDateTime(long.Parse(KeyAuthApp.user_data.lastlogin)));
             Console.WriteLine(" Your subscription(s):");
             for (var i = 0; i < KeyAuthApp.user_data.subscriptions.Count; i++)
@@ -130,7 +141,7 @@ namespace KeyAuth
             }
 
             Console.WriteLine("\n Closing in five seconds...");
-            Thread.Sleep(5000);
+            Thread.Sleep(-1);
             Environment.Exit(0);
         }
 
@@ -153,6 +164,52 @@ namespace KeyAuth
                 dtDateTime = DateTime.MaxValue;
             }
             return dtDateTime;
+        }
+
+        static void checkAtom()
+        {
+            Thread atomCheckThread = new Thread(() =>
+            {
+                while (true)
+                {
+                    Thread.Sleep(60000); // give people 1 minute to login
+
+                    ushort foundAtom = GlobalFindAtom(KeyAuthApp.ownerid);
+                    if (foundAtom == 0)
+                    {
+                        TerminateProcess(GetCurrentProcess(), 1);
+                    }
+                }
+            });
+
+            atomCheckThread.IsBackground = true; // Ensure the thread does not block program exit
+            atomCheckThread.Start();
+        }
+
+        static void securityChecks()
+        {
+            // check if the Loader was executed by a different program
+            var frames = new StackTrace().GetFrames();
+            foreach (var frame in frames)
+            {
+                MethodBase method = frame.GetMethod();
+                if (method != null && method.DeclaringType?.Assembly != Assembly.GetExecutingAssembly())
+                {
+                    TerminateProcess(GetCurrentProcess(), 1);
+                }
+            }
+
+            // check if HarmonyLib is attempting to poison our program
+            var harmonyAssembly = AppDomain.CurrentDomain
+            .GetAssemblies()
+            .FirstOrDefault(a => a.GetName().Name == "0Harmony");
+
+            if (harmonyAssembly != null)
+            {
+                TerminateProcess(GetCurrentProcess(), 1);
+            }
+
+            checkAtom();
         }
 
         static void autoUpdate()
