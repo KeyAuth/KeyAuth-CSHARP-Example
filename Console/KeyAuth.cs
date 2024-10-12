@@ -1198,8 +1198,8 @@ namespace KeyAuth
                 // Calculate the difference between the current time and the timestamp
                 TimeSpan timeDifference = currentTime - timestampTime;
 
-                // Check if the timestamp is within 15 seconds of the current time
-                if (timeDifference.TotalSeconds > 15)
+                // Check if the timestamp is within 20 seconds of the current time
+                if (timeDifference.TotalSeconds > 20)
                 {
                     TerminateProcess(GetCurrentProcess(), 1);
                 }
