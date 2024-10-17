@@ -1,11 +1,24 @@
 # KeyAuth-CSHARP-Example : Please star 🌟
-KeyAuth C# example for the https://keyauth.cc authentication system.
+
+KeyAuth C# example SDK for https://keyauth.cc license key API auth.
+
+### Tutorial Video
+
+This video explains both how to use this example, but also how to add KeyAuth to your <ins>**OWN PROJECT**</ins> https://www.youtube.com/watch?v=5x4YkTmFH-U
 
 ## **Bugs**
 
-If the default example not added to your software isn't functioning how it should, please report a bug here https://keyauth.cc/app/?page=forms
+If you are using our example with no significant changes, and you are having problems, please Report Bug here https://keyauth.cc/app/?page=forms
 
 However, we do **NOT** provide support for adding KeyAuth to your project. If you can't figure this out you should use Google or YouTube to learn more about the programming language you want to sell a program in.
+
+## **Security practices**
+
+* Utilize obfuscation provided by companies such as VMProtect or Themida (utilize their SDKs too for greater protection)
+* Preform frequent integrity checks to ensure the memory of the program has not been modified
+* Don't write the bytes of a file you've downloaded to disk if you don't want that file to be retrieved by the user. Rather, execute the file in memory and erase it from memory the moment execution finishes
+
+While our API ensures licenses validation, it's crucial to implement robust client-side protection like obfuscation and integrity checks to prevent software tampering, as vulnerabilities often stem from insufficient client security.
 
 ## Copyright License
 
@@ -28,6 +41,9 @@ Thank you for your compliance, we work hard on the development of KeyAuth and do
 ## What is KeyAuth?
 
 KeyAuth is an Open source authentication system with cloud hosting plans as well. Client SDKs available for [C#](https://github.com/KeyAuth/KeyAuth-CSHARP-Example), [C++](https://github.com/KeyAuth/KeyAuth-CPP-Example), [Python](https://github.com/KeyAuth/KeyAuth-Python-Example), [Java](https://github.com/KeyAuth-Archive/KeyAuth-JAVA-api), [JavaScript](https://github.com/mazkdevf/KeyAuth-JS-Example), [VB.NET](https://github.com/KeyAuth/KeyAuth-VB-Example), [PHP](https://github.com/KeyAuth/KeyAuth-PHP-Example), [Rust](https://github.com/KeyAuth/KeyAuth-Rust-Example), [Go](https://github.com/mazkdevf/KeyAuth-Go-Example), [Lua](https://github.com/mazkdevf/KeyAuth-Lua-Examples), [Ruby](https://github.com/mazkdevf/KeyAuth-Ruby-Example), and [Perl](https://github.com/mazkdevf/KeyAuth-Perl-Example). KeyAuth has several unique features such as memory streaming, webhook function where you can send requests to API without leaking the API, discord webhook notifications, ban the user securely through the application at your discretion. Feel free to join https://t.me/keyauth if you have questions or suggestions.
+
+> [!TIP]
+> https://vaultcord.com FREE Discord bot to Backup server, members, channels, messages & more. Custom verify page, block alt accounts, VPNs & more.
 
 ## Customer connection issues?
 
@@ -137,7 +153,7 @@ if (!KeyAuthApp.response.success)
 
 Used so the user can add extra time to their account by claiming new key.
 
-> **Warning**
+> [!WARNING]
 > No password is needed to upgrade account. So, unlike login, register, and license functions - you should **not** log user in after successful upgrade.
 
 ```
@@ -332,7 +348,7 @@ KeyAuthApp.ban("You've been banned for a reason.");
 
 Tutorial video https://www.youtube.com/watch?v=ENRaNPPYJbc
 
-> **Note**
+> [!NOTE]
 > Read documentation for KeyAuth webhooks here https://keyauth.readme.io/reference/webhooks-1
 
 Send HTTP requests to URLs securely without leaking the URL in your application. You should definitely use if you want to send requests to SellerAPI from your application, otherwise if you don't use you'll be leaking your seller key to everyone. And then someone can mess up your application.
@@ -365,7 +381,7 @@ else
 
 ## Download file
 
-> **Note**
+> [!NOTE]
 > Read documentation for KeyAuth files here https://docs.keyauth.cc/website/dashboard/files
 
 Keep files secure by providing KeyAuth your file download link on the KeyAuth dashboard. Make sure this is a direct download link (as soon as you go to the link, it starts downloading without you clicking anything). The KeyAuth download function provides the bytes, and then you get to decide what to do with those. This example shows how to write it to a file named `text.txt` in the same folder as the program, though you could execute with RunPE or whatever you want.
@@ -415,5 +431,3 @@ if (Login.KeyAuthApp.chatsend(chatmsg.Text, chatchannel))
 else
     chatmsg.Text = "Status: " + Login.KeyAuthApp.response.message;
 ```
-
-Looking for a Discord bot made by the KeyAuth & RestoreCord founder that you can use to backup your Discord members, server settings, and messages? Go to https://vaultcord.com
