@@ -98,6 +98,9 @@ namespace KeyAuth
 
             [DataMember]
             public List<users> users { get; set; }
+
+            [DataMember(Name = "2fa", IsRequired = false, EmitDefaultValue = false)] // Ensure mapping to "2fa"
+            public TwoFactorData twoFactor { get; set; } // Add a property for the 2FA data
         }
 
         public class msg
@@ -354,7 +357,7 @@ namespace KeyAuth
         /// </summary>
         /// <param name="username">Username</param>
         /// <param name="pass">Password</param>
-        public void login(string username, string pass)
+        public void login(string username, string pass, string code = null)
         {
             CheckInit();
 
@@ -368,7 +371,8 @@ namespace KeyAuth
                 ["hwid"] = hwid,
                 ["sessionid"] = sessionid,
                 ["name"] = name,
-                ["ownerid"] = ownerid
+                ["ownerid"] = ownerid,
+                ["code"] = code ?? string.Empty
             };
 
             var response = req(values_to_upload);
@@ -599,7 +603,7 @@ namespace KeyAuth
         /// Authenticate without using usernames and passwords
         /// </summary>
         /// <param name="key">Licence used to login with</param>
-        public void license(string key)
+        public void license(string key, string code = null)
         {
             CheckInit();
 
@@ -612,7 +616,8 @@ namespace KeyAuth
                 ["hwid"] = hwid,
                 ["sessionid"] = sessionid,
                 ["name"] = name,
-                ["ownerid"] = ownerid
+                ["ownerid"] = ownerid,
+                ["code"] = code ?? string.Empty
             };
 
             var response = req(values_to_upload);
@@ -657,6 +662,73 @@ namespace KeyAuth
             }
             else
             {
+                TerminateProcess(GetCurrentProcess(), 1);
+            }
+        }
+        /// <summary>
+        /// Disable two factor authentication (2fa)
+        /// </summary>
+        public void disable2fa(string code)
+        {
+            CheckInit();
+
+            var values_to_upload = new NameValueCollection
+            {
+                ["type"] = "2fadisable",
+                ["sessionid"] = sessionid,
+                ["name"] = name,
+                ["ownerid"] = ownerid,
+                ["code"] = code
+            };
+
+            var response = req(values_to_upload);
+
+            var json = response_decoder.string_to_generic<response_structure>(response);
+            load_response_struct(json);
+
+            Console.WriteLine(json.message);
+        }
+        /// <summary>
+        /// Enable two factor authentication (2fa)
+        /// </summary>
+        public void enable2fa(string code = null)
+        {
+            CheckInit();
+
+            var values_to_upload = new NameValueCollection
+            {
+                ["type"] = "2faenable",
+                ["sessionid"] = sessionid,
+                ["name"] = name,
+                ["ownerid"] = ownerid,
+                ["code"] = code
+            };
+
+            var response = req(values_to_upload);
+
+            var json = response_decoder.string_to_generic<response_structure>(response);
+            load_response_struct(json);
+
+            if (json.success)
+            {
+                if (code == null)
+                {
+                    Console.WriteLine($"Your 2FA Secret is: {json.twoFactor.SecretCode}");
+
+                    Console.Write("Enter the 6 digit authentication code from your authentication app: ");
+                    string code6Digit = Console.ReadLine();
+                    this.enable2fa(code6Digit);
+                }
+                else
+                {
+                    Console.WriteLine("2FA has been successfully enabled!");
+                    Thread.Sleep(3000);
+                }
+            }
+            else
+            {
+                Console.WriteLine($"Error: {json.message}");
+                Thread.Sleep(3000);
                 TerminateProcess(GetCurrentProcess(), 1);
             }
         }
@@ -1173,7 +1245,7 @@ namespace KeyAuth
 
         private static void sigCheck(string resp, WebHeaderCollection headers, string type)
         {
-            if(type == "log" || type == "file") // log doesn't return a response.
+            if(type == "log" || type == "file" || type == "2faenable" || type == "2fadisable") // log doesn't return a response.
             {
                 return;
             }
@@ -1282,6 +1354,16 @@ namespace KeyAuth
         }
         #endregion
 
+        [DataContract]
+        private class TwoFactorData
+        {
+            [DataMember(Name = "secret_code")]
+            public string SecretCode { get; set; }
+
+            [DataMember(Name = "QRCode")]
+            public string QRCode { get; set; }
+        }
+
         #region response_struct
         public response_class response = new response_class();
 
@@ -1295,7 +1377,7 @@ namespace KeyAuth
         {
             response.success = data.success;
             response.message = data.message;
-        }
+        } 
         #endregion
 
         private json_wrapper response_decoder = new json_wrapper(new response_structure());

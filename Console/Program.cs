@@ -24,8 +24,8 @@ namespace KeyAuth
 
         public static api KeyAuthApp = new api(
             name: "", // Application Name
-            ownerid: "", // Owner ID
-            version: "" // Application Version /*
+            ownerid: "", // Account ID
+            version: "" // Application version. Used for automatic downloads see video here https://www.youtube.com/watch?v=kW195PLCBKs
                            //path: @"Your_Path_Here" // (OPTIONAL) see tutorial here https://www.youtube.com/watch?v=I9rxt821gMk&t=1s
         );
 
@@ -58,7 +58,7 @@ namespace KeyAuth
 
             Console.Write("\n [1] Login\n [2] Register\n [3] Upgrade\n [4] License key only\n [5] Forgot password\n\n Choose option: ");
 
-            string username, password, key, email;
+            string username, password, key, email, code;
 
             int option = int.Parse(Console.ReadLine());
             switch (option)
@@ -68,7 +68,9 @@ namespace KeyAuth
                     username = Console.ReadLine();
                     Console.Write("\n\n Enter password: ");
                     password = Console.ReadLine();
-                    KeyAuthApp.login(username, password);
+                    Console.Write("\n\n Enter 2fa code: (not using 2fa? Just press enter) ");
+                    code = Console.ReadLine();
+                    KeyAuthApp.login(username, password, code);
                     break;
                 case 2:
                     Console.Write("\n\n Enter username: ");
@@ -95,7 +97,9 @@ namespace KeyAuth
                 case 4:
                     Console.Write("\n\n Enter license: ");
                     key = Console.ReadLine();
-                    KeyAuthApp.license(key);
+                    Console.Write("\n\n Enter 2fa code: (not using 2fa? Just press enter");
+                    code = Console.ReadLine();
+                    KeyAuthApp.license(key, code);
                     break;
                 case 5:
                     Console.Write("\n\n Enter username: ");
@@ -138,6 +142,25 @@ namespace KeyAuth
             for (var i = 0; i < KeyAuthApp.user_data.subscriptions.Count; i++)
             {
                 Console.WriteLine(" Subscription name: " + KeyAuthApp.user_data.subscriptions[i].subscription + " - Expires at: " + UnixTimeToDateTime(long.Parse(KeyAuthApp.user_data.subscriptions[i].expiry)) + " - Time left in seconds: " + KeyAuthApp.user_data.subscriptions[i].timeleft);
+            }
+
+            Console.Write("\n [1] Enable 2FA\n [2] Disable 2FA\n Choose option: ");
+            int tfaOptions = int.Parse(Console.ReadLine());
+            switch (tfaOptions)
+            {
+                case 1:
+                    KeyAuthApp.enable2fa();
+                    break;
+                case 2:
+                    Console.Write("Enter your 6 digit authorization code: ");
+                    code = Console.ReadLine();
+                    KeyAuthApp.disable2fa(code);
+                    break;
+                default:
+                    Console.WriteLine("\n\n Invalid Selection");
+                    Thread.Sleep(2500);
+                    TerminateProcess(GetCurrentProcess(), 1);
+                    break; // no point in this other than to not get error from IDE
             }
 
             Console.WriteLine("\n Closing in five seconds...");
