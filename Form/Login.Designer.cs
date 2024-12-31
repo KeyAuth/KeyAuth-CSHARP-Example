@@ -35,6 +35,8 @@ namespace KeyAuth
             this.licenseBtn = new System.Windows.Forms.Button();
             this.minBtn = new System.Windows.Forms.Button();
             this.closeBtn = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.tfaField = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -51,7 +53,7 @@ namespace KeyAuth
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI Semibold", 26F, System.Drawing.FontStyle.Bold);
-            this.label2.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(100)))), ((int)(((byte)(242)))));
             this.label2.Location = new System.Drawing.Point(42, 133);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
@@ -75,7 +77,7 @@ namespace KeyAuth
             // 
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.LinkColor = System.Drawing.Color.DodgerBlue;
-            this.linkLabel1.Location = new System.Drawing.Point(481, 396);
+            this.linkLabel1.Location = new System.Drawing.Point(481, 420);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(92, 13);
             this.linkLabel1.TabIndex = 42;
@@ -87,7 +89,7 @@ namespace KeyAuth
             // 
             this.linkLabel2.AutoSize = true;
             this.linkLabel2.LinkColor = System.Drawing.Color.DodgerBlue;
-            this.linkLabel2.Location = new System.Drawing.Point(716, 396);
+            this.linkLabel2.Location = new System.Drawing.Point(716, 420);
             this.linkLabel2.Name = "linkLabel2";
             this.linkLabel2.Size = new System.Drawing.Size(54, 13);
             this.linkLabel2.TabIndex = 50;
@@ -97,28 +99,40 @@ namespace KeyAuth
             // 
             // usernameField
             // 
-            this.usernameField.Location = new System.Drawing.Point(484, 114);
+            this.usernameField.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(29)))), ((int)(((byte)(39)))));
+            this.usernameField.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.usernameField.ForeColor = System.Drawing.Color.White;
+            this.usernameField.Location = new System.Drawing.Point(484, 95);
             this.usernameField.Name = "usernameField";
             this.usernameField.Size = new System.Drawing.Size(286, 20);
             this.usernameField.TabIndex = 54;
             // 
             // passwordField
             // 
-            this.passwordField.Location = new System.Drawing.Point(484, 159);
+            this.passwordField.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(29)))), ((int)(((byte)(39)))));
+            this.passwordField.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.passwordField.ForeColor = System.Drawing.Color.White;
+            this.passwordField.Location = new System.Drawing.Point(484, 140);
             this.passwordField.Name = "passwordField";
             this.passwordField.Size = new System.Drawing.Size(286, 20);
             this.passwordField.TabIndex = 55;
             // 
             // keyField
             // 
-            this.keyField.Location = new System.Drawing.Point(481, 204);
+            this.keyField.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(29)))), ((int)(((byte)(39)))));
+            this.keyField.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.keyField.ForeColor = System.Drawing.Color.White;
+            this.keyField.Location = new System.Drawing.Point(481, 185);
             this.keyField.Name = "keyField";
             this.keyField.Size = new System.Drawing.Size(286, 20);
             this.keyField.TabIndex = 56;
             // 
             // emailField
             // 
-            this.emailField.Location = new System.Drawing.Point(481, 249);
+            this.emailField.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(29)))), ((int)(((byte)(39)))));
+            this.emailField.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.emailField.ForeColor = System.Drawing.Color.White;
+            this.emailField.Location = new System.Drawing.Point(481, 230);
             this.emailField.Name = "emailField";
             this.emailField.Size = new System.Drawing.Size(286, 20);
             this.emailField.TabIndex = 57;
@@ -128,7 +142,7 @@ namespace KeyAuth
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label4.Location = new System.Drawing.Point(481, 96);
+            this.label4.Location = new System.Drawing.Point(481, 77);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(65, 15);
@@ -140,7 +154,7 @@ namespace KeyAuth
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label5.Location = new System.Drawing.Point(481, 141);
+            this.label5.Location = new System.Drawing.Point(481, 122);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(62, 15);
@@ -152,7 +166,7 @@ namespace KeyAuth
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label6.Location = new System.Drawing.Point(481, 186);
+            this.label6.Location = new System.Drawing.Point(481, 167);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(48, 15);
@@ -164,7 +178,7 @@ namespace KeyAuth
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label7.Location = new System.Drawing.Point(478, 231);
+            this.label7.Location = new System.Drawing.Point(478, 212);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(40, 15);
@@ -173,10 +187,11 @@ namespace KeyAuth
             // 
             // loginBtn
             // 
-            this.loginBtn.BackColor = System.Drawing.Color.DodgerBlue;
+            this.loginBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(100)))), ((int)(((byte)(242)))));
+            this.loginBtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(29)))), ((int)(((byte)(39)))));
             this.loginBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.loginBtn.ForeColor = System.Drawing.Color.White;
-            this.loginBtn.Location = new System.Drawing.Point(481, 292);
+            this.loginBtn.Location = new System.Drawing.Point(481, 316);
             this.loginBtn.Name = "loginBtn";
             this.loginBtn.Size = new System.Drawing.Size(286, 23);
             this.loginBtn.TabIndex = 62;
@@ -186,10 +201,11 @@ namespace KeyAuth
             // 
             // registerBtn
             // 
-            this.registerBtn.BackColor = System.Drawing.Color.DodgerBlue;
+            this.registerBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(100)))), ((int)(((byte)(242)))));
+            this.registerBtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(29)))), ((int)(((byte)(39)))));
             this.registerBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.registerBtn.ForeColor = System.Drawing.Color.White;
-            this.registerBtn.Location = new System.Drawing.Point(481, 321);
+            this.registerBtn.Location = new System.Drawing.Point(481, 345);
             this.registerBtn.Name = "registerBtn";
             this.registerBtn.Size = new System.Drawing.Size(286, 23);
             this.registerBtn.TabIndex = 63;
@@ -199,10 +215,11 @@ namespace KeyAuth
             // 
             // licenseBtn
             // 
-            this.licenseBtn.BackColor = System.Drawing.Color.DodgerBlue;
+            this.licenseBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(100)))), ((int)(((byte)(242)))));
+            this.licenseBtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(29)))), ((int)(((byte)(39)))));
             this.licenseBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.licenseBtn.ForeColor = System.Drawing.Color.White;
-            this.licenseBtn.Location = new System.Drawing.Point(481, 350);
+            this.licenseBtn.Location = new System.Drawing.Point(481, 374);
             this.licenseBtn.Name = "licenseBtn";
             this.licenseBtn.Size = new System.Drawing.Size(286, 23);
             this.licenseBtn.TabIndex = 64;
@@ -234,13 +251,37 @@ namespace KeyAuth
             this.closeBtn.UseVisualStyleBackColor = true;
             this.closeBtn.Click += new System.EventHandler(this.closeBtn_Click);
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label8.Location = new System.Drawing.Point(478, 260);
+            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(180, 15);
+            this.label8.TabIndex = 96;
+            this.label8.Text = "2FA (Two Factor Authentication)";
+            // 
+            // tfaField
+            // 
+            this.tfaField.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(29)))), ((int)(((byte)(39)))));
+            this.tfaField.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tfaField.ForeColor = System.Drawing.Color.White;
+            this.tfaField.Location = new System.Drawing.Point(481, 278);
+            this.tfaField.Name = "tfaField";
+            this.tfaField.Size = new System.Drawing.Size(286, 20);
+            this.tfaField.TabIndex = 95;
+            // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(9)))), ((int)(((byte)(13)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(32)))));
             this.ClientSize = new System.Drawing.Size(820, 463);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.tfaField);
             this.Controls.Add(this.minBtn);
             this.Controls.Add(this.closeBtn);
             this.Controls.Add(this.licenseBtn);
@@ -292,5 +333,7 @@ namespace KeyAuth
         private System.Windows.Forms.Button licenseBtn;
         private System.Windows.Forms.Button minBtn;
         private System.Windows.Forms.Button closeBtn;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox tfaField;
     }
 }

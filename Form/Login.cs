@@ -121,7 +121,7 @@ namespace KeyAuth
 
         private void loginBtn_Click_1(object sender, EventArgs e)
         {
-            KeyAuthApp.login(usernameField.Text, passwordField.Text);
+            KeyAuthApp.login(usernameField.Text, passwordField.Text, tfaField.Text);
             if (KeyAuthApp.response.success)
             {
                 Main main = new Main();
@@ -153,7 +153,7 @@ namespace KeyAuth
 
         private void licenseBtn_Click(object sender, EventArgs e)
         {
-            KeyAuthApp.license(keyField.Text);
+            KeyAuthApp.license(keyField.Text, tfaField.Text);
             if (KeyAuthApp.response.success)
             {
                 Main main = new Main();

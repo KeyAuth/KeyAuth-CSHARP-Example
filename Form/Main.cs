@@ -1,5 +1,7 @@
 using Loader;
 using System;
+using System.IO;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace KeyAuth
@@ -161,6 +163,40 @@ namespace KeyAuth
         private void minBtn_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Maximized;
+        }
+
+        private void downloadFileBtn_Click(object sender, EventArgs e)
+        {
+            byte[] result = Login.KeyAuthApp.download("385624");
+            if (!Login.KeyAuthApp.response.success)
+            {
+                Console.WriteLine("\n Status: " + Login.KeyAuthApp.response.message);
+                Thread.Sleep(2500);
+                Environment.Exit(0);
+            }
+            else
+                File.WriteAllBytes($@"{filePathField.Text}" + $"\\{fileExtensionField.Text}", result);
+        }
+
+        private void enableTfaBtn_Click(object sender, EventArgs e)
+        {
+            string code = string.IsNullOrEmpty(tfaField.Text) ? null : tfaField.Text;
+
+            Login.KeyAuthApp.enable2fa(code);
+
+            MessageBox.Show(Login.KeyAuthApp.response.message);
+        }
+
+        private void disableTfaBtn_Click(object sender, EventArgs e)
+        {
+            Login.KeyAuthApp.disable2fa(tfaField.Text);
+            MessageBox.Show(Login.KeyAuthApp.response.message);
+        }
+
+        private void banBtn_Click(object sender, EventArgs e)
+        {
+            Login.KeyAuthApp.ban("Testing ban function");
+            MessageBox.Show(Login.KeyAuthApp.response.message);
         }
     }
 }

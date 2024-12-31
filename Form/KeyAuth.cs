@@ -14,6 +14,7 @@ using System.Net.Security;
 using System.Threading;
 using Cryptographic;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace KeyAuth
 {
@@ -98,6 +99,9 @@ namespace KeyAuth
 
             [DataMember]
             public List<users> users { get; set; }
+
+            [DataMember(Name = "2fa", IsRequired = false, EmitDefaultValue = false)] // Ensure mapping to "2fa"
+            public TwoFactorData twoFactor { get; set; } // Add a property for the 2FA data
         }
 
         public class msg
@@ -354,7 +358,7 @@ namespace KeyAuth
         /// </summary>
         /// <param name="username">Username</param>
         /// <param name="pass">Password</param>
-        public void login(string username, string pass)
+        public void login(string username, string pass, string code = null)
         {
             CheckInit();
 
@@ -368,7 +372,8 @@ namespace KeyAuth
                 ["hwid"] = hwid,
                 ["sessionid"] = sessionid,
                 ["name"] = name,
-                ["ownerid"] = ownerid
+                ["ownerid"] = ownerid,
+                ["code"] = code ?? null
             };
 
             var response = req(values_to_upload);
@@ -599,7 +604,7 @@ namespace KeyAuth
         /// Authenticate without using usernames and passwords
         /// </summary>
         /// <param name="key">Licence used to login with</param>
-        public void license(string key)
+        public void license(string key, string code = null)
         {
             CheckInit();
 
@@ -612,7 +617,8 @@ namespace KeyAuth
                 ["hwid"] = hwid,
                 ["sessionid"] = sessionid,
                 ["name"] = name,
-                ["ownerid"] = ownerid
+                ["ownerid"] = ownerid,
+                ["code"]  = code ?? null
             };
 
             var response = req(values_to_upload);
@@ -657,6 +663,68 @@ namespace KeyAuth
             }
             else
             {
+                TerminateProcess(GetCurrentProcess(), 1);
+            }
+        }
+        /// <summary>
+        /// Disable two factor authentication (2fa)
+        /// </summary>
+        public void disable2fa(string code)
+        {
+            CheckInit();
+
+            var values_to_upload = new NameValueCollection
+            {
+                ["type"] = "2fadisable",
+                ["sessionid"] = sessionid,
+                ["name"] = name,
+                ["ownerid"] = ownerid,
+                ["code"] = code
+            };
+
+            var response = req(values_to_upload);
+
+            var json = response_decoder.string_to_generic<response_structure>(response);
+            load_response_struct(json);
+        }
+        /// <summary>
+        /// Enable two factor authentication (2fa)
+        /// </summary>
+        public void enable2fa(string code = null)
+        {
+            CheckInit();
+
+            var values_to_upload = new NameValueCollection
+            {
+                ["type"] = "2faenable",
+                ["sessionid"] = sessionid,
+                ["name"] = name,
+                ["ownerid"] = ownerid,
+                ["code"] = code
+            };
+
+            var response = req(values_to_upload);
+
+            var json = response_decoder.string_to_generic<response_structure>(response);
+            load_response_struct(json);
+
+            if (json.success)
+            {
+                if (code == null) // First time enabling 2FA, no code provided
+                {
+                    // Display the secret code to the user
+                    Clipboard.SetText(json.twoFactor.SecretCode);
+                    System.Windows.MessageBox.Show($"Your 2FA Secret Code has been copied to your clipboard! \n\n: {json.twoFactor.SecretCode}", "2FA Secret");
+
+                }
+                else // Code provided by the user
+                {
+                    System.Windows.MessageBox.Show("2FA has been successfully enabled!", "2FA Setup");
+                }
+            }
+            else
+            {
+                Thread.Sleep(3000);
                 TerminateProcess(GetCurrentProcess(), 1);
             }
         }
@@ -1281,6 +1349,16 @@ namespace KeyAuth
             user_data.subscriptions = data.subscriptions; // array of subscriptions (basically multiple user ranks for user with individual expiry dates 
         }
         #endregion
+
+        [DataContract]
+        private class TwoFactorData
+        {
+            [DataMember(Name = "secret_code")]
+            public string SecretCode { get; set; }
+
+            [DataMember(Name = "QRCode")]
+            public string QRCode { get; set; }
+        }
 
         #region response_struct
         public response_class response = new response_class();

@@ -45,6 +45,16 @@ namespace KeyAuth
             this.label8 = new System.Windows.Forms.Label();
             this.closeBtn = new System.Windows.Forms.Button();
             this.minBtn = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
+            this.filePathField = new System.Windows.Forms.TextBox();
+            this.downloadFileBtn = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.fileExtensionField = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.tfaField = new System.Windows.Forms.TextBox();
+            this.enableTfaBtn = new System.Windows.Forms.Button();
+            this.disableTfaBtn = new System.Windows.Forms.Button();
+            this.banBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.chatroomGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -62,7 +72,7 @@ namespace KeyAuth
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(100)))), ((int)(((byte)(242)))));
             this.label2.Location = new System.Drawing.Point(10, 11);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
@@ -77,33 +87,32 @@ namespace KeyAuth
             // 
             // userDataField
             // 
-            this.userDataField.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(23)))));
+            this.userDataField.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(29)))), ((int)(((byte)(39)))));
             this.userDataField.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.userDataField.ForeColor = System.Drawing.Color.White;
             this.userDataField.FormattingEnabled = true;
-            this.userDataField.Location = new System.Drawing.Point(390, 39);
+            this.userDataField.Location = new System.Drawing.Point(390, 478);
             this.userDataField.Name = "userDataField";
-            this.userDataField.Size = new System.Drawing.Size(323, 119);
+            this.userDataField.Size = new System.Drawing.Size(323, 106);
             this.userDataField.TabIndex = 62;
             // 
             // onlineUsersField
             // 
-            this.onlineUsersField.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(23)))));
+            this.onlineUsersField.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(29)))), ((int)(((byte)(39)))));
             this.onlineUsersField.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.onlineUsersField.ForeColor = System.Drawing.Color.White;
             this.onlineUsersField.FormattingEnabled = true;
             this.onlineUsersField.Items.AddRange(new object[] {
             "Online Users:",
             ""});
-            this.onlineUsersField.Location = new System.Drawing.Point(390, 179);
+            this.onlineUsersField.Location = new System.Drawing.Point(14, 478);
             this.onlineUsersField.Name = "onlineUsersField";
-            this.onlineUsersField.Size = new System.Drawing.Size(323, 106);
+            this.onlineUsersField.Size = new System.Drawing.Size(329, 106);
             this.onlineUsersField.TabIndex = 64;
             // 
             // chatroomGrid
             // 
-            this.chatroomGrid.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(23)))));
-            this.chatroomGrid.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.chatroomGrid.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(29)))), ((int)(((byte)(39)))));
             this.chatroomGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.chatroomGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Sender,
@@ -112,7 +121,8 @@ namespace KeyAuth
             this.chatroomGrid.GridColor = System.Drawing.Color.DodgerBlue;
             this.chatroomGrid.Location = new System.Drawing.Point(755, 39);
             this.chatroomGrid.Name = "chatroomGrid";
-            this.chatroomGrid.Size = new System.Drawing.Size(452, 437);
+            this.chatroomGrid.ReadOnly = true;
+            this.chatroomGrid.Size = new System.Drawing.Size(452, 509);
             this.chatroomGrid.TabIndex = 70;
             // 
             // Sender
@@ -136,17 +146,20 @@ namespace KeyAuth
             // 
             // chatMsgField
             // 
-            this.chatMsgField.Location = new System.Drawing.Point(755, 492);
+            this.chatMsgField.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(29)))), ((int)(((byte)(39)))));
+            this.chatMsgField.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.chatMsgField.Location = new System.Drawing.Point(755, 564);
             this.chatMsgField.Name = "chatMsgField";
             this.chatMsgField.Size = new System.Drawing.Size(352, 20);
             this.chatMsgField.TabIndex = 71;
             // 
             // sendMsgBtn
             // 
-            this.sendMsgBtn.BackColor = System.Drawing.Color.DodgerBlue;
+            this.sendMsgBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(100)))), ((int)(((byte)(242)))));
+            this.sendMsgBtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(29)))), ((int)(((byte)(39)))));
             this.sendMsgBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.sendMsgBtn.ForeColor = System.Drawing.Color.White;
-            this.sendMsgBtn.Location = new System.Drawing.Point(1113, 482);
+            this.sendMsgBtn.Location = new System.Drawing.Point(1113, 554);
             this.sendMsgBtn.Name = "sendMsgBtn";
             this.sendMsgBtn.Size = new System.Drawing.Size(94, 36);
             this.sendMsgBtn.TabIndex = 72;
@@ -156,17 +169,21 @@ namespace KeyAuth
             // 
             // logDataField
             // 
-            this.logDataField.Location = new System.Drawing.Point(20, 381);
+            this.logDataField.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(29)))), ((int)(((byte)(39)))));
+            this.logDataField.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.logDataField.ForeColor = System.Drawing.Color.White;
+            this.logDataField.Location = new System.Drawing.Point(14, 321);
             this.logDataField.Name = "logDataField";
             this.logDataField.Size = new System.Drawing.Size(323, 20);
             this.logDataField.TabIndex = 73;
             // 
             // sendLogDataBtn
             // 
-            this.sendLogDataBtn.BackColor = System.Drawing.Color.DodgerBlue;
+            this.sendLogDataBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(100)))), ((int)(((byte)(242)))));
+            this.sendLogDataBtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(29)))), ((int)(((byte)(39)))));
             this.sendLogDataBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.sendLogDataBtn.ForeColor = System.Drawing.Color.White;
-            this.sendLogDataBtn.Location = new System.Drawing.Point(20, 407);
+            this.sendLogDataBtn.Location = new System.Drawing.Point(14, 347);
             this.sendLogDataBtn.Name = "sendLogDataBtn";
             this.sendLogDataBtn.Size = new System.Drawing.Size(323, 30);
             this.sendLogDataBtn.TabIndex = 74;
@@ -176,10 +193,11 @@ namespace KeyAuth
             // 
             // checkSessionBtn
             // 
-            this.checkSessionBtn.BackColor = System.Drawing.Color.DodgerBlue;
+            this.checkSessionBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(100)))), ((int)(((byte)(242)))));
+            this.checkSessionBtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(29)))), ((int)(((byte)(39)))));
             this.checkSessionBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.checkSessionBtn.ForeColor = System.Drawing.Color.White;
-            this.checkSessionBtn.Location = new System.Drawing.Point(20, 482);
+            this.checkSessionBtn.Location = new System.Drawing.Point(14, 414);
             this.checkSessionBtn.Name = "checkSessionBtn";
             this.checkSessionBtn.Size = new System.Drawing.Size(323, 30);
             this.checkSessionBtn.TabIndex = 75;
@@ -189,10 +207,11 @@ namespace KeyAuth
             // 
             // fetchGlobalVariableBtn
             // 
-            this.fetchGlobalVariableBtn.BackColor = System.Drawing.Color.DodgerBlue;
+            this.fetchGlobalVariableBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(100)))), ((int)(((byte)(242)))));
+            this.fetchGlobalVariableBtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(29)))), ((int)(((byte)(39)))));
             this.fetchGlobalVariableBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.fetchGlobalVariableBtn.ForeColor = System.Drawing.Color.White;
-            this.fetchGlobalVariableBtn.Location = new System.Drawing.Point(390, 407);
+            this.fetchGlobalVariableBtn.Location = new System.Drawing.Point(390, 81);
             this.fetchGlobalVariableBtn.Name = "fetchGlobalVariableBtn";
             this.fetchGlobalVariableBtn.Size = new System.Drawing.Size(323, 30);
             this.fetchGlobalVariableBtn.TabIndex = 76;
@@ -202,17 +221,21 @@ namespace KeyAuth
             // 
             // globalVariableField
             // 
-            this.globalVariableField.Location = new System.Drawing.Point(390, 381);
+            this.globalVariableField.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(29)))), ((int)(((byte)(39)))));
+            this.globalVariableField.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.globalVariableField.ForeColor = System.Drawing.Color.White;
+            this.globalVariableField.Location = new System.Drawing.Point(390, 55);
             this.globalVariableField.Name = "globalVariableField";
             this.globalVariableField.Size = new System.Drawing.Size(323, 20);
             this.globalVariableField.TabIndex = 77;
             // 
             // setUserVarBtn
             // 
-            this.setUserVarBtn.BackColor = System.Drawing.Color.DodgerBlue;
+            this.setUserVarBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(100)))), ((int)(((byte)(242)))));
+            this.setUserVarBtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(29)))), ((int)(((byte)(39)))));
             this.setUserVarBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.setUserVarBtn.ForeColor = System.Drawing.Color.White;
-            this.setUserVarBtn.Location = new System.Drawing.Point(20, 255);
+            this.setUserVarBtn.Location = new System.Drawing.Point(20, 234);
             this.setUserVarBtn.Name = "setUserVarBtn";
             this.setUserVarBtn.Size = new System.Drawing.Size(155, 30);
             this.setUserVarBtn.TabIndex = 78;
@@ -222,10 +245,11 @@ namespace KeyAuth
             // 
             // fetchUserVarBtn
             // 
-            this.fetchUserVarBtn.BackColor = System.Drawing.Color.DodgerBlue;
+            this.fetchUserVarBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(100)))), ((int)(((byte)(242)))));
+            this.fetchUserVarBtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(29)))), ((int)(((byte)(39)))));
             this.fetchUserVarBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.fetchUserVarBtn.ForeColor = System.Drawing.Color.White;
-            this.fetchUserVarBtn.Location = new System.Drawing.Point(188, 255);
+            this.fetchUserVarBtn.Location = new System.Drawing.Point(188, 234);
             this.fetchUserVarBtn.Name = "fetchUserVarBtn";
             this.fetchUserVarBtn.Size = new System.Drawing.Size(155, 30);
             this.fetchUserVarBtn.TabIndex = 79;
@@ -235,14 +259,20 @@ namespace KeyAuth
             // 
             // varField
             // 
-            this.varField.Location = new System.Drawing.Point(20, 180);
+            this.varField.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(29)))), ((int)(((byte)(39)))));
+            this.varField.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.varField.ForeColor = System.Drawing.Color.White;
+            this.varField.Location = new System.Drawing.Point(20, 159);
             this.varField.Name = "varField";
             this.varField.Size = new System.Drawing.Size(323, 20);
             this.varField.TabIndex = 80;
             // 
             // varDataField
             // 
-            this.varDataField.Location = new System.Drawing.Point(20, 229);
+            this.varDataField.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(29)))), ((int)(((byte)(39)))));
+            this.varDataField.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.varDataField.ForeColor = System.Drawing.Color.White;
+            this.varDataField.Location = new System.Drawing.Point(20, 208);
             this.varDataField.Name = "varDataField";
             this.varDataField.Size = new System.Drawing.Size(323, 20);
             this.varDataField.TabIndex = 81;
@@ -252,7 +282,7 @@ namespace KeyAuth
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label4.Location = new System.Drawing.Point(17, 162);
+            this.label4.Location = new System.Drawing.Point(17, 141);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(119, 15);
@@ -264,7 +294,7 @@ namespace KeyAuth
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label3.Location = new System.Drawing.Point(17, 211);
+            this.label3.Location = new System.Drawing.Point(17, 190);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(210, 15);
@@ -276,7 +306,7 @@ namespace KeyAuth
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label5.Location = new System.Drawing.Point(17, 363);
+            this.label5.Location = new System.Drawing.Point(11, 303);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(119, 15);
@@ -288,7 +318,7 @@ namespace KeyAuth
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label6.Location = new System.Drawing.Point(387, 363);
+            this.label6.Location = new System.Drawing.Point(387, 37);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(130, 15);
@@ -297,7 +327,8 @@ namespace KeyAuth
             // 
             // sendWebhookBtn
             // 
-            this.sendWebhookBtn.BackColor = System.Drawing.Color.DodgerBlue;
+            this.sendWebhookBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(100)))), ((int)(((byte)(242)))));
+            this.sendWebhookBtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(29)))), ((int)(((byte)(39)))));
             this.sendWebhookBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.sendWebhookBtn.ForeColor = System.Drawing.Color.White;
             this.sendWebhookBtn.Location = new System.Drawing.Point(20, 81);
@@ -310,6 +341,9 @@ namespace KeyAuth
             // 
             // webhookID
             // 
+            this.webhookID.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(29)))), ((int)(((byte)(39)))));
+            this.webhookID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.webhookID.ForeColor = System.Drawing.Color.White;
             this.webhookID.Location = new System.Drawing.Point(20, 55);
             this.webhookID.Name = "webhookID";
             this.webhookID.Size = new System.Drawing.Size(98, 20);
@@ -317,6 +351,9 @@ namespace KeyAuth
             // 
             // webhookBaseURL
             // 
+            this.webhookBaseURL.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(29)))), ((int)(((byte)(39)))));
+            this.webhookBaseURL.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.webhookBaseURL.ForeColor = System.Drawing.Color.White;
             this.webhookBaseURL.Location = new System.Drawing.Point(124, 55);
             this.webhookBaseURL.Name = "webhookBaseURL";
             this.webhookBaseURL.Size = new System.Drawing.Size(219, 20);
@@ -370,13 +407,145 @@ namespace KeyAuth
             this.minBtn.UseVisualStyleBackColor = true;
             this.minBtn.Click += new System.EventHandler(this.minBtn_Click);
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label9.Location = new System.Drawing.Point(387, 141);
+            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(53, 15);
+            this.label9.TabIndex = 95;
+            this.label9.Text = "File Path";
+            // 
+            // filePathField
+            // 
+            this.filePathField.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(29)))), ((int)(((byte)(39)))));
+            this.filePathField.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.filePathField.ForeColor = System.Drawing.Color.White;
+            this.filePathField.Location = new System.Drawing.Point(390, 159);
+            this.filePathField.Name = "filePathField";
+            this.filePathField.Size = new System.Drawing.Size(323, 20);
+            this.filePathField.TabIndex = 94;
+            // 
+            // downloadFileBtn
+            // 
+            this.downloadFileBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(100)))), ((int)(((byte)(242)))));
+            this.downloadFileBtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(29)))), ((int)(((byte)(39)))));
+            this.downloadFileBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.downloadFileBtn.ForeColor = System.Drawing.Color.White;
+            this.downloadFileBtn.Location = new System.Drawing.Point(390, 234);
+            this.downloadFileBtn.Name = "downloadFileBtn";
+            this.downloadFileBtn.Size = new System.Drawing.Size(323, 30);
+            this.downloadFileBtn.TabIndex = 93;
+            this.downloadFileBtn.Text = "Download File";
+            this.downloadFileBtn.UseVisualStyleBackColor = false;
+            this.downloadFileBtn.Click += new System.EventHandler(this.downloadFileBtn_Click);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label10.Location = new System.Drawing.Point(387, 190);
+            this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(117, 15);
+            this.label10.TabIndex = 97;
+            this.label10.Text = "File Name/Extension";
+            // 
+            // fileExtensionField
+            // 
+            this.fileExtensionField.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(29)))), ((int)(((byte)(39)))));
+            this.fileExtensionField.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.fileExtensionField.ForeColor = System.Drawing.Color.White;
+            this.fileExtensionField.Location = new System.Drawing.Point(390, 208);
+            this.fileExtensionField.Name = "fileExtensionField";
+            this.fileExtensionField.Size = new System.Drawing.Size(323, 20);
+            this.fileExtensionField.TabIndex = 96;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label11.Location = new System.Drawing.Point(387, 303);
+            this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(180, 15);
+            this.label11.TabIndex = 100;
+            this.label11.Text = "2FA (Two Factor Authentication)";
+            // 
+            // tfaField
+            // 
+            this.tfaField.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(29)))), ((int)(((byte)(39)))));
+            this.tfaField.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tfaField.ForeColor = System.Drawing.Color.White;
+            this.tfaField.Location = new System.Drawing.Point(390, 321);
+            this.tfaField.Name = "tfaField";
+            this.tfaField.Size = new System.Drawing.Size(323, 20);
+            this.tfaField.TabIndex = 99;
+            // 
+            // enableTfaBtn
+            // 
+            this.enableTfaBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(100)))), ((int)(((byte)(242)))));
+            this.enableTfaBtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(29)))), ((int)(((byte)(39)))));
+            this.enableTfaBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.enableTfaBtn.ForeColor = System.Drawing.Color.White;
+            this.enableTfaBtn.Location = new System.Drawing.Point(390, 347);
+            this.enableTfaBtn.Name = "enableTfaBtn";
+            this.enableTfaBtn.Size = new System.Drawing.Size(155, 30);
+            this.enableTfaBtn.TabIndex = 98;
+            this.enableTfaBtn.Text = "Enable";
+            this.enableTfaBtn.UseVisualStyleBackColor = false;
+            this.enableTfaBtn.Click += new System.EventHandler(this.enableTfaBtn_Click);
+            // 
+            // disableTfaBtn
+            // 
+            this.disableTfaBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(100)))), ((int)(((byte)(242)))));
+            this.disableTfaBtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(29)))), ((int)(((byte)(39)))));
+            this.disableTfaBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.disableTfaBtn.ForeColor = System.Drawing.Color.White;
+            this.disableTfaBtn.Location = new System.Drawing.Point(558, 347);
+            this.disableTfaBtn.Name = "disableTfaBtn";
+            this.disableTfaBtn.Size = new System.Drawing.Size(155, 30);
+            this.disableTfaBtn.TabIndex = 101;
+            this.disableTfaBtn.Text = "Disable";
+            this.disableTfaBtn.UseVisualStyleBackColor = false;
+            this.disableTfaBtn.Click += new System.EventHandler(this.disableTfaBtn_Click);
+            // 
+            // banBtn
+            // 
+            this.banBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(100)))), ((int)(((byte)(242)))));
+            this.banBtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(29)))), ((int)(((byte)(39)))));
+            this.banBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.banBtn.ForeColor = System.Drawing.Color.White;
+            this.banBtn.Location = new System.Drawing.Point(390, 414);
+            this.banBtn.Name = "banBtn";
+            this.banBtn.Size = new System.Drawing.Size(323, 30);
+            this.banBtn.TabIndex = 102;
+            this.banBtn.Text = "Ban Account";
+            this.banBtn.UseVisualStyleBackColor = false;
+            this.banBtn.Click += new System.EventHandler(this.banBtn_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(9)))), ((int)(((byte)(13)))));
-            this.ClientSize = new System.Drawing.Size(1219, 543);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(32)))));
+            this.ClientSize = new System.Drawing.Size(1219, 596);
+            this.Controls.Add(this.banBtn);
+            this.Controls.Add(this.disableTfaBtn);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.tfaField);
+            this.Controls.Add(this.enableTfaBtn);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.fileExtensionField);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.filePathField);
+            this.Controls.Add(this.downloadFileBtn);
             this.Controls.Add(this.minBtn);
             this.Controls.Add(this.closeBtn);
             this.Controls.Add(this.label8);
@@ -451,5 +620,15 @@ namespace KeyAuth
         private System.Windows.Forms.Button sendWebhookBtn;
         private System.Windows.Forms.Button closeBtn;
         private System.Windows.Forms.Button minBtn;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox filePathField;
+        private System.Windows.Forms.Button downloadFileBtn;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox fileExtensionField;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox tfaField;
+        private System.Windows.Forms.Button enableTfaBtn;
+        private System.Windows.Forms.Button disableTfaBtn;
+        private System.Windows.Forms.Button banBtn;
     }
 }
