@@ -1119,50 +1119,6 @@ namespace KeyAuth
             return result;
         }
 
-        public static void LogEvent(string content)
-        {
-            string exeName = Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetEntryAssembly().Location);
-
-            string logDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "KeyAuth", "debug", exeName);
-            if (!Directory.Exists(logDirectory))
-            {
-                Directory.CreateDirectory(logDirectory);
-            }
-
-            string logFileName = $"{DateTime.Now:MMM_dd_yyyy}_logs.txt";
-            string logFilePath = Path.Combine(logDirectory, logFileName);
-
-            try
-            {
-                // Redact sensitive fields - Add more if you would like. 
-                content = RedactField(content, "sessionid");
-                content = RedactField(content, "ownerid");
-                content = RedactField(content, "app");
-                content = RedactField(content, "version");
-                content = RedactField(content, "fileid");
-                content = RedactField(content, "webhooks");
-                content = RedactField(content, "nonce");
-
-                using (StreamWriter writer = File.AppendText(logFilePath))
-                {
-                    writer.WriteLine($"[{DateTime.Now}] [{AppDomain.CurrentDomain.FriendlyName}] {content}");
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error logging data: {ex.Message}");
-            }
-        }
-
-        private static string RedactField(string content, string fieldName)
-        {
-            // Basic pattern matching to replace values of sensitive fields
-            string pattern = $"\"{fieldName}\":\"[^\"]*\"";
-            string replacement = $"\"{fieldName}\":\"REDACTED\"";
-
-            return System.Text.RegularExpressions.Regex.Replace(content, pattern, replacement);
-        }
-
         public static void error(string message)
         {
             string folder = @"Logs", file = Path.Combine(folder, "ErrorLogs.txt");
@@ -1208,7 +1164,7 @@ namespace KeyAuth
 
                     sigCheck(Encoding.UTF8.GetString(raw_response), client.ResponseHeaders, post_data.Get(0));
 
-                    LogEvent(Encoding.Default.GetString(raw_response) + "\n");
+                    Logger.LogEvent(Encoding.Default.GetString(raw_response) + "\n");
 
                     return Encoding.Default.GetString(raw_response);
                 }
@@ -1220,12 +1176,12 @@ namespace KeyAuth
                 {
                     case (HttpStatusCode)429: // client hit our rate limit
                         error("You're connecting too fast to loader, slow down.");
-                        LogEvent("You're connecting too fast to loader, slow down.");
+                        Logger.LogEvent("You're connecting too fast to loader, slow down.");
                         TerminateProcess(GetCurrentProcess(), 1);
                         return "";
                     default: // site won't resolve. you should use keyauth.uk domain since it's not blocked by any ISPs
                         error("Connection failure. Please try again, or contact us for help.");
-                        LogEvent("Connection failure. Please try again, or contact us for help.");
+                        Logger.LogEvent("Connection failure. Please try again, or contact us for help.");
                         TerminateProcess(GetCurrentProcess(), 1);
                         return "";
                 }
@@ -1237,7 +1193,7 @@ namespace KeyAuth
             if ((!certificate.Issuer.Contains("Google Trust Services") && !certificate.Issuer.Contains("Let's Encrypt")) || sslPolicyErrors != SslPolicyErrors.None)
             {
                 error("SSL assertion fail, make sure you're not debugging Network. Disable internet firewall on router if possible. & echo: & echo If not, ask the developer of the program to use custom domains to fix this.");
-                LogEvent("SSL assertion fail, make sure you're not debugging Network. Disable internet firewall on router if possible. If not, ask the developer of the program to use custom domains to fix this.");
+                Logger.LogEvent("SSL assertion fail, make sure you're not debugging Network. Disable internet firewall on router if possible. If not, ask the developer of the program to use custom domains to fix this.");
                 return false;
             }
             return true;
@@ -1289,14 +1245,14 @@ namespace KeyAuth
                 if (!signatureValid)
                 {
                     error("Signature checksum failed. Request was tampered with or session ended most likely. & echo: & echo Response: " + resp);
-                    LogEvent(resp + "\n");
+                    Logger.LogEvent(resp + "\n");
                     TerminateProcess(GetCurrentProcess(), 1);
                 }
             }
             catch
             {
                 error("Signature checksum failed. Request was tampered with or session ended most likely. & echo: & echo Response: " + resp);
-                LogEvent(resp + "\n");
+                Logger.LogEvent(resp + "\n");
                 TerminateProcess(GetCurrentProcess(), 1);
             }
         }
@@ -1381,6 +1337,60 @@ namespace KeyAuth
         #endregion
 
         private json_wrapper response_decoder = new json_wrapper(new response_structure());
+    }
+
+    public static class Logger
+    {
+        public static bool IsLoggingEnabled { get; set; } = false; // Disabled by default
+        public static void LogEvent(string content)
+        {
+            if (!IsLoggingEnabled)
+            {
+                //Console.WriteLine("Debug mode disabled."); // Optional: Message when logging is disabled
+                return; // Exit the method if logging is disabled
+            }
+
+            string exeName = Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetEntryAssembly().Location);
+
+            string logDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "KeyAuth", "debug", exeName);
+            if (!Directory.Exists(logDirectory))
+            {
+                Directory.CreateDirectory(logDirectory);
+            }
+
+            string logFileName = $"{DateTime.Now:MMM_dd_yyyy}_logs.txt";
+            string logFilePath = Path.Combine(logDirectory, logFileName);
+
+            try
+            {
+                // Redact sensitive fields - Add more if you would like. 
+                content = RedactField(content, "sessionid");
+                content = RedactField(content, "ownerid");
+                content = RedactField(content, "app");
+                content = RedactField(content, "version");
+                content = RedactField(content, "fileid");
+                content = RedactField(content, "webhooks");
+                content = RedactField(content, "nonce");
+
+                using (StreamWriter writer = File.AppendText(logFilePath))
+                {
+                    writer.WriteLine($"[{DateTime.Now}] [{AppDomain.CurrentDomain.FriendlyName}] {content}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error logging data: {ex.Message}");
+            }
+        }
+
+        private static string RedactField(string content, string fieldName)
+        {
+            // Basic pattern matching to replace values of sensitive fields
+            string pattern = $"\"{fieldName}\":\"[^\"]*\"";
+            string replacement = $"\"{fieldName}\":\"REDACTED\"";
+
+            return System.Text.RegularExpressions.Regex.Replace(content, pattern, replacement);
+        }
     }
 
     public static class encryption
