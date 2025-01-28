@@ -1293,6 +1293,7 @@ namespace KeyAuth
             public string subscription { get; set; }
             public string expiry { get; set; }
             public string timeleft { get; set; }
+            public string key { get; set; }
         }
 
         private void load_user_data(user_data_structure data)

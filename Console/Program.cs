@@ -133,6 +133,7 @@ namespace KeyAuth
             // user data
             Console.WriteLine("\n User data:");
             Console.WriteLine(" Username: " + KeyAuthApp.user_data.username);
+            Console.WriteLine(" License: " + KeyAuthApp.user_data.subscriptions[0].key); // this can be used if the user used a license, username, and password for register. It'll display the license assigned to the user
             Console.WriteLine(" IP address: " + KeyAuthApp.user_data.ip);
             Console.WriteLine(" Hardware-Id: " + KeyAuthApp.user_data.hwid);
             Console.WriteLine(" Created at: " + UnixTimeToDateTime(long.Parse(KeyAuthApp.user_data.createdate)));

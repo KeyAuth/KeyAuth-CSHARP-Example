@@ -28,6 +28,7 @@ namespace KeyAuth
         private void Main_Load(object sender, EventArgs e)
         {
             userDataField.Items.Add($"Username: {Login.KeyAuthApp.user_data.username}");
+            userDataField.Items.Add($"License: {Login.KeyAuthApp.user_data.subscriptions[0].key}"); // this can be used if the user used a license, username, and password for register. It'll display the license assigned to the user
             userDataField.Items.Add($"Expires: {UnixTimeToDateTime(long.Parse(Login.KeyAuthApp.user_data.subscriptions[0].expiry))}");
             userDataField.Items.Add($"Subscription: {Login.KeyAuthApp.user_data.subscriptions[0].subscription}");
             userDataField.Items.Add($"IP: {Login.KeyAuthApp.user_data.ip}");
