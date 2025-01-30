@@ -140,7 +140,8 @@ namespace KeyAuth
 
         private void fetchGlobalVariableBtn_Click_1(object sender, EventArgs e)
         {
-            MessageBox.Show(Login.KeyAuthApp.var(varField.Text) + "\n" + Login.KeyAuthApp.response.message);
+            MessageBox.Show(Login.KeyAuthApp.var(globalVariableField.Text));
+            MessageBox.Show(Login.KeyAuthApp.response.message); // optional since it'll show the response in the var (if it's valid or not)
         }
 
         private void sendMsgBtn_Click_1(object sender, EventArgs e)
@@ -168,7 +169,7 @@ namespace KeyAuth
 
         private void downloadFileBtn_Click(object sender, EventArgs e)
         {
-            byte[] result = Login.KeyAuthApp.download("385624");
+            byte[] result = Login.KeyAuthApp.download("");
             if (!Login.KeyAuthApp.response.success)
             {
                 Console.WriteLine("\n Status: " + Login.KeyAuthApp.response.message);
