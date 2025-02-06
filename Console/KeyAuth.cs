@@ -14,7 +14,6 @@ using System.Net.Security;
 using System.Threading;
 using Cryptographic;
 using System.Runtime.InteropServices;
-using System.Windows.Forms;
 
 namespace KeyAuth
 {
