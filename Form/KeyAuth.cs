@@ -34,6 +34,11 @@ namespace KeyAuth
         private static extern ushort GlobalFindAtom(string lpString);
 
         public string name, ownerid, version, path, seed;
+
+        private static readonly object _sigLock = new object();
+        private static readonly object _sessionLock = new object();
+        private static readonly object _networkLock = new object();
+
         /// <summary>
         /// Set up your application credentials in order to use keyauth
         /// </summary>
@@ -158,64 +163,67 @@ namespace KeyAuth
         /// </summary>
         public void init()
         {
-            Random random = new Random();
-
-            // Generate a random length for the string (let's assume between 5 and 50 characters)
-            int length = random.Next(5, 51); // Min length: 5, Max length: 50
-
-            StringBuilder sb = new StringBuilder(length);
-
-            // Define the range of printable ASCII characters (32-126)
-            for (int i = 0; i < length; i++)
+            lock (_sessionLock)
             {
-                // Generate a random printable ASCII character
-                char randomChar = (char)random.Next(32, 127); // ASCII 32 to 126
-                sb.Append(randomChar);
-            }
+                Random random = new Random();
 
-            seed = sb.ToString();
-            checkAtom();
+                // Generate a random length for the string (let's assume between 5 and 50 characters)
+                int length = random.Next(5, 51); // Min length: 5, Max length: 50
 
-            var values_to_upload = new NameValueCollection
-            {
-                ["type"] = "init",
-                ["ver"] = version,
-                ["hash"] = checksum(Process.GetCurrentProcess().MainModule.FileName),
-                ["name"] = name,
-                ["ownerid"] = ownerid
-            };
+                StringBuilder sb = new StringBuilder(length);
 
-	       if (!string.IsNullOrEmpty(path))
- 	       {
-                values_to_upload.Add("token", File.ReadAllText(path));
-                values_to_upload.Add("thash", TokenHash(path));
-           }
-
-            var response = req(values_to_upload);
-
-            if (response == "KeyAuth_Invalid")
-            {
-                error("Application not found");
-                TerminateProcess(GetCurrentProcess(), 1);
-            }
-
-            var json = response_decoder.string_to_generic<response_structure>(response);
-            if (json.ownerid == ownerid)
-            {
-                load_response_struct(json);
-                if (json.success)
+                // Define the range of printable ASCII characters (32-126)
+                for (int i = 0; i < length; i++)
                 {
-                    sessionid = json.sessionid;
-                    initialized = true;
+                    // Generate a random printable ASCII character
+                    char randomChar = (char)random.Next(32, 127); // ASCII 32 to 126
+                    sb.Append(randomChar);
                 }
-                else if (json.message == "invalidver")
+
+                seed = sb.ToString();
+                checkAtom();
+
+                var values_to_upload = new NameValueCollection
                 {
-                    app_data.downloadLink = json.download;
+                    ["type"] = "init",
+                    ["ver"] = version,
+                    ["hash"] = checksum(Process.GetCurrentProcess().MainModule.FileName),
+                    ["name"] = name,
+                    ["ownerid"] = ownerid
+                };
+
+                if (!string.IsNullOrEmpty(path))
+                {
+                    values_to_upload.Add("token", File.ReadAllText(path));
+                    values_to_upload.Add("thash", TokenHash(path));
                 }
-            }
-            else
-            {
-                TerminateProcess(GetCurrentProcess(), 1);
+
+                var response = req(values_to_upload);
+
+                if (response == "KeyAuth_Invalid")
+                {
+                    error("Application not found");
+                    TerminateProcess(GetCurrentProcess(), 1);
+                }
+
+                var json = response_decoder.string_to_generic<response_structure>(response);
+                if (json.ownerid == ownerid)
+                {
+                    load_response_struct(json);
+                    if (json.success)
+                    {
+                        sessionid = json.sessionid;
+                        initialized = true;
+                    }
+                    else if (json.message == "invalidver")
+                    {
+                        app_data.downloadLink = json.download;
+                    }
+                }
+                else
+                {
+                    TerminateProcess(GetCurrentProcess(), 1);
+                }
             }
         }
 
@@ -1146,40 +1154,43 @@ namespace KeyAuth
 	    
         private static string req(NameValueCollection post_data)
         {
-            try
+            lock (_networkLock)
             {
-                using (WebClient client = new WebClient())
+                try
                 {
-                    client.Proxy = null;
+                    using (WebClient client = new WebClient())
+                    {
+                        client.Proxy = null;
 
-                    ServicePointManager.ServerCertificateValidationCallback += assertSSL;
+                        ServicePointManager.ServerCertificateValidationCallback += assertSSL;
 
-                    var raw_response = client.UploadValues("https://keyauth.win/api/1.3/", post_data);
+                        var raw_response = client.UploadValues("https://keyauth.win/api/1.3/", post_data);
 
-                    ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                        ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
 
-                    sigCheck(Encoding.UTF8.GetString(raw_response), client.ResponseHeaders, post_data.Get(0));
+                        sigCheck(Encoding.UTF8.GetString(raw_response), client.ResponseHeaders, post_data.Get(0));
 
-                    Logger.LogEvent(Encoding.Default.GetString(raw_response) + "\n");
+                        Logger.LogEvent(Encoding.Default.GetString(raw_response) + "\n");
 
-                    return Encoding.Default.GetString(raw_response);
+                        return Encoding.Default.GetString(raw_response);
+                    }
                 }
-            }
-            catch (WebException webex)
-            {
-                var response = (HttpWebResponse)webex.Response;
-                switch (response.StatusCode)
+                catch (WebException webex)
                 {
-                    case (HttpStatusCode)429: // client hit our rate limit
-                        error("You're connecting too fast to loader, slow down.");
-                        Logger.LogEvent("You're connecting too fast to loader, slow down.");
-                        TerminateProcess(GetCurrentProcess(), 1);
-                        return "";
-                    default: // site won't resolve. you should use keyauth.uk domain since it's not blocked by any ISPs
-                        error("Connection failure. Please try again, or contact us for help.");
-                        Logger.LogEvent("Connection failure. Please try again, or contact us for help.");
-                        TerminateProcess(GetCurrentProcess(), 1);
-                        return "";
+                    var response = (HttpWebResponse)webex.Response;
+                    switch (response.StatusCode)
+                    {
+                        case (HttpStatusCode)429: // client hit our rate limit
+                            error("You're connecting too fast to loader, slow down.");
+                            Logger.LogEvent("You're connecting too fast to loader, slow down.");
+                            TerminateProcess(GetCurrentProcess(), 1);
+                            return "";
+                        default: // site won't resolve. you should use keyauth.uk domain since it's not blocked by any ISPs
+                            error("Connection failure. Please try again, or contact us for help.");
+                            Logger.LogEvent("Connection failure. Please try again, or contact us for help.");
+                            TerminateProcess(GetCurrentProcess(), 1);
+                            return "";
+                    }
                 }
             }
         }
@@ -1201,55 +1212,58 @@ namespace KeyAuth
             {
                 return;
             }
-
-            try
+            lock (_sigLock)
             {
-                string signature = headers["x-signature-ed25519"];
-                string timestamp = headers["x-signature-timestamp"];
 
-                // Try to parse the input string to a long Unix timestamp
-                if (!long.TryParse(timestamp, out long unixTimestamp))
+                try
                 {
-                    TerminateProcess(GetCurrentProcess(), 1);
+                    string signature = headers["x-signature-ed25519"];
+                    string timestamp = headers["x-signature-timestamp"];
+
+                    // Try to parse the input string to a long Unix timestamp
+                    if (!long.TryParse(timestamp, out long unixTimestamp))
+                    {
+                        TerminateProcess(GetCurrentProcess(), 1);
+                    }
+
+                    // Convert the Unix timestamp to a DateTime object (in UTC)
+                    DateTime timestampTime = DateTimeOffset.FromUnixTimeSeconds(unixTimestamp).UtcDateTime;
+
+                    // Get the current UTC time
+                    DateTime currentTime = DateTime.UtcNow;
+
+                    // Calculate the difference between the current time and the timestamp
+                    TimeSpan timeDifference = currentTime - timestampTime;
+
+                    // Check if the timestamp is within 20 seconds of the current time
+                    if (timeDifference.TotalSeconds > 20)
+                    {
+                        TerminateProcess(GetCurrentProcess(), 1);
+                    }
+
+                    var byteSig = encryption.str_to_byte_arr(signature);
+                    var byteKey = encryption.str_to_byte_arr("5586b4bc69c7a4b487e4563a4cd96afd39140f919bd31cea7d1c6a1e8439422b");
+                    // ... read the body from the request ...
+                    // ... add the timestamp and convert it to a byte[] ...
+                    string body = timestamp + resp;
+                    var byteBody = Encoding.Default.GetBytes(body);
+
+                    Console.Write(" Authenticating"); // there's also ... dots being created inside the CheckValid() function BELOW
+
+                    bool signatureValid = Ed25519.CheckValid(byteSig, byteBody, byteKey); // the ... dots in the console are from this function!
+                    if (!signatureValid)
+                    {
+                        error("Signature checksum failed. Request was tampered with or session ended most likely. & echo: & echo Response: " + resp);
+                        Logger.LogEvent(resp + "\n");
+                        TerminateProcess(GetCurrentProcess(), 1);
+                    }
                 }
-
-                // Convert the Unix timestamp to a DateTime object (in UTC)
-                DateTime timestampTime = DateTimeOffset.FromUnixTimeSeconds(unixTimestamp).UtcDateTime;
-
-                // Get the current UTC time
-                DateTime currentTime = DateTime.UtcNow;
-
-                // Calculate the difference between the current time and the timestamp
-                TimeSpan timeDifference = currentTime - timestampTime;
-
-                // Check if the timestamp is within 20 seconds of the current time
-                if (timeDifference.TotalSeconds > 20)
-                {
-                    TerminateProcess(GetCurrentProcess(), 1);
-                }
-
-                var byteSig = encryption.str_to_byte_arr(signature);
-                var byteKey = encryption.str_to_byte_arr("5586b4bc69c7a4b487e4563a4cd96afd39140f919bd31cea7d1c6a1e8439422b");
-                // ... read the body from the request ...
-                // ... add the timestamp and convert it to a byte[] ...
-                string body = timestamp + resp;
-                var byteBody = Encoding.Default.GetBytes(body);
-
-                Console.Write(" Authenticating"); // there's also ... dots being created inside the CheckValid() function BELOW
-
-                bool signatureValid = Ed25519.CheckValid(byteSig, byteBody, byteKey); // the ... dots in the console are from this function!
-                if (!signatureValid)
+                catch
                 {
                     error("Signature checksum failed. Request was tampered with or session ended most likely. & echo: & echo Response: " + resp);
                     Logger.LogEvent(resp + "\n");
                     TerminateProcess(GetCurrentProcess(), 1);
                 }
-            }
-            catch
-            {
-                error("Signature checksum failed. Request was tampered with or session ended most likely. & echo: & echo Response: " + resp);
-                Logger.LogEvent(resp + "\n");
-                TerminateProcess(GetCurrentProcess(), 1);
             }
         }
 
