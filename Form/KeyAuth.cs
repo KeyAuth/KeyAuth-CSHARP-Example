@@ -18,6 +18,7 @@ using System.Windows.Forms;
 using System.Threading.Tasks;
 using System.Net.Http;
 using System.Linq;
+using System.Windows;
 
 namespace KeyAuth
 {
@@ -1128,15 +1129,9 @@ namespace KeyAuth
             }
 
             File.AppendAllText(file, DateTime.Now + $" > {message}" + Environment.NewLine);
-		
-            Process.Start(new ProcessStartInfo("cmd.exe", $"/c start cmd /C \"color b && title Error && echo {message} && timeout /t 5\"")
-            {
-                CreateNoWindow = true,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                UseShellExecute = false
-            });
-            TerminateProcess(GetCurrentProcess(), 1);
+
+            System.Windows.MessageBox.Show(message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            Environment.Exit(1);
         }
 
         private static async Task<string> req(NameValueCollection post_data)
@@ -1278,6 +1273,7 @@ namespace KeyAuth
                 // Try to parse the input string to a long Unix timestamp
                 if (!long.TryParse(timestamp, out long unixTimestamp))
                 {
+                    error("Failed to parse the timestamp from the server. Please ensure your device's date and time settings are correct.");
                     TerminateProcess(GetCurrentProcess(), 1);
                 }
 
@@ -1293,6 +1289,7 @@ namespace KeyAuth
                 // Check if the timestamp is within 20 seconds of the current time
                 if (timeDifference.TotalSeconds > 20)
                 {
+                    error("Date/Time settings aren't synced on your device, please sync them to use the program");
                     TerminateProcess(GetCurrentProcess(), 1);
                 }
 
